@@ -1,0 +1,120 @@
+import * as React from "react";
+import Link from "next/link";
+
+import { Container } from "./Container";
+import { Text } from "./Text";
+import { cn } from "./utils";
+
+export type FooterLink = {
+  label: string;
+  href: string;
+};
+
+export type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
+  brand?: React.ReactNode;
+  description?: string;
+  sections?: FooterSection[];
+  socialLinks?: FooterLink[];
+  copyright?: string;
+}
+
+const defaultSections: FooterSection[] = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Features", href: "#features" },
+      { label: "How it Works", href: "#how-it-works" },
+      { label: "FAQ's", href: "#faqs" },
+      { label: "Get in Touch", href: "#contact" },
+    ],
+  },
+  {
+    title: "Legal & Trust",
+    links: [
+      { label: "Privacy Policy", href: "#privacy" },
+      { label: "Terms & Conditions", href: "#terms" },
+    ],
+  },
+];
+
+const defaultSocialLinks: FooterLink[] = [
+  { label: "X", href: "https://x.com" },
+  { label: "IG", href: "https://instagram.com" },
+  { label: "IN", href: "https://linkedin.com" },
+];
+
+export function Footer({
+  brand,
+  description =
+    "We consider various parking options, such as driveways, lots, garages, and carports, provided they are secure and easily accessible.",
+  sections = defaultSections,
+  socialLinks = defaultSocialLinks,
+  copyright = "©2025 ParkingOath. All Rights Reserved.",
+  className,
+  ...props
+}: FooterProps) {
+  return (
+    <footer
+      className={cn("border-t border-slate-200 bg-white", className)}
+      {...props}
+    >
+      <Container className="py-14">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
+          <div className="space-y-6">
+            {brand ?? (
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#1b3cc4] text-sm font-semibold text-white">
+                  PO
+                </div>
+                <span className="text-lg font-semibold text-slate-900">
+                  ParkingOath
+                </span>
+              </div>
+            )}
+            <Text className="max-w-md">{description}</Text>
+            <div className="flex items-center gap-3">
+              {socialLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  aria-label={link.label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700 transition-colors hover:border-[#1b3cc4] hover:text-[#1b3cc4]"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="grid gap-10 sm:grid-cols-2">
+            {sections.map((section) => (
+              <div key={section.title} className="space-y-4">
+                <p className="text-sm font-semibold text-slate-900">
+                  {section.title}
+                </p>
+                <div className="flex flex-col gap-3 text-sm text-slate-600">
+                  {section.links.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="transition-colors hover:text-slate-900"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-12 text-center text-sm text-slate-500">
+          {copyright}
+        </div>
+      </Container>
+    </footer>
+  );
+}
