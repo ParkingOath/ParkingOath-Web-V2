@@ -37,7 +37,7 @@ const listItem = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, ease: "easeOut" },
+    transition: { duration: 0.9 },
   },
 };
 
@@ -70,7 +70,7 @@ export function ProcessSteps({
             show: {
               opacity: 1,
               y: 0,
-              transition: { duration: 1.2, ease: "easeOut" },
+              transition: { duration: 1.2 },
             },
           }}
         >
@@ -112,7 +112,7 @@ export function ProcessSteps({
             show: {
               opacity: 1,
               y: 0,
-              transition: { duration: 0.9, ease: "easeOut", delay: 0.6 },
+              transition: { duration: 0.9, delay: 0.6 },
             },
           }}
         >

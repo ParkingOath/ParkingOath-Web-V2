@@ -16,7 +16,7 @@ const levelStyles: Record<NonNullable<HeadingProps["level"]>, string> = {
 };
 
 export function Heading({ level = 1, className, ...props }: HeadingProps) {
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  const Tag = `h${level}` as React.ElementType;
   return <Tag className={cn(levelStyles[level], className)} {...props} />;
 }
 

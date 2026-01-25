@@ -16,7 +16,7 @@ const FaqItem = ({ question, answer }: { question: string; answer: string }) => 
         <span className="ml-4 relative flex h-5 w-5 items-center justify-center">
           <motion.span
             animate={{ rotate: isOpen ? 45 : 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3 }}
             className="absolute text-xl"
           >
             +
@@ -29,7 +29,7 @@ const FaqItem = ({ question, answer }: { question: string; answer: string }) => 
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
             <p className="mt-3 text-sm text-slate-600">
@@ -88,7 +88,7 @@ const FaqSection = () => {
             show: {
               opacity: 1,
               y: 0,
-              transition: { duration: 1.2, ease: "easeOut" },
+              transition: { duration: 1.2 },
             },
           }}
         >
@@ -105,7 +105,7 @@ const FaqSection = () => {
             show: {
               opacity: 1,
               y: 0,
-              transition: { duration: 1.2, ease: "easeOut", delay: 0.15 },
+              transition: { duration: 1.2, delay: 0.15 },
             },
           }}
         >

@@ -39,7 +39,6 @@ const Hero = () => {
                     transition={{
                         delay: 0.1,
                         duration: 1.5,
-                        ease: "easeOut",
                     }}
                 >
                     <H1 className="max-w-xl text-slate-900">
@@ -79,7 +78,6 @@ const Hero = () => {
                                 transition={{
                                     delay: 0.1,
                                     duration: 1.5,
-                                    ease: "easeOut",
                                 }}
                             >
                                 <Image
@@ -101,7 +99,6 @@ const Hero = () => {
                                 transition={{
                                     delay: 0.1,
                                     duration: 1.5,
-                                    ease: "easeOut",
                                 }}
                             >
                                 <Image

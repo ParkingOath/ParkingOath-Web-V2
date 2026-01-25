@@ -29,7 +29,7 @@ const ContactSection = () => {
                 show: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 1.1, ease: "easeOut" },
+                  transition: { duration: 1.1 },
                 },
               }}
             >
@@ -45,7 +45,7 @@ const ContactSection = () => {
                 show: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 1.1, ease: "easeOut", delay: 0.15 },
+                  transition: { duration: 1.1, delay: 0.15 },
                 },
               }}
             >
@@ -63,7 +63,7 @@ const ContactSection = () => {
                 show: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 1.1, ease: "easeOut", delay: 0.3 },
+                  transition: { duration: 1.1, delay: 0.3 },
                 },
               }}
             >
@@ -81,7 +81,7 @@ const ContactSection = () => {
               show: {
                 opacity: 1,
                 y: 0,
-                transition: { duration: 1.1, ease: "easeOut", delay: 0.35 },
+                transition: { duration: 1.1, delay: 0.35 },
               },
             }}
           >
