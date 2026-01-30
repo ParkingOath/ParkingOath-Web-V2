@@ -30,15 +30,27 @@ export function ContactForm({
         <Text tone="muted">{subtitle}</Text>
       </div>
       <form className="mt-6 space-y-5" {...props}>
-        <label className="block space-y-2 text-sm font-medium text-slate-700">
-          Full Name
-          <input
-            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
-            placeholder="Your full name"
-            type="text"
-            name="fullName"
-          />
-        </label>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <label className="block space-y-2 text-sm font-medium text-slate-700">
+            First Name
+            <input
+              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+              placeholder="First name"
+              type="text"
+              name="firstName"
+            />
+          </label>
+          <label className="block space-y-2 text-sm font-medium text-slate-700">
+            Last Name
+            <input
+              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+              placeholder="Last name"
+              type="text"
+              name="lastName"
+            />
+          </label>
+        </div>
+
         <label className="block space-y-2 text-sm font-medium text-slate-700">
           Email
           <input
@@ -46,6 +58,15 @@ export function ContactForm({
             placeholder="Your email"
             type="email"
             name="email"
+          />
+        </label>
+        <label className="block space-y-2 text-sm font-medium text-slate-700">
+          Phone Number
+          <input
+            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+            placeholder="Phone number"
+            type="tel"
+            name="phone"
           />
         </label>
         <label className="block space-y-2 text-sm font-medium text-slate-700">

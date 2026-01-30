@@ -43,8 +43,6 @@ const FaqItem = ({ question, answer }: { question: string; answer: string }) => 
 };
 
 const FaqSection = () => {
-  const [hovered, setHovered] = useState(false);
-
   const initialQuestions = [
     {
       question: "Do I have to host all the time?",
@@ -73,48 +71,25 @@ const FaqSection = () => {
   ];
 
   return (
-    <motion.section
+    <section
       id="faqs"
       className="bg-[#f5f7fb] bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] bg-[size:64px_64px]"
-      initial="hidden"
-      animate={hovered ? "show" : "hidden"}
-      onHoverStart={() => setHovered(true)}
     >
       <div className="mx-auto max-w-5xl px-6 py-20 sm:px-8 lg:py-28">
-        <motion.div
-          className="text-center"
-          variants={{
-            hidden: { opacity: 0, y: -24 },
-            show: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 1.2 },
-            },
-          }}
-        >
+        <div className="text-center">
           <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
             Frequently asked
             <br />
             questions
           </h2>
-        </motion.div>
-        <motion.div
-          className="mt-12 space-y-4"
-          variants={{
-            hidden: { opacity: 0, y: 28 },
-            show: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 1.2, delay: 0.15 },
-            },
-          }}
-        >
+        </div>
+        <div className="mt-12 space-y-4">
           {initialQuestions.map((item, index) => (
             <FaqItem key={index} question={item.question} answer={item.answer} />
           ))}
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

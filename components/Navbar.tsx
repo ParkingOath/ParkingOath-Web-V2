@@ -19,16 +19,16 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const defaultLinks: NavLink[] = [
-  { label: "Features", href: "#features" },
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "FAQ's", href: "#faqs" },
-  { label: "Get in Touch", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQs", href: "/faqs" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar({
   brand,
   links = defaultLinks,
-  cta = { label: "Become a Host", href: "#become-a-host" },
+  cta = { label: "Become a Host", href: "/early-access" },
   className,
   ...props
 }: NavbarProps) {
