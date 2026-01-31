@@ -6,6 +6,8 @@ import Link from "next/link";
 import { buttonClasses } from "./Button";
 import { Container } from "./Container";
 import { cn } from "./utils";
+import Image from "next/image";
+import logo from "@/assets/icon/Vector.png";
 
 export type NavLink = {
   label: string;
@@ -46,10 +48,15 @@ export function Navbar({
         <div className="flex items-center gap-3">
           {brand ?? (
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-sm font-semibold text-white">
-                PO
+              <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
+                <Image
+                  src={logo}
+                  alt="ParkingOath"
+                  className="h-full w-full object-contain"
+                  priority
+                />
               </div>
-              <span className="text-lg font-semibold text-slate-900">
+              <span className="text-xl font-bold tracking-tight text-slate-900">
                 ParkingOath
               </span>
             </Link>

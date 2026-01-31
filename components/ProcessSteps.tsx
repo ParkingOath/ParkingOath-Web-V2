@@ -43,25 +43,31 @@ export function ProcessSteps({
             {title}
           </h2>
         </div>
-        <div className="mt-12 grid gap-8 lg:grid-cols-3">
+        <div className="mt-16 grid gap-12 lg:grid-cols-3">
           {steps.map((step) => (
             <div
               key={step.step}
-              className="relative rounded-2xl border border-slate-200/70 bg-white px-6 py-6 shadow-sm"
+              className="group relative flex flex-col rounded-[2.5rem] border border-slate-200/60 bg-white p-8 pt-10 shadow-[0_8px_30px_rgb(15,23,42,0.04)] transition-all hover:shadow-[0_8px_40px_rgb(15,23,42,0.08)]"
             >
-              <span className="absolute -top-4 right-6 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-500">
-                {step.step}
-              </span>
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#5b5bff] text-white">
-                  {step.icon}
+              <div className="absolute -right-[1px] -top-[1px] flex h-14 w-32 items-center justify-center rounded-bl-[2rem] rounded-tr-[2.5rem] bg-[#f5f7fb] pl-4 pb-4">
+                <div className="flex h-10 w-24 items-center justify-center rounded-full bg-white text-sm font-bold text-slate-900 border border-slate-200/50 shadow-sm">
+                  {step.step}
                 </div>
               </div>
-              <div className="mt-4 space-y-2">
-                <p className="text-base font-semibold text-slate-900">
+              <div className="flex mb-8">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white shadow-lg shadow-brand/20 transition-transform group-hover:scale-110">
+                  <span className="scale-[1.2]">
+                    {step.icon}
+                  </span>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">
                   {step.title}
-                </p>
-                <Text tone="muted">{step.description}</Text>
+                </h3>
+                <Text tone="muted" className="text-[17px] leading-relaxed">
+                  {step.description}
+                </Text>
               </div>
             </div>
           ))}

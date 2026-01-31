@@ -1,10 +1,12 @@
 import { Navbar } from "@/components";
 import Hero from "@/sections/home/hero";
 import Functions from "@/sections/home/functions";
+import DriverFeatures from "@/sections/home/driver-features";
 import ProcessSection from "@/sections/home/process";
 import ContactSection from "@/sections/home/contact";
 import ControlSection from "@/sections/home/control";
-import FaqSection from "@/sections/home/faq";
+import Testimonials from "@/sections/home/testimonials";
+// import FaqSection from "@/sections/home/faq";
 import CtaSection from "@/sections/home/cta";
 import { Footer } from "@/components";
 import { getAssetAlt, getAssetUrl, getLandingPage } from "@/lib/contentful";
@@ -14,27 +16,29 @@ const Home = async () => {
   const featuredEntry = landing?.fields.featuredBlogPost;
   const featuredPost = featuredEntry
     ? {
-        slug: featuredEntry.fields.slug,
-        title: featuredEntry.fields.title,
-        description: featuredEntry.fields.shortDescription ?? "",
-        imageUrl: getAssetUrl(featuredEntry.fields.featuredImage),
-        imageAlt: getAssetAlt(featuredEntry.fields.featuredImage),
-      }
+      slug: featuredEntry.fields.slug,
+      title: featuredEntry.fields.title,
+      description: featuredEntry.fields.shortDescription ?? "",
+      imageUrl: getAssetUrl(featuredEntry.fields.featuredImage),
+      imageAlt: getAssetAlt(featuredEntry.fields.featuredImage),
+    }
     : null;
 
-  return ( 
+  return (
     <>
       <Navbar />
-      <Hero featuredPost={featuredPost} />
+      <Hero />
       <Functions />
       <ProcessSection />
+      <DriverFeatures />
       <ControlSection />
-      <FaqSection />
+      <Testimonials />
+      {/* <FaqSection /> */}
       <ContactSection />
       <CtaSection />
       <Footer />
     </>
-   );
+  );
 }
- 
+
 export default Home;

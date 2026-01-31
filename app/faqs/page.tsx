@@ -7,7 +7,10 @@ import { H1, H2 } from "@/components/Headers";
 import { Text } from "@/components/Text";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import NextImage from "next/image";
+import Link from "next/link";
 import { hostFaqs, driverFaqs } from "./faq-data";
+import faqCtaGraphic from "@/assets/landing_page/contact/faq_cta_graphic.png";
 
 const FaqItem = ({ question, answer }: { question: string; answer: string }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -109,17 +112,46 @@ export default function FaqPage() {
                             </AnimatePresence>
                         </div>
 
-                        <div className="mt-16 rounded-3xl bg-blue-600 p-8 text-center text-white sm:p-12">
-                            <H2 className="mb-4 text-white">Still have questions?</H2>
-                            <Text className="mb-8 text-blue-100">
-                                Can't find the answer you're looking for? Please chat to our friendly team.
-                            </Text>
-                            <a
-                                href="/contact"
-                                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors"
-                            >
-                                Get in touch
-                            </a>
+                        <div className="mt-12 flex justify-center">
+                            <div className="relative isolate overflow-hidden bg-slate-900 px-6 py-12 shadow-2xl rounded-3xl sm:px-10 w-full lg:flex lg:items-center lg:gap-x-10 lg:text-left">
+                                <div className="relative h-40 w-full lg:h-auto lg:w-1/3 lg:shrink-0 flex items-center justify-center">
+                                    <NextImage
+                                        src={faqCtaGraphic}
+                                        alt="Support team illustration"
+                                        className="w-full max-w-[220px] object-contain"
+                                        priority
+                                    />
+                                </div>
+                                <div className="mt-6 lg:mt-0 lg:flex-auto">
+                                    <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                                        Still have questions?
+                                    </h2>
+                                    <p className="mt-3 text-base leading-7 text-slate-300">
+                                        Can&apos;t find the answer you&apos;re looking for? Please chat to our friendly team.
+                                    </p>
+                                    <div className="mt-8 flex items-center justify-center lg:justify-start gap-x-6">
+                                        <Link
+                                            href="/contact"
+                                            className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                        >
+                                            Get in touch
+                                        </Link>
+                                    </div>
+                                </div>
+                                <svg
+                                    viewBox="0 0 1024 1024"
+                                    className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
+                                    aria-hidden="true"
+                                >
+                                    <circle cx={512} cy={512} r={512} fill="url(#gradient)" fillOpacity="0.7" />
+                                    <defs>
+                                        <radialGradient id="gradient">
+                                            <stop stopColor="#3b82f6" />
+                                            <stop offset={1} stopColor="#1d4ed8" />
+                                        </radialGradient>
+                                    </defs>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </Container>
