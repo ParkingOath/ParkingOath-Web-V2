@@ -52,7 +52,7 @@ export function AnimatedFeatureSection({
               items={items}
               renderItem={(item) => (
                 <div key={item.title} className="flex gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#5b5bff] text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-white">
                     <span className="flex h-5 w-5 items-center justify-center">
                       {item.icon}
                     </span>

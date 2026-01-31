@@ -68,7 +68,7 @@ export function Footer({
           <div className="space-y-6">
             {brand ?? (
               <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#1b3cc4] text-sm font-semibold text-white">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-sm font-semibold text-white">
                   PO
                 </div>
                 <span className="text-lg font-semibold text-slate-900">
@@ -83,7 +83,7 @@ export function Footer({
                   key={link.label}
                   href={link.href}
                   aria-label={link.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700 transition-colors hover:border-[#1b3cc4] hover:text-[#1b3cc4]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700 transition-colors hover:border-brand hover:text-brand"
                 >
                   {link.label}
                 </Link>

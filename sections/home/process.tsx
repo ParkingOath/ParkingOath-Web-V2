@@ -33,7 +33,7 @@ const ProcessSection = () => {
       id="how-it-works"
       title={
         <>
-          How process <span className="text-[#1b3cc4]">works</span>
+          How process <span className="text-brand">works</span>
         </>
       }
       steps={steps}

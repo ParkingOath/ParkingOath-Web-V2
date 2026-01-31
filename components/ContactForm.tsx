@@ -34,7 +34,7 @@ export function ContactForm({
           <label className="block space-y-2 text-sm font-medium text-slate-700">
             First Name
             <input
-              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
               placeholder="First name"
               type="text"
               name="firstName"
@@ -43,7 +43,7 @@ export function ContactForm({
           <label className="block space-y-2 text-sm font-medium text-slate-700">
             Last Name
             <input
-              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+              className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
               placeholder="Last name"
               type="text"
               name="lastName"
@@ -54,7 +54,7 @@ export function ContactForm({
         <label className="block space-y-2 text-sm font-medium text-slate-700">
           Email
           <input
-            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
             placeholder="Your email"
             type="email"
             name="email"
@@ -63,7 +63,7 @@ export function ContactForm({
         <label className="block space-y-2 text-sm font-medium text-slate-700">
           Phone Number
           <input
-            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
             placeholder="Phone number"
             type="tel"
             name="phone"
@@ -72,7 +72,7 @@ export function ContactForm({
         <label className="block space-y-2 text-sm font-medium text-slate-700">
           Message
           <textarea
-            className="min-h-[140px] w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#1b3cc4] focus:ring-2 focus:ring-[#1b3cc4]/20"
+            className="min-h-[140px] w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
             placeholder="Your message"
             name="message"
           />

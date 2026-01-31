@@ -25,7 +25,7 @@ export function FeatureList({ items, className, renderItem }: FeatureListProps) 
           ) : (
             <div className="flex gap-4">
               {item.icon ? (
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5b5bff] text-sm font-semibold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
                   {item.icon}
                 </div>
               ) : null}

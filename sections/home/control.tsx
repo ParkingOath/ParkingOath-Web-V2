@@ -40,7 +40,7 @@ const ControlSection = () => {
             <div>
               <H2 className="text-3xl sm:text-4xl lg:text-5xl">
                 You&apos;re always in{" "}
-                <span className="text-[#1b3cc4]">control</span>
+                <span className="text-brand">control</span>
               </H2>
             </div>
             <div>

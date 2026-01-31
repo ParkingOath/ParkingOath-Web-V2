@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,19 @@ import park1 from "@/assets/hero/park1.png";
 import yellowCar from "@/assets/hero/yellow_car.png";
 import purpleCar from "@/assets/hero/purple_car.png";
 
-const Hero = () => {
+type FeaturedPost = {
+    slug: string;
+    title: string;
+    description: string;
+    imageUrl: string | null;
+    imageAlt: string;
+};
+
+type HeroProps = {
+    featuredPost?: FeaturedPost | null;
+};
+
+const Hero = ({ featuredPost }: HeroProps) => {
     const [showYellow, setShowYellow] = useState(false);
     const [showPurple, setShowPurple] = useState(false);
 
@@ -42,8 +55,8 @@ const Hero = () => {
                     }}
                 >
                     <H1 className="max-w-xl text-slate-900">
-                        <span className="text-[#1b3cc4]">Earn</span> from your
-                        unused <span className="text-[#1b3cc4]">parking</span>{" "}
+                        <span className="text-brand">Earn</span> from your
+                        unused <span className="text-brand">parking</span>{" "}
                         space
                     </H1>
                     <div className="space-y-4">
@@ -60,6 +73,38 @@ const Hero = () => {
                         <Button>Become a Host</Button>
                         <Button variant="secondary">How Process Works</Button>
                     </div>
+                    {featuredPost ? (
+                        <div className="rounded-2xl bg-white/90 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                Featured blog post
+                            </p>
+                            <div className="mt-3 flex gap-3">
+                                {featuredPost.imageUrl ? (
+                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                                        <Image
+                                            src={featuredPost.imageUrl}
+                                            alt={featuredPost.imageAlt}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                ) : null}
+                                <div className="min-w-0">
+                                    <Link
+                                        href={`/blog/${featuredPost.slug}`}
+                                        className="block text-sm font-semibold text-slate-900 hover:text-brand"
+                                    >
+                                        {featuredPost.title}
+                                    </Link>
+                                    {featuredPost.description ? (
+                                        <p className="mt-1 line-clamp-2 text-sm text-slate-600">
+                                            {featuredPost.description}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+                        </div>
+                    ) : null}
                 </motion.div>
                 <div className="relative hero-image-scale min-h-[280px] w-full sm:min-h-[320px] lg:min-h-[360px]">
                     <Image

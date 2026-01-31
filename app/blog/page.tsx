@@ -3,11 +3,21 @@ import { H1, H3 } from "@/components/Headers";
 import { Text } from "@/components/Text";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { blogPosts } from "./blog-data";
 import Link from "next/link";
+import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
+import {
+    getBlogPosts,
+    getAssetAlt,
+    getAssetUrl,
+    estimateReadTime,
+} from "@/lib/contentful";
 
-export default function BlogPage() {
+export const revalidate = 60;
+
+export default async function BlogPage() {
+    const posts = await getBlogPosts();
+
     return (
         <div className="min-h-screen bg-slate-50">
             <Navbar />
@@ -21,49 +31,75 @@ export default function BlogPage() {
                     </div>
 
                     <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {blogPosts.map((post) => (
-                            <article key={post.id} className="flex flex-col items-start justify-between rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:ring-slate-900/10">
-                                <div className="flex items-center gap-x-4 text-xs">
-                                    <time dateTime={post.date} className="text-slate-500">
-                                        {post.date}
-                                    </time>
-                                    <span className="relative z-10 rounded-full bg-slate-50 px-3 py-1.5 font-medium text-slate-600 hover:bg-slate-100">
-                                        {post.category}
-                                    </span>
-                                </div>
-                                <div className="group relative mt-4">
-                                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 text-white">
-                                        <post.icon className="h-6 w-6" aria-hidden="true" />
+                        {posts.map((post) => {
+                            const imageUrl = getAssetUrl(post.fields.featuredImage);
+                            const imageAlt = getAssetAlt(post.fields.featuredImage);
+                            const readTime = estimateReadTime(post.fields.content);
+                            const publishedDate = new Date(post.fields.publishedDate);
+                            const dateLabel = new Intl.DateTimeFormat("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                            }).format(publishedDate);
+
+                            return (
+                            <article key={post.sys.id} className="flex flex-col items-start justify-between rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:ring-slate-900/10">
+                                    <div className="flex items-center gap-x-4 text-xs">
+                                        <time dateTime={post.fields.publishedDate} className="text-slate-500">
+                                            {dateLabel}
+                                        </time>
+                                        <span className="relative z-10 rounded-full bg-blue-50 px-3 py-1.5 font-medium text-blue-600 ring-1 ring-inset ring-blue-700/10 hover:bg-blue-100">
+                                            Blog
+                                        </span>
                                     </div>
-                                    <H3 className="text-lg font-semibold leading-6 text-slate-900 group-hover:text-slate-600">
-                                        <Link href={`/blog/${post.id}`}>
-                                            <span className="absolute inset-0" />
-                                            {post.title}
-                                        </Link>
-                                    </H3>
-                                    <Text className="mt-5 line-clamp-3 text-sm leading-6 text-slate-600">
-                                        {post.excerpt}
-                                    </Text>
-                                </div>
-                                <div className="relative mt-8 flex w-full items-center justify-between gap-x-4">
-                                    <div className="flex items-center gap-x-2">
-                                        <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-500">
-                                            {post.author.charAt(0)}
+                                    <div className="group relative mt-6 flex-grow">
+                                        <div className="relative mb-5 h-16 w-16 overflow-hidden rounded-xl bg-slate-100 shadow-sm ring-1 ring-slate-200">
+                                            {imageUrl ? (
+                                                <Image src={imageUrl} alt={imageAlt} fill className="object-cover" />
+                                            ) : (
+                                                <div className="flex h-full w-full items-center justify-center bg-blue-600 text-white text-xs font-semibold">
+                                                    PO
+                                                </div>
+                                            )}
                                         </div>
-                                        <div className="text-sm leading-6">
-                                            <p className="font-semibold text-slate-900">
+                                        <H3 className="text-xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors">
+                                            <Link href={`/blog/${post.fields.slug}`}>
                                                 <span className="absolute inset-0" />
-                                                {post.author}
-                                            </p>
-                                            <p className="text-slate-500">{post.readTime}</p>
-                                        </div>
+                                                {post.fields.title}
+                                            </Link>
+                                        </H3>
+                                        <Text className="mt-4 line-clamp-3 text-sm leading-6 text-slate-600">
+                                            {post.fields.shortDescription ?? ""}
+                                        </Text>
                                     </div>
-                                    <Link href="#" className="flex items-center text-sm font-semibold text-blue-600 hover:text-blue-500">
-                                        Read more <FaArrowRight className="ml-1 h-3 w-3" />
-                                    </Link>
-                                </div>
-                            </article>
-                        ))}
+                                    <div className="relative mt-8 flex w-full items-center justify-between gap-x-4 border-t border-slate-100 pt-6">
+                                        <div className="flex items-center gap-x-3">
+                                            <div className="relative h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-500 overflow-hidden ring-1 ring-slate-200">
+                                                {post.fields.author?.fields?.avatar ? (
+                                                    <Image
+                                                        src={getAssetUrl(post.fields.author.fields.avatar) || ""}
+                                                        alt={post.fields.author.fields.name || ""}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                ) : (
+                                                    post.fields.author?.fields?.name?.charAt(0) ?? "P"
+                                                )}
+                                            </div>
+                                            <div className="text-sm leading-tight">
+                                                <p className="font-semibold text-slate-900">
+                                                    {post.fields.author?.fields?.name ?? "Parking Oath"}
+                                                </p>
+                                                {readTime ? <p className="text-xs text-slate-500 mt-0.5">{readTime}</p> : null}
+                                            </div>
+                                        </div>
+                                        <Link href={`/blog/${post.fields.slug}`} className="flex items-center text-sm font-semibold text-blue-600 hover:text-blue-500 transition-colors">
+                                            Read more <FaArrowRight className="ml-1.5 h-3 w-3" />
+                                        </Link>
+                                    </div>
+                                </article>
+                            );
+                        })}
                     </div>
 
                     <div className="mt-16 flex justify-center">

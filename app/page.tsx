@@ -7,12 +7,25 @@ import ControlSection from "@/sections/home/control";
 import FaqSection from "@/sections/home/faq";
 import CtaSection from "@/sections/home/cta";
 import { Footer } from "@/components";
+import { getAssetAlt, getAssetUrl, getLandingPage } from "@/lib/contentful";
 
-const Home = () => {
+const Home = async () => {
+  const landing = await getLandingPage();
+  const featuredEntry = landing?.fields.featuredBlogPost;
+  const featuredPost = featuredEntry
+    ? {
+        slug: featuredEntry.fields.slug,
+        title: featuredEntry.fields.title,
+        description: featuredEntry.fields.shortDescription ?? "",
+        imageUrl: getAssetUrl(featuredEntry.fields.featuredImage),
+        imageAlt: getAssetAlt(featuredEntry.fields.featuredImage),
+      }
+    : null;
+
   return ( 
     <>
       <Navbar />
-      <Hero />
+      <Hero featuredPost={featuredPost} />
       <Functions />
       <ProcessSection />
       <ControlSection />

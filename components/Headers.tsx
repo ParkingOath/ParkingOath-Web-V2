@@ -8,16 +8,24 @@ export interface HeadingProps
 }
 
 const levelStyles: Record<NonNullable<HeadingProps["level"]>, string> = {
-  1: "text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl",
-  2: "text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl",
-  3: "text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl",
-  4: "text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl",
-  5: "text-lg font-semibold tracking-tight text-slate-900",
+  1: "text-4xl font-semibold tracking-tight sm:text-5xl",
+  2: "text-3xl font-semibold tracking-tight sm:text-4xl",
+  3: "text-2xl font-semibold tracking-tight sm:text-3xl",
+  4: "text-xl font-semibold tracking-tight sm:text-2xl",
+  5: "text-lg font-semibold tracking-tight",
 };
+
+const defaultColor = "text-slate-900";
 
 export function Heading({ level = 1, className, ...props }: HeadingProps) {
   const Tag = `h${level}` as React.ElementType;
-  return <Tag className={cn(levelStyles[level], className)} {...props} />;
+  const hasColor = className?.includes("text-");
+  return (
+    <Tag
+      className={cn(levelStyles[level], !hasColor && defaultColor, className)}
+      {...props}
+    />
+  );
 }
 
 export const H1 = (props: Omit<HeadingProps, "level">) => (

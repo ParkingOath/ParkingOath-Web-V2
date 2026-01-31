@@ -43,8 +43,8 @@ const Functions = () => {
             title={
                 <>
                     Built to be{" "}
-                    <span className="text-[#1b3cc4]">simple</span> for{" "}
-                    <span className="text-[#1b3cc4]">hosts</span>
+                    <span className="text-brand">simple</span> for{" "}
+                    <span className="text-brand">hosts</span>
                 </>
             }
             description="Parking Oath is designed to make hosting easy, flexible, and low effort. You stay in control while the platform handles discovery and navigation for drivers."

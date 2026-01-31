@@ -18,7 +18,7 @@ const ContactSection = () => {
           <div className="space-y-6">
             <div>
               <H2 className="text-3xl sm:text-4xl lg:text-5xl">
-                Have a <span className="text-[#1b3cc4]">question</span> before
+                Have a <span className="text-brand">question</span> before
                 hosting?
               </H2>
             </div>

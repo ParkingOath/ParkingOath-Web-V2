@@ -24,7 +24,15 @@ export function Text({
   tone = "default",
   ...props
 }: TextProps) {
+  const hasColor = className?.includes("text-");
   return (
-    <p className={cn(sizeStyles[size], toneStyles[tone], className)} {...props} />
+    <p
+      className={cn(
+        sizeStyles[size],
+        !hasColor && toneStyles[tone],
+        className
+      )}
+      {...props}
+    />
   );
 }

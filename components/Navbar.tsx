@@ -46,7 +46,7 @@ export function Navbar({
         <div className="flex items-center gap-3">
           {brand ?? (
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#1b3cc4] text-sm font-semibold text-white">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-sm font-semibold text-white">
                 PO
               </div>
               <span className="text-lg font-semibold text-slate-900">
@@ -74,7 +74,7 @@ export function Navbar({
           {cta ? (
             <Link
               href={cta.href}
-              className={buttonClasses({ variant: "primary", size: "md" })}
+              className={buttonClasses({ variant: "primary", size: "lg" })}
             >
               {cta.label}
             </Link>

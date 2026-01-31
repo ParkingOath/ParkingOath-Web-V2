@@ -44,10 +44,8 @@ export default function ContactPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-3xl shadow-sm ring-1 ring-slate-900/5">
-                            <H2 className="mb-6">Send us a message</H2>
-                            <ContactForm />
-                        </div>
+                        {/* <H2 className="mb-6">Send us a message</H2> */}
+                        <ContactForm />
                     </div>
                 </Container>
             </main>
