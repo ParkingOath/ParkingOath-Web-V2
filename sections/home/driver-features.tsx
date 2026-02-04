@@ -5,55 +5,46 @@ import { MdOutlinePriceChange, MdOutlineCompareArrows } from "react-icons/md";
 import { TbNavigation } from "react-icons/tb";
 
 import { AnimatedFeatureSection } from "@/components";
+import { DRIVER_FEATURES_CONTENT, DRIVER_FEATURES_ITEMS } from "@/constants/driver-features";
 import functionsBackground from "@/assets/landing_page/functions/background.png";
 import driverIllustration from "@/assets/landing_page/driver/illustration.png";
 
 const iconProps = { size: 20, className: "block" };
 
-const items = [
-    {
-        title: "See Parking Near Your Destination",
-        description:
-            "Find parking options close to where you're going instead of circling nearby streets.",
-        icon: <HiOutlineSearch {...iconProps} />,
-    },
-    {
-        title: "Compare Options Before You Arrive",
-        description:
-            "View different parking choices - private spaces and nearby car parks - in one place.",
-        icon: <MdOutlineCompareArrows {...iconProps} />,
-    },
-    {
-        title: "Clear Pricing Upfront",
-        description:
-            "See pricing information before you decide, so there are no surprises when you arrive.",
-        icon: <MdOutlinePriceChange {...iconProps} />,
-    },
-    {
-        title: "Voice Search",
-        description:
-            "Use voice commands to find parking naturally while driving.",
-        icon: <HiOutlineMicrophone {...iconProps} />,
-    },
-    {
-        title: "Navigate straight to your spot",
-        description:
-            "Use in-app navigation to drive directly to your chosen parking location.",
-        icon: <TbNavigation {...iconProps} />,
-    },
-];
-
 const DriverFeatures = () => {
+    const items = [
+        {
+            ...DRIVER_FEATURES_ITEMS[0],
+            icon: <HiOutlineSearch {...iconProps} />,
+        },
+        {
+            ...DRIVER_FEATURES_ITEMS[3], // "Compare parking options..." is item 3 in DRIVER_FEATURES_ITEMS
+            icon: <MdOutlineCompareArrows {...iconProps} />,
+        },
+        {
+            ...DRIVER_FEATURES_ITEMS[4], // "Clear pricing upfront" is item 4
+            icon: <MdOutlinePriceChange {...iconProps} />,
+        },
+        {
+            ...DRIVER_FEATURES_ITEMS[1], // "Voice search..." is item 1
+            icon: <HiOutlineMicrophone {...iconProps} />,
+        },
+        {
+            ...DRIVER_FEATURES_ITEMS[2], // "Navigate straight..." is item 2
+            icon: <TbNavigation {...iconProps} />,
+        },
+    ];
+
     return (
         <AnimatedFeatureSection
             id="driver-features"
             backgroundImage={functionsBackground}
             title={
                 <>
-                    Built to Make <span className="text-brand">Parking Easier</span>
+                    {DRIVER_FEATURES_CONTENT.title.prefix} <span className="text-brand">{DRIVER_FEATURES_CONTENT.title.highlight}</span> {DRIVER_FEATURES_CONTENT.title.suffix}
                 </>
             }
-            description="Everything drivers need to find parking with less stress and less guessing."
+            description={DRIVER_FEATURES_CONTENT.description}
             items={items}
             illustration={driverIllustration}
             className="overflow-hidden"

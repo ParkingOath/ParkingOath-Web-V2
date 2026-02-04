@@ -39,7 +39,7 @@ export function ProcessSteps({
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 lg:py-28">
         <div className="text-center">
-          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-semibold text-black sm:text-4xl lg:text-5xl">
             {title}
           </h2>
         </div>
@@ -50,7 +50,7 @@ export function ProcessSteps({
               className="group relative flex flex-col rounded-[2.5rem] border border-slate-200/60 bg-white p-8 pt-10 shadow-[0_8px_30px_rgb(15,23,42,0.04)] transition-all hover:shadow-[0_8px_40px_rgb(15,23,42,0.08)]"
             >
               <div className="absolute -right-[1px] -top-[1px] flex h-14 w-32 items-center justify-center rounded-bl-[2rem] rounded-tr-[2.5rem] bg-[#f5f7fb] pl-4 pb-4">
-                <div className="flex h-10 w-24 items-center justify-center rounded-full bg-white text-sm font-bold text-slate-900 border border-slate-200/50 shadow-sm">
+                <div className="flex h-10 w-24 items-center justify-center rounded-full bg-white text-sm font-bold text-black border border-slate-200/50 shadow-sm">
                   {step.step}
                 </div>
               </div>
@@ -62,7 +62,7 @@ export function ProcessSteps({
                 </div>
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+                <h3 className="text-xl font-bold text-black tracking-tight">
                   {step.title}
                 </h3>
                 <Text tone="muted" className="text-[17px] leading-relaxed">

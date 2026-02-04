@@ -15,7 +15,7 @@ const levelStyles: Record<NonNullable<HeadingProps["level"]>, string> = {
   5: "text-lg font-semibold tracking-tight",
 };
 
-const defaultColor = "text-slate-900";
+const defaultColor = "text-black";
 
 export function Heading({ level = 1, className, ...props }: HeadingProps) {
   const Tag = `h${level}` as React.ElementType;

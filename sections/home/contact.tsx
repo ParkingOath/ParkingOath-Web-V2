@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { ContactForm, Container, H2, Text } from "@/components";
+import { CONTACT_CONTENT } from "@/constants/contact";
 import contactBackground from "@/assets/landing_page/contact/background.png";
 import contactIcon from "@/assets/landing_page/contact/icon.png";
 
@@ -18,17 +19,15 @@ const ContactSection = () => {
           <div className="space-y-6">
             <div>
               <H2 className="text-3xl sm:text-4xl lg:text-5xl">
-                Have a <span className="text-brand">question</span> before
-                hosting?
+                {CONTACT_CONTENT.title.prefix} <span className="text-brand">{CONTACT_CONTENT.title.highlight}</span> {CONTACT_CONTENT.title.suffix}
               </H2>
             </div>
             <div className="space-y-4">
               <Text>
-                If you&apos;re unsure about anything - from listing your space
-                to how availability works - we&apos;re here to help.
+                {CONTACT_CONTENT.description1}
               </Text>
               <Text tone="muted">
-                No chatbots, no long forms. Just a simple way to reach us.
+                {CONTACT_CONTENT.description2}
               </Text>
             </div>
             <div>

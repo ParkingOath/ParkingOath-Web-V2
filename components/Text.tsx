@@ -14,8 +14,8 @@ const sizeStyles = {
 };
 
 const toneStyles = {
-  default: "text-slate-700",
-  muted: "text-slate-500",
+  default: "text-[#334155]", // Slate 700
+  muted: "text-[#64748b]", // Slate 500
 };
 
 export function Text({

@@ -30,7 +30,7 @@ export function FeatureList({ items, className, renderItem }: FeatureListProps) 
                 </div>
               ) : null}
               <div className="space-y-2">
-                <p className="text-base font-semibold text-slate-900">
+                <p className="text-base font-semibold text-black">
                   {item.title}
                 </p>
                 <Text tone="muted">{item.description}</Text>

@@ -56,7 +56,7 @@ export function Navbar({
                   priority
                 />
               </div>
-              <span className="text-xl font-bold tracking-tight text-slate-900">
+              <span className="text-xl font-bold tracking-tight text-black">
                 ParkingOath
               </span>
             </Link>
@@ -64,12 +64,12 @@ export function Navbar({
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden items-center gap-8 text-lg font-medium text-slate-600 md:flex">
+        <nav className="hidden items-center gap-8 text-lg font-medium text-[#475569] md:flex">
           {links.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="transition-colors hover:text-slate-900"
+              className="transition-colors hover:text-black"
             >
               {link.label}
             </Link>
@@ -90,7 +90,7 @@ export function Navbar({
 
         {/* Mobile Hamburger Button */}
         <button
-          className="md:hidden p-2 text-slate-600 hover:text-slate-900"
+          className="md:hidden p-2 text-[#475569] hover:text-black"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -114,12 +114,12 @@ export function Navbar({
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white">
           <Container className="flex flex-col gap-4 py-6">
-            <nav className="flex flex-col gap-4 text-lg font-medium text-slate-600">
+            <nav className="flex flex-col gap-4 text-lg font-medium text-[#475569]">
               {links.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="transition-colors hover:text-slate-900"
+                  className="transition-colors hover:text-black"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

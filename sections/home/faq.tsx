@@ -10,7 +10,7 @@ const FaqItem = ({ question, answer }: { question: string; answer: string }) => 
     <div className="group rounded-2xl border border-slate-200/70 bg-white px-6 py-5 shadow-sm">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full cursor-pointer list-none items-center justify-between text-left text-base font-semibold text-slate-900 focus:outline-none"
+        className="flex w-full cursor-pointer list-none items-center justify-between text-left text-base font-semibold text-black focus:outline-none"
       >
         <span>{question}</span>
         <span className="ml-4 relative flex h-5 w-5 items-center justify-center">
@@ -32,7 +32,7 @@ const FaqItem = ({ question, answer }: { question: string; answer: string }) => 
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="mt-3 text-sm text-slate-600">
+            <p className="mt-3 text-sm text-[#475569]">
               {answer}
             </p>
           </motion.div>
@@ -77,7 +77,7 @@ const FaqSection = () => {
     >
       <div className="mx-auto max-w-5xl px-6 py-20 sm:px-8 lg:py-28">
         <div className="text-center">
-          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-semibold text-black sm:text-4xl lg:text-5xl">
             Frequently asked
             <br />
             questions

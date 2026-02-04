@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { Button, Container, H1, Text } from "@/components";
+import { HERO_CONTENT } from "@/constants/hero";
 import heroBackground from "@/assets/hero/background.png";
 import park1 from "@/assets/hero/park1.png";
 import yellowCar from "@/assets/hero/yellow_car.png";
@@ -54,29 +55,25 @@ const Hero = ({ featuredPost }: HeroProps) => {
                         duration: 1.5,
                     }}
                 >
-                    <H1 className="max-w-xl text-slate-900">
-                        <span className="text-brand">Earn</span> from your
-                        unused <span className="text-brand">parking</span>{" "}
-                        space
+                    <H1 className="max-w-xl text-black">
+                        <span className="text-brand">{HERO_CONTENT.title.highlight1}</span> {HERO_CONTENT.title.text1} <span className="text-brand">{HERO_CONTENT.title.highlight2}</span> {HERO_CONTENT.title.text2}
                     </H1>
                     <div className="space-y-4">
                         <Text className="max-w-xl">
-                            If you have a driveway or off-street parking that
-                            sits empty, Parking Oath lets you make use of it.
+                            {HERO_CONTENT.description1}
                         </Text>
                         <Text className="max-w-xl" tone="muted">
-                            List your space, set simple availability, and earn
-                            when drivers park there.
+                            {HERO_CONTENT.description2}
                         </Text>
                     </div>
                     <div className="flex flex-wrap gap-4">
-                        <Button>Become a Host</Button>
-                        <Button variant="secondary">How Process Works</Button>
+                        <Button>{HERO_CONTENT.cta.primary}</Button>
+                        <Button variant="secondary">{HERO_CONTENT.cta.secondary}</Button>
                     </div>
                     {featuredPost ? (
                         <div className="rounded-2xl bg-white/90 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                                Featured blog post
+                            <p className="text-xs font-semibold uppercase tracking-wide text-[#64748b]">
+                                {HERO_CONTENT.featuredBadge}
                             </p>
                             <div className="mt-3 flex gap-3">
                                 {featuredPost.imageUrl ? (
@@ -92,12 +89,12 @@ const Hero = ({ featuredPost }: HeroProps) => {
                                 <div className="min-w-0">
                                     <Link
                                         href={`/blog/${featuredPost.slug}`}
-                                        className="block text-sm font-semibold text-slate-900 hover:text-brand"
+                                        className="block text-sm font-semibold text-black hover:text-brand"
                                     >
                                         {featuredPost.title}
                                     </Link>
                                     {featuredPost.description ? (
-                                        <p className="mt-1 line-clamp-2 text-sm text-slate-600">
+                                        <p className="mt-1 line-clamp-2 text-sm text-[#475569]">
                                             {featuredPost.description}
                                         </p>
                                     ) : null}
@@ -160,5 +157,5 @@ const Hero = ({ featuredPost }: HeroProps) => {
         </section>
     );
 }
- 
+
 export default Hero;

@@ -122,7 +122,7 @@ export default function FaqPage() {
                                         priority
                                     />
                                 </div>
-                                <div className="mt-6 lg:mt-0 lg:flex-auto">
+                                <div className="mt-16 lg:mt-8 lg:mt-0 lg:flex-auto">
                                     <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                                         Still have questions?
                                     </h2>

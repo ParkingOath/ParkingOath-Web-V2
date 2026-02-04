@@ -3,51 +3,46 @@ import { MdOutlinePriceChange } from "react-icons/md";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 
 import { AnimatedFeatureSection } from "@/components";
+import { FUNCTIONS_CONTENT, FUNCTIONS_ITEMS } from "@/constants/functions";
 import functionsBackground from "@/assets/landing_page/functions/background.png";
 import functionsIcon from "@/assets/landing_page/functions/icon.png";
 
 const iconProps = { size: 20, className: "block" };
 
-const items = [
-    {
-        title: "Quick Space Listing",
-        description:
-            "List your driveway or off-street parking in minutes with just the essentials.",
-        icon: <HiOutlinePlus {...iconProps} />,
-    },
-    {
-        title: "Simple Availability Control",
-        description:
-            "Choose when your space is available using broad time windows. Pause or update anytime.",
-        icon: <TbAdjustmentsHorizontal {...iconProps} />,
-    },
-    {
-        title: "Flexible Pricing",
-        description:
-            "Set an hourly rate or a full-day price. Drivers pay only for the time they use.",
-        icon: <MdOutlinePriceChange {...iconProps} />,
-    },
-    {
-        title: "Smart Use of Time",
-        description:
-            "If a driver leaves early, your space can become available again for the remaining time.",
-        icon: <HiOutlineClock {...iconProps} />,
-    },
-];
-
 const Functions = () => {
+    const items = [
+        {
+            ...FUNCTIONS_ITEMS[0],
+            icon: <HiOutlinePlus {...iconProps} />,
+        },
+        {
+            ...FUNCTIONS_ITEMS[1],
+            icon: <TbAdjustmentsHorizontal {...iconProps} />,
+        },
+        {
+            ...FUNCTIONS_ITEMS[2],
+            icon: <MdOutlinePriceChange {...iconProps} />,
+        },
+        {
+            ...FUNCTIONS_ITEMS[3],
+            icon: <HiOutlineClock {...iconProps} />,
+        },
+    ];
+
     return (
         <AnimatedFeatureSection
             id="features"
             backgroundImage={functionsBackground}
             title={
                 <>
-                    Built to be{" "}
-                    <span className="text-brand">simple</span> for{" "}
-                    <span className="text-brand">hosts</span>
+                    {FUNCTIONS_CONTENT.title.prefix}{" "}
+                    <span className="text-brand">{FUNCTIONS_CONTENT.title.highlight1}</span>{" "}
+                    {FUNCTIONS_CONTENT.title.middle}{" "}
+                    <span className="text-brand">{FUNCTIONS_CONTENT.title.highlight2}</span>{" "}
+                    {FUNCTIONS_CONTENT.title.suffix}
                 </>
             }
-            description="Parking Oath is designed to make hosting easy, flexible, and low effort. You stay in control while the platform handles discovery and navigation for drivers."
+            description={FUNCTIONS_CONTENT.description}
             items={items}
             illustration={functionsIcon}
             className="overflow-hidden"

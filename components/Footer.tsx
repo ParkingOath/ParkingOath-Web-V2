@@ -79,7 +79,7 @@ export function Footer({
                     className="h-full w-full object-contain"
                   />
                 </div>
-                <span className="text-xl font-bold tracking-tight text-slate-900">
+                <span className="text-xl font-bold tracking-tight text-black">
                   ParkingOath
                 </span>
               </div>
@@ -91,7 +91,7 @@ export function Footer({
                   key={link.label}
                   href={link.href}
                   aria-label={link.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition-all hover:border-brand hover:bg-brand hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-[#334155] transition-all hover:border-brand hover:bg-brand hover:text-white"
                 >
                   {link.icon ?? link.label}
                 </Link>
@@ -101,15 +101,15 @@ export function Footer({
           <div className="grid gap-10 sm:grid-cols-2">
             {sections.map((section) => (
               <div key={section.title} className="space-y-4">
-                <p className="text-sm font-semibold text-slate-900">
+                <p className="text-sm font-semibold text-black">
                   {section.title}
                 </p>
-                <div className="flex flex-col gap-3 text-sm text-slate-600">
+                <div className="flex flex-col gap-3 text-sm text-[#475569]">
                   {section.links.map((link) => (
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="transition-colors hover:text-slate-900"
+                      className="transition-colors hover:text-black"
                     >
                       {link.label}
                     </Link>
@@ -119,7 +119,7 @@ export function Footer({
             ))}
           </div>
         </div>
-        <div className="mt-12 text-center text-sm text-slate-500">
+        <div className="mt-12 text-center text-sm text-[#64748b]">
           {copyright}
         </div>
       </Container>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Container, H2, Text } from "@/components";
+import { CTA_CONTENT } from "@/constants/cta";
 import appleBadge from "@/assets/landing_page/CTA/Apple.png";
 import playBadge from "@/assets/landing_page/CTA/Playstore.png";
 
@@ -10,12 +11,12 @@ const CtaSection = () => {
       <Container className="py-20 lg:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <H2 className="text-3xl text-white sm:text-4xl lg:text-5xl">
-            Turn your unused parking
+            {CTA_CONTENT.title.text1}
             <br />
-            space into <span className="text-[#7c85ff]">extra income</span>
+            {CTA_CONTENT.title.text2} <span className="text-[#7c85ff]">{CTA_CONTENT.title.highlight}</span>
           </H2>
           <Text className="mt-4 text-base text-white/80 sm:text-lg">
-            List your space in minutes and host only when it suits you.
+            {CTA_CONTENT.description}
           </Text>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Image
