@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Container } from "@/components/Container";
 import { H1 } from "@/components/Headers";
 import { Text } from "@/components/Text";
@@ -8,6 +11,47 @@ import Image from "next/image";
 import illustration from "@/assets/landing_page/early_access/illustration.png";
 
 export default function EarlyAccessPage() {
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setStatus("loading");
+        setErrorMessage(null);
+
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
+        const payload = {
+            firstName: String(formData.get("firstName") ?? ""),
+            lastName: String(formData.get("lastName") ?? ""),
+            email: String(formData.get("email") ?? ""),
+            phone: String(formData.get("phone") ?? ""),
+            location: String(formData.get("location") ?? ""),
+            frequency: String(formData.get("frequency") ?? ""),
+        };
+
+        try {
+            const response = await fetch("/api/hubspot", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data?.message ?? "Submission failed");
+            }
+
+            setStatus("success");
+            form.reset();
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Something went wrong";
+            setErrorMessage(message);
+            setStatus("error");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col relative overflow-hidden">
             {/* SVG Background Reconstruction */}
@@ -58,7 +102,7 @@ export default function EarlyAccessPage() {
                                 </Text>
                             </div>
 
-                            <form className="mt-8 space-y-5">
+                            <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                     <label className="block space-y-2 text-sm font-medium text-slate-700">
                                         First Name
@@ -122,7 +166,7 @@ export default function EarlyAccessPage() {
                                         name="frequency"
                                         required
                                         defaultValue=""
-                                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.875rem center', backgroundSize: '1.25rem' }}
+                                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 0.875rem center", backgroundSize: "1.25rem" }}
                                     >
                                         <option value="" disabled>How often would you use the service?</option>
                                         <option value="daily">Daily</option>
@@ -131,9 +175,21 @@ export default function EarlyAccessPage() {
                                     </select>
                                 </label>
 
-                                <Button className="w-full justify-center">
-                                    Join Waitlist <span aria-hidden="true">↗</span>
+                                <Button type="submit" className="w-full justify-center" disabled={status === "loading"}>
+                                    {status === "loading" ? "Submitting..." : "Join Waitlist"}{" "}
+                                    <span aria-hidden="true">↗</span>
                                 </Button>
+
+                                {status === "success" && (
+                                    <Text size="sm" className="text-green-600">
+                                        Thanks! You&apos;re on the waitlist.
+                                    </Text>
+                                )}
+                                {status === "error" && (
+                                    <Text size="sm" className="text-red-600">
+                                        {errorMessage ?? "Submission failed. Please try again."}
+                                    </Text>
+                                )}
                             </form>
 
                             <Text size="sm" className="mt-6 text-slate-500 text-center">

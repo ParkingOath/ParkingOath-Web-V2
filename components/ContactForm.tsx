@@ -1,4 +1,7 @@
+"use client";
+
 import * as React from "react";
+import { useState } from "react";
 
 import { Button, Text } from "@/components";
 import { cn } from "./utils";
@@ -18,6 +21,49 @@ export function ContactForm({
   className,
   ...props
 }: ContactFormProps) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+    setErrorMessage(null);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      firstName: String(formData.get("firstName") ?? ""),
+      lastName: String(formData.get("lastName") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/hubspot/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data?.message ?? "Submission failed");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+      setErrorMessage(message);
+      setStatus("error");
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -29,7 +75,7 @@ export function ContactForm({
         <p className="text-lg font-semibold text-black">{title}</p>
         <Text tone="muted">{subtitle}</Text>
       </div>
-      <form className="mt-6 space-y-5" {...props}>
+      <form className="mt-6 space-y-5" onSubmit={handleSubmit} {...props}>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <label className="block space-y-2 text-sm font-medium text-[#334155]">
             First Name
@@ -77,9 +123,23 @@ export function ContactForm({
             name="message"
           />
         </label>
-        <Button className="w-full justify-center">
+        <Button
+          type="submit"
+          className="w-full justify-center"
+          disabled={status === "loading"}
+        >
           {buttonText} <span aria-hidden="true">↗</span>
         </Button>
+        {status === "success" && (
+          <Text size="sm" className="text-green-600">
+            Thanks! We&apos;ll be in touch shortly.
+          </Text>
+        )}
+        {status === "error" && (
+          <Text size="sm" className="text-red-600">
+            {errorMessage ?? "Submission failed. Please try again."}
+          </Text>
+        )}
       </form>
     </div>
   );
