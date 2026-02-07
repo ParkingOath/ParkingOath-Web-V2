@@ -1,29 +1,29 @@
 export const FUNCTIONS_CONTENT = {
     title: {
-        highlight1: "simple",
-        highlight2: "hosts",
-        prefix: "Built to be",
-        middle: "for parking space",
-        suffix: "in Sydney",
+        highlight1: "Sydney",
+        highlight2: "Turn it into extra cash",
+        prefix: "Have an unused parking space in",
+        middle: "?",
+        suffix: "",
     },
-    description: "ParkingOath is designed to make it straightforward for Sydney hosts to list and manage a driveway or private off-street parking space. You stay in control of your parking space, while the platform helps drivers discover it and navigate to the location.",
+    description: "If you have a driveway or private off-street parking space in Sydney, ParkingOath lets you earn money by listing it only when it suits you. Your space. Your timing. Your rules.",
 };
 
 export const FUNCTIONS_ITEMS = [
     {
-        title: "List your parking space quickly",
-        description: "List your driveway or off-street parking space in Sydney using only the essential details. No complex setup, just the information drivers need to find and use your space.",
+        title: "List your parking space instantly",
+        description: "Get your space live in minutes with the essentials.",
     },
     {
-        title: "You control when your parking space is available",
-        description: "Choose when your parking space is available using time windows. Update or pause availability at any time to suit your schedule.",
+        title: "Set your own price",
+        description: "Choose hourly or daily rates that work for you.",
     },
     {
-        title: "You set your price",
-        description: "Set an hourly rate or a full-day price for your parking space. Drivers are charged based on the time they use the space.",
+        title: "No long-term commitments",
+        description: "List only when it works for you.",
     },
     {
-        title: "Maximise the use of your parking space",
-        description: "When one driver leaves, you can relist your parking space straight away, giving you more opportunities to earn money from it.",
+        title: "Relist whenever your space is free",
+        description: "Earn again as soon as your space opens up.",
     },
 ];

@@ -1,31 +1,31 @@
 export const DRIVER_FEATURES_CONTENT = {
     title: {
-        prefix: "Built to Make",
-        highlight: "Parking Easier",
-        suffix: "in Sydney, NSW",
+        prefix: "Find parking in",
+        highlight: "Sydney",
+        suffix: "without the stress",
     },
-    description: "Everything drivers need to find parking in Sydney, NSW with less stress and less guessing.",
+    description: "Parking in Sydney can be unpredictable. ParkingOath is built for real-world driving, when you need parking now, not hours earlier.",
 };
 
 export const DRIVER_FEATURES_ITEMS = [
     {
-        title: "Set your price and distance preferences",
-        description: "Pre-set your parking price and how far you're willing to walk from your destination and let ParkingOath direct you to your parking space.",
+        title: "Parking near your destination",
+        description: "Find available parking close to where you're going.",
     },
     {
-        title: "Voice search while driving",
-        description: "Use voice commands to find parking while driving in Sydney.",
+        title: "No circling",
+        description: "Skip the loops and get to a spot faster.",
     },
     {
-        title: "Navigate straight to your parking spot",
-        description: "Use in-app navigation to drive directly to the closest parking space in Sydney.",
+        title: "No second-guessing",
+        description: "Know where to go without switching between apps.",
     },
     {
-        title: "Compare parking options before you arrive",
-        description: "View parking spaces nearby in Sydney in one place, before you reach your destination.",
+        title: "No unnecessary delays",
+        description: "Arrive sooner with fewer detours.",
     },
     {
-        title: "Clear pricing upfront",
-        description: "See parking prices before you decide, so you know what to expect when you arrive.",
+        title: "Arrive with confidence",
+        description: "Let ParkingOath guide you to parking that fits your needs.",
     },
 ];

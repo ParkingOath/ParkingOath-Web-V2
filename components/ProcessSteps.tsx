@@ -37,7 +37,7 @@ export function ProcessSteps({
         className
       )}
     >
-      <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 lg:py-20">
         <div className="text-center">
           <h2 className="text-3xl font-semibold text-black sm:text-4xl lg:text-5xl">
             {title}

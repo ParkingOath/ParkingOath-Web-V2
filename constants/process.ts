@@ -1,25 +1,25 @@
 export const PROCESS_STEPS_CONTENT = {
     title: {
-        text: "How process",
+        text: "How the ParkingOath app",
         highlight: "works",
     },
-    cta: "Get Started",
+    cta: "Get early access",
 };
 
 export const PROCESS_STEPS = [
     {
         step: "Step 1",
-        title: "List your parking space in Sydney",
-        description: "Add your driveway or off-street parking space in Sydney with a few simple details to help drivers find it.",
+        title: "Set your parking preferences",
+        description: "Choose how much you want to pay and how far you're willing to walk from your destination.",
     },
     {
         step: "Step 2",
-        title: "Set your availability",
-        description: "Choose when your parking space is available. You can change or pause availability at any time.",
+        title: "Use voice search while driving",
+        description: "Tell ParkingOath where you're going using voice commands.",
     },
     {
         step: "Step 3",
-        title: "Drivers park, you earn money",
-        description: "When a driver uses your parking space, payment is processed through the platform and deposited to you.",
+        title: "Navigate to parking nearby",
+        description: "We guide you to available parking in Sydney as it becomes available.",
     },
 ];

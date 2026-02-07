@@ -86,7 +86,7 @@ export default function EarlyAccessPage() {
                                     <Image
                                         src={illustration}
                                         alt="Experience ParkingOath"
-                                        className="w-full max-w-[400px] drop-shadow-xl"
+                                        className="w-full max-w-[400px] rounded-3xl shadow-md"
                                         priority
                                     />
                                 </div>

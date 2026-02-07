@@ -1,15 +1,15 @@
 export const HERO_CONTENT = {
     title: {
-        highlight1: "Earn",
-        text1: "money from your unused",
-        highlight2: "parking",
-        text2: "space in Sydney, NSW",
+        highlight1: "Tell us where you're going.",
+        text1: "We'll handle the",
+        highlight2: "parking.",
+        text2: "",
     },
-    description1: "If you have a driveway or private off-street parking space in Sydney, NSW that isn't always in use, ParkingOath gives you a way to earn money by listing it for drivers looking for parking nearby.",
-    description2: "List your parking space, set your availability, and get paid when a driver parks there.",
+    description1: "A voice-led parking app for Sydney, NSW.",
+    description2: "ParkingOath helps drivers find parking in Sydney without circling, guessing, or switching between apps. Set your preferences, say your destination, and let us guide you to parking near where you're going.",
     cta: {
-        primary: "Become a Host",
-        secondary: "How Process Works",
+        primary: "Get early access",
+        secondary: "List your parking space",
     },
     featuredBadge: "Featured blog post",
 };

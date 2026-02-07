@@ -1,7 +1,7 @@
 "use client";
 
-import { HiOutlineSearch, HiOutlineMicrophone } from "react-icons/hi";
-import { MdOutlinePriceChange, MdOutlineCompareArrows } from "react-icons/md";
+import { HiOutlineSearch } from "react-icons/hi";
+import { MdOutlineCompareArrows, MdOutlinePriceChange } from "react-icons/md";
 import { TbNavigation } from "react-icons/tb";
 
 import { AnimatedFeatureSection } from "@/components";
@@ -18,19 +18,19 @@ const DriverFeatures = () => {
             icon: <HiOutlineSearch {...iconProps} />,
         },
         {
-            ...DRIVER_FEATURES_ITEMS[3], // "Compare parking options..." is item 3 in DRIVER_FEATURES_ITEMS
+            ...DRIVER_FEATURES_ITEMS[1],
+            icon: <TbNavigation {...iconProps} />,
+        },
+        {
+            ...DRIVER_FEATURES_ITEMS[2],
             icon: <MdOutlineCompareArrows {...iconProps} />,
         },
         {
-            ...DRIVER_FEATURES_ITEMS[4], // "Clear pricing upfront" is item 4
+            ...DRIVER_FEATURES_ITEMS[3],
             icon: <MdOutlinePriceChange {...iconProps} />,
         },
         {
-            ...DRIVER_FEATURES_ITEMS[1], // "Voice search..." is item 1
-            icon: <HiOutlineMicrophone {...iconProps} />,
-        },
-        {
-            ...DRIVER_FEATURES_ITEMS[2], // "Navigate straight..." is item 2
+            ...DRIVER_FEATURES_ITEMS[4],
             icon: <TbNavigation {...iconProps} />,
         },
     ];
@@ -47,6 +47,7 @@ const DriverFeatures = () => {
             description={DRIVER_FEATURES_CONTENT.description}
             items={items}
             illustration={driverIllustration}
+            illustrationClassName=""
             className="overflow-hidden"
         />
     );

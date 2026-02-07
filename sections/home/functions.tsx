@@ -45,6 +45,7 @@ const Functions = () => {
             description={FUNCTIONS_CONTENT.description}
             items={items}
             illustration={functionsIcon}
+            illustrationClassName=""
             className="overflow-hidden"
         />
     );

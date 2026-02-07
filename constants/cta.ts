@@ -1,8 +1,5 @@
 export const CTA_CONTENT = {
-    title: {
-        text1: "Turn your unused parking",
-        highlight: "extra income",
-        text2: "space into",
-    },
-    description: "List your space in minutes and host only when it suits you.",
+    title: "Launching soon in Sydney, NSW",
+    description: "ParkingOath is preparing to launch in Sydney. Early access members will be first to use the parking app when it goes live. Parking, handled. A simpler way to find parking in Sydney.",
+    cta: "Get early access",
 };

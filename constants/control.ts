@@ -1,23 +1,27 @@
 export const CONTROL_CONTENT = {
     title: {
-        text1: "You're always in",
-        highlight: "control",
-        text2: "of your parking space in Sydney",
+        text1: "A parking app built for",
+        highlight: "Sydney",
+        text2: "drivers",
     },
-    description: "Hosting on ParkingOath doesn't mean giving up access to your parking space. You decide when, how, and if your driveway or off-street parking space in Sydney is used.",
+    description: "ParkingOath is designed for busy Sydney conditions where parking availability changes constantly. You focus on driving. ParkingOath handles the parking.",
 };
 
 export const CONTROL_ITEMS = [
     {
-        title: "Your availability",
-        description: "Only list your parking space when it works for you. Update or pause availability at any time to suit your schedule.",
+        title: "You're running late",
+        description: "Get to parking quickly when time is tight.",
     },
     {
-        title: "Your pricing",
-        description: "Set a simple hourly rate or a fixed daily price for your parking space.",
+        title: "You're heading to campus or work",
+        description: "Find reliable parking for everyday routines.",
     },
     {
-        title: "Your space, your rules",
-        description: "Add details such as access instructions, gate codes, or any restrictions so drivers know how to use your parking space.",
+        title: "You're driving somewhere unfamiliar",
+        description: "Arrive with confidence in new areas.",
+    },
+    {
+        title: "You don't want to think about parking at all",
+        description: "Let ParkingOath handle the parking decisions.",
     },
 ];

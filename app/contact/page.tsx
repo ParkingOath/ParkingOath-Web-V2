@@ -20,25 +20,22 @@ export default function ContactPage() {
 
                             <div className="space-y-8 mt-12">
                                 <div>
-                                    <H3 className="text-xl mb-2">Support</H3>
+                                    <H3 className="text-xl mb-2">Visit us</H3>
                                     <Text>
-                                        Our support team is available 24/7 to help you with any issues.<br />
-                                        <a href="mailto:support@parkingoath.com" className="text-blue-600 hover:text-blue-500 font-semibold">support@parkingoath.com</a>
+                                        520 Collins St<br />
+                                        Melbourne, Victoria 3000
                                     </Text>
                                 </div>
                                 <div>
-                                    <H3 className="text-xl mb-2">Sales</H3>
+                                    <H3 className="text-xl mb-2">Email</H3>
                                     <Text>
-                                        Interested in a partnership or enterprise solution?<br />
-                                        <a href="mailto:sales@parkingoath.com" className="text-blue-600 hover:text-blue-500 font-semibold">sales@parkingoath.com</a>
+                                        <a href="mailto:hello@parkingoath.com" className="text-blue-600 hover:text-blue-500 font-semibold">hello@parkingoath.com</a>
                                     </Text>
                                 </div>
                                 <div>
-                                    <H3 className="text-xl mb-2">Office</H3>
+                                    <H3 className="text-xl mb-2">Phone</H3>
                                     <Text>
-                                        123 Parking Way<br />
-                                        San Francisco, CA 94105<br />
-                                        United States
+                                        <a href="tel:+61494026396" className="text-blue-600 hover:text-blue-500 font-semibold">+61494026396</a>
                                     </Text>
                                 </div>
                             </div>

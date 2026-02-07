@@ -19,6 +19,8 @@ export interface AnimatedFeatureSectionProps {
   description?: string;
   items: AnimatedFeatureSectionItem[];
   illustration: StaticImageData;
+  imagePosition?: "left" | "right";
+  illustrationClassName?: string;
   className?: string;
 }
 
@@ -29,6 +31,8 @@ export function AnimatedFeatureSection({
   description,
   items,
   illustration,
+  imagePosition = "right",
+  illustrationClassName = "rounded-3xl shadow-md",
   className,
 }: AnimatedFeatureSectionProps) {
   return (
@@ -37,7 +41,7 @@ export function AnimatedFeatureSection({
       className={cn("bg-cover bg-center bg-no-repeat", className)}
       style={{ backgroundImage: `url(${backgroundImage.src})` }}
     >
-      <Container className="py-20 lg:py-28">
+      <Container className="py-16 lg:py-20">
         <div className="mx-auto max-w-3xl text-center">
           <H2 className="text-3xl sm:text-4xl lg:text-5xl">{title}</H2>
           {description ? (
@@ -46,8 +50,13 @@ export function AnimatedFeatureSection({
             </Text>
           ) : null}
         </div>
-        <div className="mt-12 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
+        <div
+          className={cn(
+            "mt-12 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]",
+            imagePosition === "left" && "lg:grid-cols-[0.95fr_1.05fr]"
+          )}
+        >
+          <div className={cn(imagePosition === "left" && "lg:order-2")}>
             <FeatureList
               items={items}
               renderItem={(item) => (
@@ -67,11 +76,16 @@ export function AnimatedFeatureSection({
               )}
             />
           </div>
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+          <div
+            className={cn(
+              "relative mx-auto w-full max-w-md lg:max-w-none",
+              imagePosition === "left" && "lg:order-1"
+            )}
+          >
             <Image
               src={illustration}
               alt="Feature illustration"
-              className="w-full object-contain"
+              className={cn("w-full object-contain", illustrationClassName)}
               priority
             />
           </div>

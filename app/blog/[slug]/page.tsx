@@ -169,7 +169,7 @@ export default async function BlogPostPage({
                 const fullWidth = entry.fields?.fullWidth;
                 return (
                     <figure className={fullWidth ? "my-8 -mx-8 sm:-mx-12" : "my-8"}>
-                        <div className={`relative ${fullWidth ? "h-72 sm:h-96" : "h-64"} w-full overflow-hidden rounded-2xl`}>
+                        <div className={`relative ${fullWidth ? "h-72 sm:h-96" : "h-64"} w-full overflow-hidden rounded-2xl shadow-md`}>
                             <Image src={imageSrc} alt={getAssetAlt(image)} fill className="object-cover" />
                         </div>
                         {caption ? (
@@ -186,7 +186,7 @@ export default async function BlogPostPage({
                 if (!assetUrl) return null;
                 return (
                     <div className="my-8">
-                        <div className="relative h-64 w-full overflow-hidden rounded-2xl">
+                        <div className="relative h-64 w-full overflow-hidden rounded-2xl shadow-md">
                             <Image src={assetUrl} alt={getAssetAlt(asset)} fill className="object-cover" />
                         </div>
                     </div>
@@ -230,7 +230,7 @@ export default async function BlogPostPage({
 
                     <article className="rounded-3xl bg-white overflow-hidden shadow-sm ring-1 ring-slate-900/5">
                         {/* Hero Image */}
-                        <div className="relative h-64 sm:h-96 w-full">
+                        <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden shadow-md">
                             {imageUrl ? (
                                 <Image
                                     src={imageUrl}

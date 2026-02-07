@@ -118,7 +118,7 @@ export default function FaqPage() {
                                     <NextImage
                                         src={faqCtaGraphic}
                                         alt="Support team illustration"
-                                        className="w-full max-w-[220px] object-contain"
+                                        className="w-full max-w-[220px] object-contain rounded-3xl shadow-md"
                                         priority
                                     />
                                 </div>

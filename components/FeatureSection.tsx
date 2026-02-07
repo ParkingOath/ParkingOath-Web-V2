@@ -47,7 +47,7 @@ export function FeatureSection({
             <Image
               src={illustration}
               alt="Feature illustration"
-              className="w-full object-contain"
+              className="w-full object-contain rounded-3xl shadow-md"
               priority
             />
           </div>

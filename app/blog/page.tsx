@@ -109,7 +109,7 @@ export default async function BlogPage() {
                                 <Image
                                     src={ctaGraphic}
                                     alt="Parking revolution community"
-                                    className="w-full max-w-[280px] object-contain"
+                                    className="w-full max-w-[280px] object-contain rounded-3xl shadow-md"
                                     priority
                                 />
                             </div>
