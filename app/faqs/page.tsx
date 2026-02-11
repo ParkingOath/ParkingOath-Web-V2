@@ -62,7 +62,7 @@ export default function FaqPage() {
             <main className="flex-grow py-20 sm:py-32">
                 <Container size="default">
                     <div className="mx-auto max-w-3xl text-center">
-                        <H1 className="mb-6">Frequently Asked Questions</H1>
+                        <H1 className="mb-6">ParkingOath Sydney FAQs</H1>
                         <Text size="lg" className="mb-12 text-slate-600">
                             Everything you need to know about ParkingOath. Can't find the answer you're looking for? Reach out to our support team.
                         </Text>
@@ -81,14 +81,14 @@ export default function FaqPage() {
                                     className={`relative z-10 w-1/2 py-2 text-sm font-semibold transition-colors ${role === "host" ? "text-blue-600" : "text-slate-600"
                                         }`}
                                 >
-                                    For Hosts
+                                    For Hosts (Sydney)
                                 </button>
                                 <button
                                     onClick={() => setRole("driver")}
                                     className={`relative z-10 w-1/2 py-2 text-sm font-semibold transition-colors ${role === "driver" ? "text-blue-600" : "text-slate-600"
                                         }`}
                                 >
-                                    For Drivers
+                                    For Drivers (Sydney)
                                 </button>
                             </div>
                         </div>

@@ -5,46 +5,42 @@ export interface FaqItemData {
 
 export const hostFaqs: FaqItemData[] = [
     {
-        question: "Do I have to host all the time?",
-        answer: "No. You choose when your space is available and can pause or stop hosting anytime. You have full control over your schedule."
+        question: "What kind of parking spaces can I list in Sydney?",
+        answer: "You can list a driveway or private off-street parking space in Sydney that is legally available and accessible to drivers."
     },
     {
-        question: "How do I get paid?",
-        answer: "Payments are processed securely through our platform and deposited directly into your linked bank account. You can track your earnings in real-time."
+        question: "Do I have to commit to hosting my parking space?",
+        answer: "No. You are always in control. List your Sydney parking space when it suits you, pause it at any time, and stop whenever you want."
     },
     {
-        question: "What kind of parking spaces can I list?",
-        answer: "You can list driveways, garages, empty lots, or even commercial spaces. As long as you have the legal right to rent out the space, you can list it."
+        question: "How do I get paid for my parking space in Sydney?",
+        answer: "When a driver parks in your space, payment is processed through the app and deposited to you. No cash handling and no admin."
     },
     {
-        question: "Is my property protected?",
-        answer: "We have verify drivers and provide terms of service that protect hosts. For added peace of mind, we recommend checking your homeowner's or business insurance."
+        question: "Can I choose who parks in my space?",
+        answer: "You control how your space is used by setting clear access instructions and rules. Drivers are expected to follow the details you provide."
     },
     {
-        question: "What if a driver stays longer than booked?",
-        answer: "Our system tracks booking times. If a driver overstays, they are charged an additional fee, portion of which goes to you as compensation."
+        question: "What if my space is only available for short periods?",
+        answer: "Short availability works well. ParkingOath is designed for high-turnover parking, so even brief windows can be listed and used."
     }
 ];
 
 export const driverFaqs: FaqItemData[] = [
     {
-        question: "How do I book a parking space?",
-        answer: "Simply search for your destination, browse available spaces, select the time you need, and book instantly through the app."
+        question: "How does ParkingOath help me find parking in Sydney?",
+        answer: "ParkingOath shows parking as it becomes available near your destination in Sydney. Set your preferences, say where you're going, and the app guides you to parking without circling or guessing."
     },
     {
-        question: "Is my booking guaranteed?",
-        answer: "Yes, once you receive a confirmation, the space is reserved exclusively for you during the booked time slot."
+        question: "Do I need to book parking in advance in Sydney?",
+        answer: "No. ParkingOath is built for real-time parking in Sydney, not advance bookings. It's designed for busy Sydney conditions where timing matters."
     },
     {
-        question: "Can I cancel my booking?",
-        answer: "Yes, you can cancel your booking according to the host's cancellation policy. Details are provided for each listing before you book."
+        question: "Can I use ParkingOath while driving in Sydney?",
+        answer: "Yes. ParkingOath supports voice-led search, so you can find parking hands-free while driving in Sydney and stay focused on the road."
     },
     {
-        question: "How do I access the parking space?",
-        answer: "Access instructions are provided in the app once your booking is confirmed. This may include a gate code, specific instructions on where to park, or a digital key."
+        question: "What happens if the parking spot is no longer available?",
+        answer: "ParkingOath reflects live parking availability. If a space is no longer available, the app directs you to the next closest option so you can keep moving."
     },
-    {
-        question: "What if the space is occupied when I arrive?",
-        answer: "In the rare event that the space is unavailable, contact our 24/7 support immediately. We will help you find an alternative or process a full refund."
-    }
 ];

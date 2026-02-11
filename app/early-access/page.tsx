@@ -71,15 +71,45 @@ export default function EarlyAccessPage() {
                         {/* Content Column */}
                         <div>
                             <H1 className="mb-6 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                                Get Early Access to ParkingOath
+                                Early Host Access - Sydney
                             </H1>
                             <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-600 mb-6">
-                                Coming Soon
+                                Limited spots
                             </div>
-                            <Text size="lg" className="mb-8 text-slate-600">
-                                Join the waitlist to be among the first to experience the future of hassle-free parking management.
-                                We&apos;re building something special for you.
+                            <Text size="lg" className="mb-4 text-slate-600">
+                                We&apos;re onboarding a limited number of early hosts ahead of launch to build reliable parking
+                                availability from day one in Sydney.
                             </Text>
+                            <Text size="lg" className="mb-4 text-slate-600">
+                                Early hosts are prioritised as the platform launches suburb by suburb across Sydney.
+                            </Text>
+                            <div className="mb-6">
+                                <Text size="lg" className="text-slate-700 font-semibold mb-3">
+                                    As an early host, you receive:
+                                </Text>
+                                <ul className="space-y-2 text-slate-600 text-base">
+                                    <li>Priority visibility in your local area at launch</li>
+                                    <li>Early access to new hosting features as they&apos;re released</li>
+                                    <li>Ongoing platform benefits reserved for founding hosts</li>
+                                    <li>A head start before wider host onboarding begins</li>
+                                </ul>
+                            </div>
+                            <Text size="lg" className="mb-6 text-slate-600">
+                                Hosting early helps establish your space before local demand increases.
+                            </Text>
+                            <div className="mb-6">
+                                <Text size="lg" className="text-slate-700 font-semibold mb-3">
+                                    What happens after you join
+                                </Text>
+                                <ol className="space-y-2 text-slate-600 text-base">
+                                    <li>1. Register your interest as an early host</li>
+                                    <li>2. We notify you as hosting access opens in your area</li>
+                                    <li>3. You decide when or if you want to list your space</li>
+                                </ol>
+                                <Text size="lg" className="mt-3 text-slate-600">
+                                    No pressure. No obligation.
+                                </Text>
+                            </div>
 
                             <div className="relative mt-12 hidden lg:block">
                                 <div className="relative h-[400px] w-full flex items-center justify-center">
@@ -98,7 +128,7 @@ export default function EarlyAccessPage() {
                             <div className="space-y-2">
                                 <h2 className="text-xl font-bold text-slate-900">Reserve Your Spot</h2>
                                 <Text tone="muted">
-                                    Fill out the form below to join our exclusive waitlist and be the first to know when we launch in your area.
+                                    Register your interest to be notified when hosting access opens in your area.
                                 </Text>
                             </div>
 
@@ -176,7 +206,7 @@ export default function EarlyAccessPage() {
                                 </label>
 
                                 <Button type="submit" className="w-full justify-center" disabled={status === "loading"}>
-                                    {status === "loading" ? "Submitting..." : "Join Waitlist"}{" "}
+                                    {status === "loading" ? "Submitting..." : "Register interest"}{" "}
                                     <span aria-hidden="true">↗</span>
                                 </Button>
 
