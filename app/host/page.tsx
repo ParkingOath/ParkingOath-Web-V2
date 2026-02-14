@@ -16,8 +16,9 @@ import { ProcessSteps } from "@/components/ProcessSteps";
 
 import functionsBackground from "@/assets/landing_page/functions/background.png";
 import hostHero from "@/assets/v2/host_hero.png";
-import hostPayment from "@/assets/v2/host_payment.png";
+import hostPayment from "@/assets/landing_page/early_access/illustration.png";
 import driverNew from "@/assets/v2/driver_new.png";
+// import illustration from "@/assets/landing_page/early_access/illustration.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
 export default function HostPage() {

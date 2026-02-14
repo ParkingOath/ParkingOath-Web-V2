@@ -111,7 +111,7 @@ export default function EarlyAccessPage() {
                                 </Text>
                             </div>
 
-                            <div className="relative mt-12 hidden lg:block">
+                            {/* <div className="relative mt-12 hidden lg:block">
                                 <div className="relative h-[400px] w-full flex items-center justify-center">
                                     <Image
                                         src={illustration}
@@ -120,7 +120,7 @@ export default function EarlyAccessPage() {
                                         priority
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Form Column */}
