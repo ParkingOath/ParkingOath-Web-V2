@@ -67,8 +67,10 @@ const Hero = ({ featuredPost }: HeroProps) => {
                         </Text>
                     </div>
                     <div className="flex flex-wrap gap-4">
-                        <Button>{HERO_CONTENT.cta.primary}</Button>
-                        <Button variant="secondary">{HERO_CONTENT.cta.secondary}</Button>
+                        <Link  href="/early-access">
+                            <Button>{HERO_CONTENT.cta.primary}</Button>
+                        </Link>
+                        {/* <Button variant="secondary">{HERO_CONTENT.cta.secondary}</Button> */}
                     </div>
                     {featuredPost ? (
                         <div className="rounded-2xl bg-white/90 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">

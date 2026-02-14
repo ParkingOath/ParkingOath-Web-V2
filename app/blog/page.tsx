@@ -122,13 +122,13 @@ export default async function BlogPage() {
                                 </p>
                                 <div className="mt-8 flex items-center justify-center lg:justify-start gap-x-6">
                                     <Link
-                                        href="/"
+                                        href="/early-access"
                                         className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                     >
-                                        Get started
+                                        Get Early Access
                                     </Link>
-                                    <Link href="/" className="text-sm font-semibold leading-6 text-white">
-                                        Learn more <span aria-hidden="true">→</span>
+                                    <Link href="/early-access" className="text-sm font-semibold leading-6 text-white">
+                                        Get Early Access <span aria-hidden="true">→</span>
                                     </Link>
                                 </div>
                             </div>

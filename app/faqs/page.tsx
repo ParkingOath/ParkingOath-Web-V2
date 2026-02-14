@@ -131,10 +131,10 @@ export default function FaqPage() {
                                     </p>
                                     <div className="mt-8 flex items-center justify-center lg:justify-start gap-x-6">
                                         <Link
-                                            href="/contact"
+                                            href="/early-access"
                                             className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                         >
-                                            Get in touch
+                                            Get Early Access
                                         </Link>
                                     </div>
                                 </div>

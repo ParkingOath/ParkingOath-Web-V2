@@ -1,8 +1,10 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 
 import { Button, Text } from "@/components";
+import { buttonClasses } from "./Button";
 import { cn } from "./utils";
 
 export type ProcessStep = {
@@ -17,6 +19,7 @@ export interface ProcessStepsProps {
   title: React.ReactNode;
   steps: ProcessStep[];
   ctaLabel?: string;
+  ctaHref?: string;
   onCtaClick?: () => void;
   className?: string;
 }
@@ -25,7 +28,8 @@ export function ProcessSteps({
   id,
   title,
   steps,
-  ctaLabel = "Get Started",
+  ctaLabel = "Get Early Access",
+  ctaHref = "/early-access",
   onCtaClick,
   className,
 }: ProcessStepsProps) {
@@ -73,9 +77,15 @@ export function ProcessSteps({
           ))}
         </div>
         <div className="mt-10 flex justify-center">
-          <Button onClick={onCtaClick}>
-            {ctaLabel} <span aria-hidden="true">↗</span>
-          </Button>
+          {onCtaClick ? (
+            <Button onClick={onCtaClick}>
+              {ctaLabel} <span aria-hidden="true">↗</span>
+            </Button>
+          ) : (
+            <Link href={ctaHref} className={buttonClasses({ size: "md" })}>
+              {ctaLabel} <span aria-hidden="true">↗</span>
+            </Link>
+          )}
         </div>
       </div>
     </section>

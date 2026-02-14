@@ -30,6 +30,7 @@ const ProcessSection = () => {
       }
       steps={steps}
       ctaLabel={PROCESS_STEPS_CONTENT.cta}
+      ctaHref="/early-access"
     />
   );
 };

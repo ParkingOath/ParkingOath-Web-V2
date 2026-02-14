@@ -32,7 +32,7 @@ const defaultLinks: NavLink[] = [
 export function Navbar({
   brand,
   links = defaultLinks,
-  cta = { label: "Become a Host", href: "/early-access" },
+  cta = { label: "Get Early Access", href: "/early-access" },
   className,
   ...props
 }: NavbarProps) {

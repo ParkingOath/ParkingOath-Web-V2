@@ -32,7 +32,7 @@ const Home = async () => {
       <ProcessSection />
       <DriverFeatures />
       <ControlSection />
-      <Testimonials />
+      {/* <Testimonials /> */}
       {/* <FaqSection /> */}
       <ContactSection />
       <CtaSection />

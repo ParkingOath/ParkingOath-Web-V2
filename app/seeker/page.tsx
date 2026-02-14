@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { HiOutlineSearch, HiOutlineMicrophone } from "react-icons/hi";
 import { MdOutlineCompareArrows, MdOutlinePriceChange } from "react-icons/md";
 import { TbNavigation } from "react-icons/tb";
@@ -23,7 +22,6 @@ import driverNew from "@/assets/v2/driver_new.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
 export default function SeekerPage() {
-  const router = useRouter();
   const iconProps = { size: 20, className: "block" };
 
   return (
@@ -47,13 +45,13 @@ export default function SeekerPage() {
                 </div>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                   <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
-                    Join the launch list
+                    Get Early Access
                   </Link>
                   <Link
-                    href="/host"
+                    href="/early-access"
                     className={buttonClasses({ variant: "secondary", size: "lg" })}
                   >
-                    List your parking space
+                    Get Early Access
                   </Link>
                 </div>
               </div>
@@ -137,8 +135,8 @@ export default function SeekerPage() {
               icon: <TbNavigation size={20} />,
             },
           ]}
-          ctaLabel="Join the launch list"
-          onCtaClick={() => router.push("/early-access")}
+          ctaLabel="Get Early Access"
+          ctaHref="/early-access"
         />
 
         <AnimatedFeatureSection
@@ -183,7 +181,7 @@ export default function SeekerPage() {
               </Text>
               <div className="flex justify-center">
                 <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
-                  Join the launch list
+                  Get Early Access
                 </Link>
               </div>
             </div>

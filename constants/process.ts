@@ -3,7 +3,7 @@ export const PROCESS_STEPS_CONTENT = {
         text: "How the ParkingOath app",
         highlight: "works",
     },
-    cta: "Get early access",
+    cta: "Get Early Access",
 };
 
 export const PROCESS_STEPS = [

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { HiOutlineClock, HiOutlinePlus, HiOutlineCheckCircle } from "react-icons/hi2";
 import { MdOutlinePriceChange } from "react-icons/md";
 
@@ -22,7 +21,6 @@ import driverNew from "@/assets/v2/driver_new.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
 export default function HostPage() {
-  const router = useRouter();
   const iconProps = { size: 20, className: "block" };
 
   return (
@@ -47,7 +45,7 @@ export default function HostPage() {
                 </div>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                   <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
-                    Join as a host
+                    Get Early Access
                   </Link>
                 </div>
               </div>
@@ -161,8 +159,8 @@ export default function HostPage() {
               icon: <MdOutlinePriceChange size={20} />,
             },
           ]}
-          ctaLabel="Get early access"
-          onCtaClick={() => router.push("/early-access")}
+          ctaLabel="Get Early Access"
+          ctaHref="/early-access"
         />
 
         <AnimatedFeatureSection
@@ -207,7 +205,7 @@ export default function HostPage() {
               </Text>
               <div className="flex justify-center">
                 <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
-                  Join as a host
+                  Get Early Access
                 </Link>
               </div>
             </div>

@@ -8,7 +8,7 @@ export const HERO_CONTENT = {
     description1: "A voice-led parking app for Sydney, NSW.",
     description2: "ParkingOath helps drivers find parking in Sydney without circling, guessing, or switching between apps. Set your preferences, say your destination, and let us guide you to parking near where you're going.",
     cta: {
-        primary: "Get early access",
+        primary: "Get Early Access",
         secondary: "List your parking space",
     },
     featuredBadge: "Featured blog post",
