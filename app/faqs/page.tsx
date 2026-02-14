@@ -81,14 +81,14 @@ export default function FaqPage() {
                                     className={`relative z-10 w-1/2 py-2 text-sm font-semibold transition-colors ${role === "host" ? "text-blue-600" : "text-slate-600"
                                         }`}
                                 >
-                                    For Hosts (Sydney)
+                                    For Hosts
                                 </button>
                                 <button
                                     onClick={() => setRole("driver")}
                                     className={`relative z-10 w-1/2 py-2 text-sm font-semibold transition-colors ${role === "driver" ? "text-blue-600" : "text-slate-600"
                                         }`}
                                 >
-                                    For Drivers (Sydney)
+                                    For Drivers
                                 </button>
                             </div>
                         </div>

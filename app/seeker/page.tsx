@@ -47,12 +47,6 @@ export default function SeekerPage() {
                   <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
                     Get Early Access
                   </Link>
-                  <Link
-                    href="/early-access"
-                    className={buttonClasses({ variant: "secondary", size: "lg" })}
-                  >
-                    Get Early Access
-                  </Link>
                 </div>
               </div>
               <div className="relative">
