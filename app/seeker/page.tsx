@@ -67,6 +67,37 @@ export default function SeekerPage() {
         </section>
 
         <AnimatedFeatureSection
+          backgroundImage={functionsBackground}
+          title={"A parking app built for real-world driving in Sydney"}
+          description={
+            "ParkingOath isn't built for perfect plans. It's built for real situations where timing matters."
+          }
+          items={[
+            {
+              title: "You're running late",
+              description: "Get to parking quickly when time is tight.",
+              icon: <HiOutlineSearch {...iconProps} />,
+            },
+            {
+              title: "You're heading to campus or work",
+              description: "Find parking fast for everyday routines.",
+              icon: <MdOutlineCompareArrows {...iconProps} />,
+            },
+            {
+              title: "You're driving somewhere unfamiliar",
+              description: "Arrive with confidence in new areas.",
+              icon: <TbNavigation {...iconProps} />,
+            },
+            {
+              title: "You don't want to think about parking at all",
+              description: "You focus on driving. ParkingOath handles the parking.",
+              icon: <HiOutlineMicrophone {...iconProps} />,
+            },
+          ]}
+          illustration={phoneNew}
+        />
+
+        <AnimatedFeatureSection
           id="how-it-works"
           backgroundImage={functionsBackground}
           title={"Find parking in Sydney without thinking about it"}
@@ -131,37 +162,6 @@ export default function SeekerPage() {
           ]}
           ctaLabel="Get Early Access"
           ctaHref="/early-access"
-        />
-
-        <AnimatedFeatureSection
-          backgroundImage={functionsBackground}
-          title={"A parking app built for real-world driving in Sydney"}
-          description={
-            "ParkingOath isn't built for perfect plans. It's built for real situations where timing matters."
-          }
-          items={[
-            {
-              title: "You're running late",
-              description: "Get to parking quickly when time is tight.",
-              icon: <HiOutlineSearch {...iconProps} />,
-            },
-            {
-              title: "You're heading to campus or work",
-              description: "Find parking fast for everyday routines.",
-              icon: <MdOutlineCompareArrows {...iconProps} />,
-            },
-            {
-              title: "You're driving somewhere unfamiliar",
-              description: "Arrive with confidence in new areas.",
-              icon: <TbNavigation {...iconProps} />,
-            },
-            {
-              title: "You don't want to think about parking at all",
-              description: "You focus on driving. ParkingOath handles the parking.",
-              icon: <HiOutlineMicrophone {...iconProps} />,
-            },
-          ]}
-          illustration={phoneNew}
         />
 
         <section className="bg-[#1f1746] text-white">

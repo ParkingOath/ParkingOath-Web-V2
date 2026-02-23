@@ -28,10 +28,10 @@ const Home = async () => {
     <>
       <Navbar />
       <Hero />
-      <Functions />
-      <ProcessSection />
       <DriverFeatures />
       <ControlSection />
+      <ProcessSection />
+      <Functions />
       {/* <Testimonials /> */}
       {/* <FaqSection /> */}
       <ContactSection />

@@ -100,37 +100,6 @@ export default function HostPage() {
           illustration={phoneNew}
         />
 
-        <AnimatedFeatureSection
-          backgroundImage={functionsBackground}
-          title={"Why hosts choose ParkingOath"}
-          items={[
-            {
-              title: "List instantly",
-              description:
-                "Add your parking space in minutes. No complex setup, just the details drivers need.",
-              icon: <HiOutlinePlus {...iconProps} />,
-            },
-            {
-              title: "You decide when it's available",
-              description:
-                "List your space only when it suits you. Pause or relist anytime.",
-              icon: <HiOutlineClock {...iconProps} />,
-            },
-            {
-              title: "You set the price",
-              description: "Charge what you want. Hourly or short stays, it's your call.",
-              icon: <MdOutlinePriceChange {...iconProps} />,
-            },
-            {
-              title: "More turnover, more opportunity",
-              description:
-                "When one driver leaves, you can relist straight away. No waiting for future bookings.",
-              icon: <HiOutlineCheckCircle {...iconProps} />,
-            },
-          ]}
-          illustration={hostPayment}
-        />
-
         <ProcessSteps
           title={
             <>
@@ -162,6 +131,37 @@ export default function HostPage() {
           ]}
           ctaLabel="Get Early Access"
           ctaHref="/early-access"
+        />
+
+        <AnimatedFeatureSection
+          backgroundImage={functionsBackground}
+          title={"Why hosts choose ParkingOath"}
+          items={[
+            {
+              title: "List instantly",
+              description:
+                "Add your parking space in minutes. No complex setup, just the details drivers need.",
+              icon: <HiOutlinePlus {...iconProps} />,
+            },
+            {
+              title: "You decide when it's available",
+              description:
+                "List your space only when it suits you. Pause or relist anytime.",
+              icon: <HiOutlineClock {...iconProps} />,
+            },
+            {
+              title: "You set the price",
+              description: "Charge what you want. Hourly or short stays, it's your call.",
+              icon: <MdOutlinePriceChange {...iconProps} />,
+            },
+            {
+              title: "More turnover, more opportunity",
+              description:
+                "When one driver leaves, you can relist straight away. No waiting for future bookings.",
+              icon: <HiOutlineCheckCircle {...iconProps} />,
+            },
+          ]}
+          illustration={hostPayment}
         />
 
         <AnimatedFeatureSection
