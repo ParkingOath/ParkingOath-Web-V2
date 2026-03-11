@@ -26,6 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth scroll-pt-20">
+      <head>
+        <meta
+          name="facebook-domain-verification"
+          content="0nhc2yclvdfky2w7o33k6rlvyq9675"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
