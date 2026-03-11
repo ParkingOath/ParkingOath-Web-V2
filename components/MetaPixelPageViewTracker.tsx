@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 type Fbq = (...args: unknown[]) => void;
 
@@ -13,7 +13,6 @@ declare global {
 
 export function MetaPixelPageViewTracker() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export function MetaPixelPageViewTracker() {
     if (typeof window.fbq === "function") {
       window.fbq("track", "PageView");
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }
