@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { H1, H2, H3 } from "@/components/Headers";
 import { Text } from "@/components/Text";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
+
+export const metadata: Metadata = {
+    title: "Contact | ParkingOath",
+    description:
+        "Get in touch with ParkingOath for support, partnership, or general questions.",
+};
 
 export default function ContactPage() {
     return (

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components";
 import Hero from "@/sections/home/hero";
 import Functions from "@/sections/home/functions";
@@ -10,6 +11,12 @@ import Testimonials from "@/sections/home/testimonials";
 import CtaSection from "@/sections/home/cta";
 import { Footer } from "@/components";
 import { getAssetAlt, getAssetUrl, getLandingPage } from "@/lib/contentful";
+
+export const metadata: Metadata = {
+  title: "ParkingOath - Peer to peer parking",
+  description:
+    "The smarter way to find and list parking in Sydney. Find nearby spaces or earn from your driveway with ParkingOath.",
+};
 
 const Home = async () => {
   const landing = await getLandingPage();

@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { H1, H2 } from "@/components/Headers";
 import { Text } from "@/components/Text";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+    title: "Privacy Policy | ParkingOath",
+    description:
+        "Learn how ParkingOath collects, uses, and protects your personal information.",
+};
 
 export default function PrivacyPage() {
     return (

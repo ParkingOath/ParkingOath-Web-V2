@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { H1, H3 } from "@/components/Headers";
 import { Text } from "@/components/Text";
@@ -13,6 +14,12 @@ import {
     getAssetUrl,
     estimateReadTime,
 } from "@/lib/contentful";
+
+export const metadata: Metadata = {
+    title: "Parking Insights & News | ParkingOath",
+    description:
+        "Read the latest parking insights, guides, and updates from ParkingOath.",
+};
 
 export const revalidate = 60;
 
