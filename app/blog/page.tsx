@@ -16,7 +16,7 @@ import {
 } from "@/lib/contentful";
 
 export const metadata: Metadata = {
-    title: "Parking Insights & News | ParkingOath",
+    title: "Blogs | ParkingOath",
     description:
         "Read the latest parking insights, guides, and updates from ParkingOath.",
 };
