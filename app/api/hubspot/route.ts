@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 
+import {
+  getClientIpAddress,
+  getCookieValue,
+  sendMetaServerEvent,
+} from "@/lib/meta-conversions-api";
+
 const HUBSPOT_PORTAL_ID = "442272651";
 const HUBSPOT_FORM_ID = "ce44dfa1-4c8f-4750-994b-2dcf3bc425d2";
 
@@ -38,6 +44,35 @@ export async function POST(request: Request) {
         { message: errorBody?.message ?? "HubSpot submission failed" },
         { status: response.status }
       );
+    }
+
+    if (typeof body.metaEventId === "string" && body.metaEventId.length > 0) {
+      try {
+        await sendMetaServerEvent({
+          eventId: body.metaEventId,
+          eventName: "Lead",
+          eventSourceUrl:
+            typeof body.eventSourceUrl === "string" && body.eventSourceUrl.length > 0
+              ? body.eventSourceUrl
+              : request.headers.get("referer") ?? "https://www.parkingoath.com/thank-you",
+          userData: {
+            clientIpAddress: getClientIpAddress(request),
+            clientUserAgent: request.headers.get("user-agent") ?? undefined,
+            email: body.email,
+            phone: body.phone,
+            fbc:
+              typeof body.fbc === "string" && body.fbc.length > 0
+                ? body.fbc
+                : getCookieValue(request, "_fbc"),
+            fbp:
+              typeof body.fbp === "string" && body.fbp.length > 0
+                ? body.fbp
+                : getCookieValue(request, "_fbp"),
+          },
+        });
+      } catch (metaError) {
+        console.error("Meta Lead failed", metaError);
+      }
     }
 
     return NextResponse.json({ ok: true });

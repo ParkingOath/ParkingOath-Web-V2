@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { Text } from "@/components/Text";
+import { createMetaEventId, getBrowserCookie } from "@/lib/meta-browser";
 
 interface EarlyAccessFormProps {
   pageName?: string;
@@ -34,14 +35,19 @@ export function EarlyAccessForm({
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const leadEventId = createMetaEventId("lead");
 
     const payload = {
       firstName: String(formData.get("firstName") ?? ""),
       lastName: String(formData.get("lastName") ?? ""),
       email: String(formData.get("email") ?? ""),
+      eventSourceUrl: window.location.href,
+      fbc: getBrowserCookie("_fbc"),
+      fbp: getBrowserCookie("_fbp"),
       phone: String(formData.get("phone") ?? ""),
       location: String(formData.get("location") ?? ""),
       frequency: String(formData.get("frequency") ?? ""),
+      metaEventId: leadEventId,
       pageName,
     };
 
@@ -58,7 +64,9 @@ export function EarlyAccessForm({
       }
 
       form.reset();
-      router.push(redirectHref);
+      const redirectUrl = new URL(redirectHref, window.location.origin);
+      redirectUrl.searchParams.set("lead_id", leadEventId);
+      router.push(`${redirectUrl.pathname}${redirectUrl.search}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Something went wrong";
       setErrorMessage(message);
