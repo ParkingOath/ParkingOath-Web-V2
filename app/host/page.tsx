@@ -18,8 +18,8 @@ import { hostFaqs } from "@/app/faqs/faq-data";
 
 import functionsBackground from "@/assets/landing_page/functions/background.png";
 import hostPayment from "@/assets/landing_page/early_access/illustration.png";
+import howItWorksImage from "@/assets/v2/How it works.png";
 import hostHero from "@/assets/v2/host_hero.png";
-import navMapNew from "@/assets/v2/nav_map_new.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
 const hostNavLinks: NavLink[] = [
@@ -148,9 +148,12 @@ export default function HostPage() {
 
         <section id="how-it-works" className="bg-white">
           <Container className="py-16 lg:py-20">
+            <div className="mx-auto mb-8 max-w-3xl text-center">
+              <H2>How it works</H2>
+            </div>
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
               <Image
-                src={navMapNew}
+                src={howItWorksImage}
                 alt="How it works"
                 className="h-auto w-full"
               />
