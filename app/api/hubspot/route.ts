@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         fields,
         context: {
           pageUri: request.headers.get("referer") ?? undefined,
-          pageName: "Early Access",
+          pageName: body.pageName || "Early Access",
         },
       }),
     });

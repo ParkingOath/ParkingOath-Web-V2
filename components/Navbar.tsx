@@ -16,6 +16,7 @@ export type NavLink = {
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   brand?: React.ReactNode;
+  brandHref?: string;
   links?: NavLink[];
   cta?: NavLink;
 }
@@ -31,6 +32,7 @@ const defaultLinks: NavLink[] = [
 
 export function Navbar({
   brand,
+  brandHref = "/",
   links = defaultLinks,
   cta = { label: "Get Early Access", href: "/early-access" },
   className,
@@ -49,7 +51,11 @@ export function Navbar({
       <Container className="flex items-center justify-between py-4">
         <div className="flex items-center gap-3">
           {brand ?? (
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
+            <Link
+              href={brandHref}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3"
+            >
               <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
                 <Image
                   src={logo}

@@ -2,33 +2,82 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { HiOutlineClock, HiOutlinePlus, HiOutlineCheckCircle } from "react-icons/hi2";
+import { HiOutlineCheckCircle, HiOutlineClock, HiOutlinePlus } from "react-icons/hi2";
 import { MdOutlinePriceChange } from "react-icons/md";
 
-import { Container } from "@/components/Container";
-import { H1, H2 } from "@/components/Headers";
-import { Text } from "@/components/Text";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { buttonClasses } from "@/components/Button";
 import { AnimatedFeatureSection } from "@/components/AnimatedFeatureSection";
-import { ProcessSteps } from "@/components/ProcessSteps";
+import { buttonClasses } from "@/components/Button";
+import { Container } from "@/components/Container";
+import { EarlyAccessForm } from "@/components/EarlyAccessForm";
+import { FaqAccordion } from "@/components/FaqAccordion";
+import { Footer, type FooterSection } from "@/components/Footer";
+import { H1, H2 } from "@/components/Headers";
+import { Navbar, type NavLink } from "@/components/Navbar";
+import { Text } from "@/components/Text";
+import { hostFaqs } from "@/app/faqs/faq-data";
 
 import functionsBackground from "@/assets/landing_page/functions/background.png";
-import hostHero from "@/assets/v2/host_hero.png";
 import hostPayment from "@/assets/landing_page/early_access/illustration.png";
-import driverNew from "@/assets/v2/driver_new.png";
-// import illustration from "@/assets/landing_page/early_access/illustration.png";
+import hostHero from "@/assets/v2/host_hero.png";
+import navMapNew from "@/assets/v2/nav_map_new.png";
 import phoneNew from "@/assets/v2/phone_new.png";
+
+const hostNavLinks: NavLink[] = [
+  { label: "How It Works", href: "/host#how-it-works" },
+  { label: "FAQs", href: "/host#host-faqs" },
+];
+
+const hostFooterSections: FooterSection[] = [
+  {
+    title: "Host",
+    links: [
+      { label: "Join Early Access", href: "/host#early-access-form" },
+      { label: "Get Paid", href: "/host#get-paid" },
+      { label: "How It Works", href: "/host#how-it-works" },
+      { label: "FAQs", href: "/host#host-faqs" },
+    ],
+  },
+];
 
 export default function HostPage() {
   const iconProps = { size: 20, className: "block" };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar />
+    <div className="flex min-h-screen flex-col bg-slate-50">
+      <Navbar
+        brandHref="/host"
+        links={hostNavLinks}
+        cta={{ label: "Get Early Access", href: "/host#early-access-form" }}
+      />
       <main className="flex-grow">
-        <section className="bg-white overflow-hidden">
+        <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
+          <Container className="py-12 lg:py-16">
+            <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+              <EarlyAccessForm
+                pageName="Host"
+                redirectHref="/thank-you"
+                title="Get Early Host Access"
+                description="Fill in your details to be notified when hosting access opens in your area."
+              />
+              <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8">
+                <div className="inline-flex rounded-full bg-white/10 px-4 py-1 text-sm font-semibold text-white/90">
+                  Launching soon in Sydney
+                </div>
+                <H2 className="text-white">Join the first wave of hosts.</H2>
+                <Text className="text-white/80">
+                  Reserve your place now so you&apos;re ready to earn as soon as ParkingOath
+                  opens in your suburb.
+                </Text>
+                <Text className="text-white/80">
+                  Early hosts get priority visibility, early launch updates, and a head start
+                  before wider host onboarding begins.
+                </Text>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        <section className="overflow-hidden bg-white">
           <Container className="py-16 lg:py-24">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div className="space-y-8 text-center lg:text-left">
@@ -38,30 +87,29 @@ export default function HostPage() {
                     List your parking space in Sydney, NSW and get bookings when you need the
                     money, not weeks in advance.
                   </Text>
-                  <Text className="text-slate-600 max-w-2xl mx-auto lg:mx-0">
+                  <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
                     ParkingOath lets you earn money from your driveway or private off-street
                     parking space on your terms. No calendars. No long commitments. No waiting
                     for pre-bookings.
                   </Text>
                 </div>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                  <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
+                <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
+                  <Link href="/host#early-access-form" className={buttonClasses({ size: "lg" })}>
                     Get Early Access
                   </Link>
                 </div>
               </div>
               <div className="relative">
-                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative z-10 overflow-hidden rounded-2xl shadow-2xl">
                   <Image
                     src={hostHero}
                     alt="Modern Sydney home with available parking"
-                    className="w-full h-auto object-cover"
+                    className="h-auto w-full object-cover"
                     priority
                   />
                 </div>
-                {/* Decorative element */}
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-brand/10 rounded-full blur-3xl -z-0" />
-                <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-0" />
+                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-brand/10 blur-3xl" />
+                <div className="absolute -bottom-12 -left-12 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
               </div>
             </div>
           </Container>
@@ -70,10 +118,8 @@ export default function HostPage() {
         <AnimatedFeatureSection
           id="get-paid"
           backgroundImage={functionsBackground}
-          title={"Get paid when it matters"}
-          description={
-            "Most parking platforms expect you to plan ahead. ParkingOath is built for right now."
-          }
+          title="Get paid when it matters"
+          description="Most parking platforms expect you to plan ahead. ParkingOath is built for right now."
           imagePosition="left"
           items={[
             {
@@ -100,42 +146,21 @@ export default function HostPage() {
           illustration={phoneNew}
         />
 
-        <ProcessSteps
-          title={
-            <>
-              How it <span className="text-brand">works</span>
-            </>
-          }
-          steps={[
-            {
-              step: "Step 1",
-              title: "List your parking space",
-              description:
-                "Add your driveway or off-street parking space in Sydney with a few simple details.",
-              icon: <HiOutlinePlus size={20} />,
-            },
-            {
-              step: "Step 2",
-              title: "Make it available when you want",
-              description:
-                "Turn availability on or off whenever it suits you.",
-              icon: <HiOutlineCheckCircle size={20} />,
-            },
-            {
-              step: "Step 3",
-              title: "Drivers park. You get paid.",
-              description:
-                "When your space is used, you get paid directly to your bank account.",
-              icon: <MdOutlinePriceChange size={20} />,
-            },
-          ]}
-          ctaLabel="Get Early Access"
-          ctaHref="/early-access"
-        />
+        <section id="how-it-works" className="bg-white">
+          <Container className="py-16 lg:py-20">
+            <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
+              <Image
+                src={navMapNew}
+                alt="How it works"
+                className="h-auto w-full"
+              />
+            </div>
+          </Container>
+        </section>
 
         <AnimatedFeatureSection
           backgroundImage={functionsBackground}
-          title={"Why hosts choose ParkingOath"}
+          title="Why hosts choose ParkingOath"
           items={[
             {
               title: "List instantly",
@@ -145,8 +170,7 @@ export default function HostPage() {
             },
             {
               title: "You decide when it's available",
-              description:
-                "List your space only when it suits you. Pause or relist anytime.",
+              description: "List your space only when it suits you. Pause or relist anytime.",
               icon: <HiOutlineClock {...iconProps} />,
             },
             {
@@ -166,10 +190,8 @@ export default function HostPage() {
 
         <AnimatedFeatureSection
           backgroundImage={functionsBackground}
-          title={"Built for flexibility, not commitment"}
-          description={
-            "Hosting your driveway or private off-street parking space on ParkingOath does not mean giving up access to your space."
-          }
+          title="Built for flexibility, not commitment"
+          description="Hosting your driveway or private off-street parking space on ParkingOath does not mean giving up access to your space."
           items={[
             {
               title: "Full control",
@@ -195,17 +217,31 @@ export default function HostPage() {
           illustration={phoneNew}
         />
 
+        <section id="host-faqs" className="bg-slate-50">
+          <Container className="py-16 lg:py-20">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <H2>ParkingOath Sydney FAQs</H2>
+              <Text size="lg" className="mt-4 text-slate-600">
+                Everything you need to know about hosting with ParkingOath in Sydney.
+              </Text>
+            </div>
+            <div className="mx-auto max-w-3xl">
+              <FaqAccordion items={hostFaqs} />
+            </div>
+          </Container>
+        </section>
+
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
-            <div className="mx-auto max-w-3xl text-center space-y-4">
+            <div className="mx-auto max-w-3xl space-y-4 text-center">
               <H2 className="text-white">Launching soon in Sydney, NSW</H2>
               <Text className="text-white/80">
-                We're onboarding a limited number of early hosts ahead of launch. Early
-                hosts get priority visibility, help shape how the app works, and are ready
-                to earn from day one.
+                We&apos;re onboarding a limited number of early hosts ahead of launch. Early
+                hosts get priority visibility, help shape how the app works, and are ready to
+                earn from day one.
               </Text>
               <div className="flex justify-center">
-                <Link href="/early-access" className={buttonClasses({ size: "lg" })}>
+                <Link href="/host#early-access-form" className={buttonClasses({ size: "lg" })}>
                   Get Early Access
                 </Link>
               </div>
@@ -215,7 +251,7 @@ export default function HostPage() {
 
         <section className="bg-white">
           <Container className="py-16">
-            <div className="mx-auto max-w-3xl text-center space-y-3">
+            <div className="mx-auto max-w-3xl space-y-3 text-center">
               <H2>Your space. Your timing. Your money.</H2>
               <Text className="text-slate-600">
                 ParkingOath gives you a simple way to earn from something you already have,
@@ -225,7 +261,7 @@ export default function HostPage() {
           </Container>
         </section>
       </main>
-      <Footer />
+      <Footer sections={hostFooterSections} />
     </div>
   );
 }
