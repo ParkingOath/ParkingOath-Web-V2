@@ -76,17 +76,19 @@ export function ProcessSteps({
             </div>
           ))}
         </div>
-        <div className="mt-10 flex justify-center">
-          {onCtaClick ? (
-            <Button onClick={onCtaClick}>
-              {ctaLabel} <span aria-hidden="true">↗</span>
-            </Button>
-          ) : (
-            <Link href={ctaHref} className={buttonClasses({ size: "md" })}>
-              {ctaLabel} <span aria-hidden="true">↗</span>
-            </Link>
-          )}
-        </div>
+        {ctaLabel ? (
+          <div className="mt-10 flex justify-center">
+            {onCtaClick ? (
+              <Button onClick={onCtaClick}>
+                {ctaLabel} <span aria-hidden="true">↗</span>
+              </Button>
+            ) : (
+              <Link href={ctaHref} className={buttonClasses({ size: "md" })}>
+                {ctaLabel} <span aria-hidden="true">↗</span>
+              </Link>
+            )}
+          </div>
+        ) : null}
       </div>
     </section>
   );
