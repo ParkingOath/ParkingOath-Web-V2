@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { createMetaEventId, getBrowserCookie } from "@/lib/meta-browser";
 
@@ -16,8 +16,6 @@ declare global {
 
 export function MetaPixelPageViewTracker() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const search = searchParams.toString();
 
   useEffect(() => {
     const eventId = createMetaEventId("pv");
@@ -44,7 +42,7 @@ export function MetaPixelPageViewTracker() {
     }).catch((error) => {
       console.error("Meta PageView server event failed", error);
     });
-  }, [pathname, search]);
+  }, [pathname]);
 
   return null;
 }

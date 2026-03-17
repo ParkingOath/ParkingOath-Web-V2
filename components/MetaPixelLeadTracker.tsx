@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
 
 declare global {
   interface Window {
@@ -11,11 +10,11 @@ declare global {
 }
 
 export function MetaPixelLeadTracker() {
-  const searchParams = useSearchParams();
   const trackedLeadId = useRef<string | null>(null);
-  const leadId = searchParams.get("lead_id");
 
   useEffect(() => {
+    const leadId = new URLSearchParams(window.location.search).get("lead_id");
+
     if (!leadId || trackedLeadId.current === leadId) {
       return;
     }
@@ -26,7 +25,7 @@ export function MetaPixelLeadTracker() {
     if (typeof window.fbq === "function") {
       window.fbq("track", "Lead", {}, { eventID: leadId });
     }
-  }, [leadId]);
+  }, []);
 
   return null;
 }

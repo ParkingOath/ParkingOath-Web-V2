@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ ok: true, ...result });
+    return NextResponse.json(result);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to send PageView";
     console.error("Meta PageView failed", error);
