@@ -33,7 +33,7 @@ export default function RootLayout({
       <head>
         <meta
           name="facebook-domain-verification"
-          content="0nhc2yclvdfky2w7o33k6rlvyq9675"
+          content="29m3ap77kuxc9esy9ebwarnui1ctar"
         />
       </head>
       <body
