@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       { name: "mobilephone", value: body.phone },
       { name: "location__suburb", value: body.location },
       { name: "frequency", value: body.frequency },
+      { name: "_early_access_completed", value: "yes" },
     ].filter((field) => field.value);
 
     const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
