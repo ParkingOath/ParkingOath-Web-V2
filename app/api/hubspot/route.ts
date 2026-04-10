@@ -17,7 +17,6 @@ export async function POST(request: Request) {
       { name: "firstname", value: body.firstName },
       { name: "lastname", value: body.lastName },
       { name: "email", value: body.email },
-      { name: "mobilephone", value: body.phone },
       { name: "location__suburb", value: body.location },
       { name: "frequency", value: body.frequency },
       { name: "_early_access_completed", value: "yes" },
@@ -60,7 +59,6 @@ export async function POST(request: Request) {
             clientIpAddress: getClientIpAddress(request),
             clientUserAgent: request.headers.get("user-agent") ?? undefined,
             email: body.email,
-            phone: body.phone,
             fbc:
               typeof body.fbc === "string" && body.fbc.length > 0
                 ? body.fbc

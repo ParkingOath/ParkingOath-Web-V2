@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/bhavyadhingra/.claude/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/bhavyadhingra/.claude"
+    ]
+  }
+}

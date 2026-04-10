@@ -44,7 +44,6 @@ export function EarlyAccessForm({
       eventSourceUrl: window.location.href,
       fbc: getBrowserCookie("_fbc"),
       fbp: getBrowserCookie("_fbp"),
-      phone: String(formData.get("phone") ?? ""),
       location: String(formData.get("location") ?? ""),
       frequency: String(formData.get("frequency") ?? ""),
       metaEventId: leadEventId,
@@ -112,17 +111,6 @@ export function EarlyAccessForm({
             placeholder="Your email"
             type="email"
             name="email"
-            required
-          />
-        </label>
-
-        <label className="block space-y-2 text-sm font-medium text-slate-700">
-          Phone Number
-          <input
-            className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
-            placeholder="Phone number"
-            type="tel"
-            name="phone"
             required
           />
         </label>
