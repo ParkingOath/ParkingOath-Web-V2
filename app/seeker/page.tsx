@@ -167,7 +167,7 @@ export default function SeekerPage() {
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
             <div className="mx-auto max-w-3xl text-center space-y-4">
-              <H2 className="text-white">Launching soon in Sydney, NSW</H2>
+              <H2 className="text-white">Launching soon</H2>
               <Text className="text-white/80">
                 ParkingOath is preparing to launch in Sydney. Early access members are
                 first to use the parking app when it goes live, help shape how the system
