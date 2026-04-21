@@ -118,7 +118,7 @@ export default function HostPage() {
         <AnimatedFeatureSection
           id="get-paid"
           backgroundImage={functionsBackground}
-          title="Get paid when it matters"
+          title="Get paid when it matters!"
           description="Most parking platforms expect you to plan ahead. ParkingOath is built for right now."
           imagePosition="left"
           items={[
