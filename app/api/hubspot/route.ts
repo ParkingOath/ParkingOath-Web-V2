@@ -6,11 +6,18 @@ import {
   sendMetaServerEvent,
 } from "@/lib/meta-conversions-api";
 
-const HUBSPOT_PORTAL_ID = "442272651";
-const HUBSPOT_FORM_ID = "ce44dfa1-4c8f-4750-994b-2dcf3bc425d2";
-
 export async function POST(request: Request) {
   try {
+    const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
+    const hubspotFormId = process.env.HUBSPOT_EARLY_ACCESS_FORM_ID;
+
+    if (!hubspotPortalId || !hubspotFormId) {
+      return NextResponse.json(
+        { message: "HubSpot configuration is missing" },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
 
     const fields = [
@@ -22,7 +29,7 @@ export async function POST(request: Request) {
       { name: "_early_access_completed", value: "yes" },
     ].filter((field) => field.value);
 
-    const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+    const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`;
 
     const response = await fetch(endpoint, {
       method: "POST",
