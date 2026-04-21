@@ -61,7 +61,7 @@ export default function HostPage() {
               />
               <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8">
                 <div className="inline-flex rounded-full bg-white/10 px-4 py-1 text-sm font-semibold text-white/90">
-                  Launching soon in Sydney
+                  Launching soon
                 </div>
                 <H2 className="text-white">Join the first wave of hosts.</H2>
                 <Text className="text-white/80">
@@ -237,7 +237,7 @@ export default function HostPage() {
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
             <div className="mx-auto max-w-3xl space-y-4 text-center">
-              <H2 className="text-white">Launching soon in Sydney, NSW</H2>
+              <H2 className="text-white">Launching soon</H2>
               <Text className="text-white/80">
                 We&apos;re onboarding a limited number of early hosts ahead of launch. Early
                 hosts get priority visibility, help shape how the app works, and are ready to
