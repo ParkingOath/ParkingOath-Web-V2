@@ -5,15 +5,15 @@ export interface FaqItemData {
 
 export const hostFaqs: FaqItemData[] = [
     {
-        question: "What kind of parking spaces can I list in Sydney?",
-        answer: "You can list a driveway or private off-street parking space in Sydney that is legally available and accessible to drivers."
+        question: "What kind of parking spaces can I list?",
+        answer: "You can list a driveway or private off-street parking space that is legally available and accessible to drivers."
     },
     {
         question: "Do I have to commit to hosting my parking space?",
-        answer: "No. You are always in control. List your Sydney parking space when it suits you, pause it at any time, and stop whenever you want."
+        answer: "No. You are always in control. List your parking space when it suits you, pause it at any time, and stop whenever you want."
     },
     {
-        question: "How do I get paid for my parking space in Sydney?",
+        question: "How do I get paid for my parking space?",
         answer: "When a driver parks in your space, payment is processed through the app and deposited to you. No cash handling and no admin."
     },
     {
@@ -28,16 +28,16 @@ export const hostFaqs: FaqItemData[] = [
 
 export const driverFaqs: FaqItemData[] = [
     {
-        question: "How does ParkingOath help me find parking in Sydney?",
-        answer: "ParkingOath shows parking as it becomes available near your destination in Sydney. Set your preferences, say where you're going, and the app guides you to parking without circling or guessing."
+        question: "How does ParkingOath help me find parking?",
+        answer: "ParkingOath shows parking as it becomes available near your destination. Set your preferences, say where you're going, and the app guides you to parking without circling or guessing."
     },
     {
-        question: "Do I need to book parking in advance in Sydney?",
-        answer: "No. ParkingOath is built for real-time parking in Sydney, not advance bookings. It's designed for busy Sydney conditions where timing matters."
+        question: "Do I need to book parking in advance?",
+        answer: "No. ParkingOath is built for real-time parking, not advance bookings. It's designed for busy conditions where timing matters."
     },
     {
-        question: "Can I use ParkingOath while driving in Sydney?",
-        answer: "Yes. ParkingOath supports voice-led search, so you can find parking hands-free while driving in Sydney and stay focused on the road."
+        question: "Can I use ParkingOath while driving?",
+        answer: "Yes. ParkingOath supports voice-led search, so you can find parking hands-free while driving and stay focused on the road."
     },
     {
         question: "What happens if the parking spot is no longer available?",

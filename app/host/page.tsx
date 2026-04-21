@@ -61,7 +61,7 @@ export default function HostPage() {
               />
               <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8">
                 <div className="inline-flex rounded-full bg-white/10 px-4 py-1 text-sm font-semibold text-white/90">
-                  Launching soon in Sydney
+                  Launching soon
                 </div>
                 <H2 className="text-white">Join the first wave of hosts.</H2>
                 <Text className="text-white/80">
@@ -84,7 +84,7 @@ export default function HostPage() {
                 <div className="space-y-6">
                   <H1 className="leading-tight">Turn your empty parking space into extra cash</H1>
                   <Text size="lg" className="text-slate-600">
-                    List your parking space in Sydney, NSW and get bookings when you need the
+                    List your parking space in Australia, and get bookings when you need the
                     money, not weeks in advance.
                   </Text>
                   <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
@@ -103,7 +103,7 @@ export default function HostPage() {
                 <div className="relative z-10 overflow-hidden rounded-2xl shadow-2xl">
                   <Image
                     src={hostHero}
-                    alt="Modern Sydney home with available parking"
+                    alt="Modern home with available parking"
                     className="h-auto w-full object-cover"
                     priority
                   />
@@ -223,9 +223,9 @@ export default function HostPage() {
         <section id="host-faqs" className="bg-slate-50">
           <Container className="py-16 lg:py-20">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <H2>ParkingOath Sydney FAQs</H2>
+              <H2>ParkingOath FAQs</H2>
               <Text size="lg" className="mt-4 text-slate-600">
-                Everything you need to know about hosting with ParkingOath in Sydney.
+                Everything you need to know about hosting with ParkingOath.
               </Text>
             </div>
             <div className="mx-auto max-w-3xl">
@@ -237,7 +237,7 @@ export default function HostPage() {
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
             <div className="mx-auto max-w-3xl space-y-4 text-center">
-              <H2 className="text-white">Launching soon in Sydney, NSW</H2>
+              <H2 className="text-white">Launching soon.</H2>
               <Text className="text-white/80">
                 We&apos;re onboarding a limited number of early hosts ahead of launch. Early
                 hosts get priority visibility, help shape how the app works, and are ready to
