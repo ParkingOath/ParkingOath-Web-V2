@@ -2,7 +2,7 @@ export const TESTIMONIALS = [
     {
         content: "Parking Oath has completely changed how I think about my driveway. I'm earning an extra $200 a month with almost zero effort. The app is so easy to use!",
         author: "Sarah J.",
-        role: "Homeowner in Sydney",
+        role: "Homeowner",
         initials: "SJ",
         stars: 5,
     },
