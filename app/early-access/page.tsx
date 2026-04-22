@@ -25,17 +25,17 @@ export default function EarlyAccessPage() {
                         {/* Content Column */}
                         <div>
                             <H1 className="mb-6 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                                Early Host Access - Sydney
+                                Early Host Access
                             </H1>
                             <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-600 mb-6">
                                 Limited spots
                             </div>
                             <Text size="lg" className="mb-4 text-slate-600">
                                 We&apos;re onboarding a limited number of early hosts ahead of launch to build reliable parking
-                                availability from day one in Sydney.
+                                availability for when the app officially launches.
                             </Text>
                             <Text size="lg" className="mb-4 text-slate-600">
-                                Early hosts are prioritised as the platform launches suburb by suburb across Sydney.
+                                Early hosts are prioritised as the platform launches.
                             </Text>
                             <div className="mb-6">
                                 <Text size="lg" className="text-slate-700 font-semibold mb-3">
