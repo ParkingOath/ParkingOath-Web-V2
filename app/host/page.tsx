@@ -103,7 +103,7 @@ export default function HostPage() {
                 <div className="relative z-10 overflow-hidden rounded-2xl shadow-2xl">
                   <Image
                     src={hostHero}
-                    alt="Modern Sydney home with available parking"
+                    alt="Modern Australian home with available parking"
                     className="h-auto w-full object-cover"
                     priority
                   />
@@ -223,7 +223,7 @@ export default function HostPage() {
         <section id="host-faqs" className="bg-slate-50">
           <Container className="py-16 lg:py-20">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <H2>ParkingOath Sydney FAQs</H2>
+              <H2>ParkingOath FAQs</H2>
               <Text size="lg" className="mt-4 text-slate-600">
                 Everything you need to know about hosting with ParkingOath.
               </Text>
