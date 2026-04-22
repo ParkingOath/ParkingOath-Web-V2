@@ -1,10 +1,10 @@
 export const CONTROL_CONTENT = {
     title: {
         text1: "A parking app built for",
-        highlight: "Sydney",
+        highlight: "Australian",
         text2: "drivers",
     },
-    description: "ParkingOath is designed for busy Sydney conditions where parking availability changes constantly. You focus on driving. ParkingOath handles the parking.",
+    description: "ParkingOath is designed for busy conditions where parking availability changes constantly. You focus on driving. ParkingOath handles the parking.",
 };
 
 export const CONTROL_ITEMS = [
