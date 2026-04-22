@@ -21,7 +21,7 @@ export const TESTIMONIALS = [
         stars: 5,
     },
     {
-        content: "I was skeptical at first, but the security and insurance peace of mind made me join. Best decision I've made for my passive income.",
+        content: "I was skeptical at first, but the security gave me peace of mind made me join. Best decision I've made for my passive income.",
         author: "Emma W.",
         role: "Suburban Host",
         initials: "EW",
