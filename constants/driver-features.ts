@@ -1,10 +1,10 @@
 export const DRIVER_FEATURES_CONTENT = {
     title: {
         prefix: "Find parking in",
-        highlight: "Sydney",
+        highlight: "Australia",
         suffix: "without the stress",
     },
-    description: "Parking in Sydney can be unpredictable. ParkingOath is built for real-world driving, when you need parking now, not hours earlier.",
+    description: "Parking can be unpredictable. ParkingOath is built for real-world driving, when you need parking now, not hours earlier.",
 };
 
 export const DRIVER_FEATURES_ITEMS = [
