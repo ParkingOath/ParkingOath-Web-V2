@@ -62,7 +62,7 @@ export default function FaqPage() {
             <main className="flex-grow py-20 sm:py-32">
                 <Container size="default">
                     <div className="mx-auto max-w-3xl text-center">
-                        <H1 className="mb-6">ParkingOath Sydney FAQs</H1>
+                        <H1 className="mb-6">ParkingOath FAQs</H1>
                         <Text size="lg" className="mb-12 text-slate-600">
                             Everything you need to know about ParkingOath. Can't find the answer you're looking for? Reach out to our support team.
                         </Text>
