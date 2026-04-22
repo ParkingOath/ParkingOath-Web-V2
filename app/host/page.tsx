@@ -84,8 +84,8 @@ export default function HostPage() {
                 <div className="space-y-6">
                   <H1 className="leading-tight">Turn your empty parking space into extra cash</H1>
                   <Text size="lg" className="text-slate-600">
-                    List your parking space in Sydney, NSW and get bookings when you need the
-                    money, not weeks in advance.
+                    List your parking space in Australia, and get bookings when you need the
+                    money, not weeks in later.
                   </Text>
                   <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
                     ParkingOath lets you earn money from your driveway or private off-street
@@ -178,13 +178,13 @@ export default function HostPage() {
             },
             {
               title: "You set the price",
-              description: "Charge what you want. Hourly or short stays, it's your call.",
+              description: "Charge what you want. It's your call.",
               icon: <MdOutlinePriceChange {...iconProps} />,
             },
             {
               title: "More turnover, more opportunity",
               description:
-                "When one driver leaves, you can relist straight away. No waiting for future bookings.",
+                "When one driver leaves, you can automatically relist straight away. No waiting for future bookings.",
               icon: <HiOutlineCheckCircle {...iconProps} />,
             },
           ]}
@@ -225,7 +225,7 @@ export default function HostPage() {
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <H2>ParkingOath Sydney FAQs</H2>
               <Text size="lg" className="mt-4 text-slate-600">
-                Everything you need to know about hosting with ParkingOath in Sydney.
+                Everything you need to know about hosting with ParkingOath.
               </Text>
             </div>
             <div className="mx-auto max-w-3xl">
