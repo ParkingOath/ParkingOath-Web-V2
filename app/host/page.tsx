@@ -11,7 +11,7 @@ import { Container } from "@/components/Container";
 import { EarlyAccessForm } from "@/components/EarlyAccessForm";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { Footer, type FooterSection } from "@/components/Footer";
-import { H1, H2 } from "@/components/Headers";
+import { H1, H2, H3 } from "@/components/Headers";
 import { Navbar, type NavLink } from "@/components/Navbar";
 import { Text } from "@/components/Text";
 import { hostFaqs } from "@/app/faqs/faq-data";
@@ -53,26 +53,48 @@ export default function HostPage() {
         <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
           <Container className="py-12 lg:py-16">
             <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-              <EarlyAccessForm
-                pageName="Host"
-                redirectHref="/thank-you"
-                title="Get Early Host Access"
-                description="Fill in your details to be notified when hosting access opens in your area."
-              />
-              <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8">
-                <div className="inline-flex rounded-full bg-white/10 px-4 py-1 text-sm font-semibold text-white/90">
-                  Launching soon
-                </div>
-                <H2 className="text-white">Join the first wave of hosts.</H2>
-                <Text className="text-white/80">
-                  Reserve your place now so you&apos;re ready to earn as soon as ParkingOath
-                  opens in your suburb.
-                </Text>
-                <Text className="text-white/80">
-                  Early hosts get priority visibility, early launch updates, and a head start
-                  before wider host onboarding begins.
-                </Text>
+              <div className="text-[112%]">
+                <EarlyAccessForm
+                  pageName="Host"
+                  redirectHref="/thank-you"
+                  title="Get Early Host Access"
+                  description="Fill in your details to be notified when hosting access opens in your area."
+                  submitLabel="Claim My Spot"
+                />
               </div>
+              <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8">
+                <div className="inline-flex rounded-full bg-amber-400/20 px-4 py-1 text-sm font-semibold text-amber-300">
+                  🔥 Only 200 founding spots available
+                </div>
+                <H2 className="text-white">Your driveway. Zero fees. Real money.</H2>
+                <Text className="text-white/80">
+                  Be one of the first{" "}
+                  <span className="font-bold text-white">200 Founding Hosts</span>{" "}
+                  to join ParkingOath and you&apos;ll keep every dollar for the first two months.{" "}
+                  <span className="font-bold text-white">No fees!</span>
+                </Text>
+                <Text className="text-white font-semibold text-lg">
+                  After that, you&apos;re permanently locked at 10%, while everyone else pays 15%.
+                </Text>
+                <div className="flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                    🔒 0% commission · 2 months
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                    ♾️ Locked at 10% forever
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                    ⚡ Instant payouts
+                  </div>
+                </div>
+                <Link
+                  href="/host#early-access-form"
+                  className="inline-block rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-[#1f1746] transition hover:bg-amber-300"
+                >
+                  Claim Your Spot — Join Free for 2 Months
+                </Link>
+              </div>
+
             </div>
           </Container>
         </section>
@@ -84,7 +106,7 @@ export default function HostPage() {
                 <div className="space-y-6">
                   <H1 className="leading-tight">Turn your empty parking space into extra cash</H1>
                   <Text size="lg" className="text-slate-600">
-                    List your parking space in Sydney, NSW and get bookings when you need the
+                    List your parking space and get bookings when you need the
                     money, not weeks in advance.
                   </Text>
                   <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
@@ -103,7 +125,7 @@ export default function HostPage() {
                 <div className="relative z-10 overflow-hidden rounded-2xl shadow-2xl">
                   <Image
                     src={hostHero}
-                    alt="Modern Sydney home with available parking"
+                    alt="Modern Australian home with available parking"
                     className="h-auto w-full object-cover"
                     priority
                   />
@@ -223,9 +245,9 @@ export default function HostPage() {
         <section id="host-faqs" className="bg-slate-50">
           <Container className="py-16 lg:py-20">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <H2>ParkingOath Sydney FAQs</H2>
+              <H2>ParkingOath FAQs</H2>
               <Text size="lg" className="mt-4 text-slate-600">
-                Everything you need to know about hosting with ParkingOath in Sydney.
+                Everything you need to know about hosting with ParkingOath.
               </Text>
             </div>
             <div className="mx-auto max-w-3xl">
@@ -268,3 +290,4 @@ export default function HostPage() {
     </div>
   );
 }
+
