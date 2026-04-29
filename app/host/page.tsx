@@ -53,7 +53,7 @@ export default function HostPage() {
         <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
           <Container className="py-12 lg:py-16">
             <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-              <div className="text-[112%] order-2 lg:order-1">
+               <div className="text-[112%]">
                 <EarlyAccessForm
                   pageName="Host"
                   redirectHref="/thank-you"
@@ -66,8 +66,7 @@ export default function HostPage() {
                 <div className="inline-flex rounded-full bg-amber-400/20 px-4 py-1 text-sm font-semibold text-amber-300">
                   🔥 Only 200 founding spots available
                 </div>
-                <H2 className="text-white">Keep 100% of what you earn.
-For your first 2 months.</H2>
+                <H2 className="text-white">Keep 100% of what you earn.  For your first 2 months.</H2>
                 <Text className="text-white/80">
                   Be one of the first{" "}
                   <span className="font-bold text-white">200 Founding Hosts</span>{" "}
@@ -255,7 +254,19 @@ For your first 2 months.</H2>
           illustration={phoneNew}
         />
 
-        
+        <section id="host-faqs" className="bg-slate-50">
+          <Container className="py-16 lg:py-20">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <H2>ParkingOath FAQs</H2>
+              <Text size="lg" className="mt-4 text-slate-600">
+                Everything you need to know about hosting with ParkingOath.
+              </Text>
+            </div>
+            <div className="mx-auto max-w-3xl">
+              <FaqAccordion items={hostFaqs} />
+            </div>
+          </Container>
+        </section>
 
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
