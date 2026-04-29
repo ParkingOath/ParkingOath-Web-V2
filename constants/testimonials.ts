@@ -2,7 +2,7 @@ export const TESTIMONIALS = [
     {
         content: "Parking Oath has completely changed how I think about my driveway. I'm earning an extra $200 a month with almost zero effort. The app is so easy to use!",
         author: "Sarah J.",
-        role: "Homeowner in Sydney",
+        role: "Homeowner",
         initials: "SJ",
         stars: 5,
     },
@@ -21,7 +21,7 @@ export const TESTIMONIALS = [
         stars: 5,
     },
     {
-        content: "I was skeptical at first, but the security and insurance peace of mind made me join. Best decision I've made for my passive income.",
+        content: "I was skeptical at first, but the security gave me peace of mind made me join. Best decision I've made for my passive income.",
         author: "Emma W.",
         role: "Suburban Host",
         initials: "EW",

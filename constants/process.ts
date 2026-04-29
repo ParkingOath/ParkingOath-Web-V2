@@ -20,6 +20,6 @@ export const PROCESS_STEPS = [
     {
         step: "Step 3",
         title: "Navigate to parking nearby",
-        description: "We guide you to available parking in Sydney as it becomes available.",
+        description: "We guide you to available parking as it becomes available.",
     },
 ];

@@ -1,12 +1,12 @@
 export const FUNCTIONS_CONTENT = {
     title: {
-        highlight1: "Sydney",
+        highlight1: "Australia",
         highlight2: "Turn it into extra cash",
         prefix: "Have an unused parking space in",
         middle: "?",
         suffix: "",
     },
-    description: "If you have a driveway or private off-street parking space in Sydney, ParkingOath lets you earn money by listing it only when it suits you. Your space. Your timing. Your rules.",
+    description: "If you have a driveway or private off-street parking space, ParkingOath lets you earn money by listing it only when it suits you. Your space. Your timing. Your rules.",
 };
 
 export const FUNCTIONS_ITEMS = [

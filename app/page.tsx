@@ -15,7 +15,7 @@ import { getAssetAlt, getAssetUrl, getLandingPage } from "@/lib/contentful";
 export const metadata: Metadata = {
   title: "ParkingOath - Peer to peer parking",
   description:
-    "The smarter way to find and list parking in Sydney. Find nearby spaces or earn from your driveway with ParkingOath.",
+    "The smarter way to find and list parking. Find nearby spaces or earn from your driveway with ParkingOath.",
 };
 
 const Home = async () => {

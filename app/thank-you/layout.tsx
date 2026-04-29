@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Thank You | ParkingOath",
   description:
-    "Thanks for registering your interest to host with ParkingOath in Sydney.",
+    "Thanks for registering your interest to host with ParkingOath.",
 };
 
 export default function ThankYouLayout({

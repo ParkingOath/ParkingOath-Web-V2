@@ -66,11 +66,11 @@ export default function ThankYouPage() {
                 <H1>You're in.</H1>
                 <Text size="lg" className="text-slate-600">
                   You're now one of the first ParkingOath hosts preparing to earn money
-                  from an unused driveway or parking space in Sydney.
+                  from an unused driveway or parking space.
                 </Text>
                 <Text className="text-slate-600">
-                  Early hosts are ready when drivers start looking for parking across
-                  Sydney. You&apos;re now in position to be one of the first spaces visible
+                  Early hosts are ready when drivers start looking for parking.
+                  You&apos;re now in position to be one of the first spaces visible
                   in your area.
                 </Text>
               </div>
