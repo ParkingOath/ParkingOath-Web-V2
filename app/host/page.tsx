@@ -52,8 +52,8 @@ export default function HostPage() {
       <main className="flex-grow">
         <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
           <Container className="py-12 lg:py-16">
-            <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-               <div className="text-[112%]">
+            <div className="grid items-stretch gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+                <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8">
                 <EarlyAccessForm
                   pageName="Host"
                   redirectHref="/thank-you"
@@ -85,6 +85,21 @@ export default function HostPage() {
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
                     ⚡ Instant payouts
+                  </div>
+                </div>
+                <div className="rounded-2xl bg-white/5 p-4 space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                    Founding Host Spots Claimed
+                  </p>
+                  <div className="w-full rounded-full bg-white/10 h-2">
+                    <div className="h-2 rounded-full bg-amber-400" style={{ width: '%' }} />
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-3xl font-extrabold text-amber-400">37</span>
+                      <span className="text-lg font-bold text-white"> of 200</span>
+                    </div>
+                    <span className="text-sm font-semibold text-amber-400">163 spots remaining</span>
                   </div>
                 </div>
                 <Link
