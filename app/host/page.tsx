@@ -106,13 +106,8 @@ export default function HostPage() {
                 <div className="space-y-6">
                   <H1 className="leading-tight">Turn your empty parking space into extra cash</H1>
                   <Text size="lg" className="text-slate-600">
-<<<<<<< HEAD
                     List your parking space and get bookings when you need the
                     money, not weeks in advance.
-=======
-                    List your parking space in Australia, and get bookings when you need the
-                    money, not weeks in later.
->>>>>>> 0905908cd4d3a8b0ecba2d6e0aad40d1eae74f55
                   </Text>
                   <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
                     ParkingOath lets you earn money from your driveway or private off-street
