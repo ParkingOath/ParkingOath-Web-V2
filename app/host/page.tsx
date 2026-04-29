@@ -92,7 +92,7 @@ export default function HostPage() {
                     Founding Host Spots Claimed
                   </p>
                   <div className="w-full rounded-full bg-white/10 h-2">
-                    <div className="h-2 rounded-full bg-amber-400" style={{ width: '%' }} />
+                    <div className="h-2 rounded-full bg-amber-400" style={{ width: '18.5%' }} />
                   </div>
                   <div className="flex items-baseline justify-between">
                     <div className="flex items-baseline gap-1">
@@ -269,19 +269,7 @@ export default function HostPage() {
           illustration={phoneNew}
         />
 
-        <section id="host-faqs" className="bg-slate-50">
-          <Container className="py-16 lg:py-20">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <H2>ParkingOath FAQs</H2>
-              <Text size="lg" className="mt-4 text-slate-600">
-                Everything you need to know about hosting with ParkingOath.
-              </Text>
-            </div>
-            <div className="mx-auto max-w-3xl">
-              <FaqAccordion items={hostFaqs} />
-            </div>
-          </Container>
-        </section>
+        
 
         <section className="bg-[#1f1746] text-white">
           <Container className="py-20 lg:py-24">
