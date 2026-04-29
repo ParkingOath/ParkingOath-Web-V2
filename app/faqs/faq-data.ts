@@ -5,25 +5,29 @@ export interface FaqItemData {
 
 export const hostFaqs: FaqItemData[] = [
     {
-        question: "What kind of parking spaces can I list?",
-        answer: "You can list a driveway or private off-street parking space that is legally available and accessible to drivers."
+        question: "How are fees charged when someone parks in my driveway?",
+    answer: "Each time a driver parks, we deduct a small percentage from the payment before you receive your earnings. You'll see all transactions in your dashboard.",
     },
     {
-        question: "Do I have to commit to hosting my parking space?",
-        answer: "No. You are always in control. List your parking space when it suits you, pause it at any time, and stop whenever you want."
+        question: "Will I pay any fees if no one parks in my space?",
+    answer: "No, you only pay when a parking transaction happens. If your space isn't used, there's no fee.",
     },
     {
-        question: "How do I get paid for my parking space?",
-        answer: "When a driver parks in your space, payment is processed through the app and deposited to you immediately No cash handling and no admin."
+        question: "What's the difference between the early access fee and the standard fee?",
+    answer: "Early adopters pay no fees for two months and then only 10% afterward. Standard hosts pay a competitive 15%.",
     },
     {
-        question: "Can I choose who parks in my space?",
-        answer: "You control how your space is used by setting clear access instructions and rules. Drivers are expected to follow the details you provide."
+        question: "How do I know the person parking is safe?",
+    answer: "We verify all drivers and secure their payment details. You control when your space is available, your safety is important to us.",
     },
     {
-        question: "What if my space is only available for short periods?",
-        answer: "Short availability works well. ParkingOath is designed for high-turnover parking, so even brief windows can be listed and used."
-    }
+        question: "How long can I list my parking space for?",
+    answer: "It's fully flexible! You decide your availability, daily, hourly, or whenever suits you.",
+    },
+    {
+        question: "How quickly can I list my parking space?",
+        answer: "You can list it in just minutes, add your details, set availability, and you're ready for bookings at launch!",
+    },
 ];
 
 export const driverFaqs: FaqItemData[] = [
