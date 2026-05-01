@@ -42,7 +42,13 @@ const hostFooterSections: FooterSection[] = [
 
 export default function HostPage() {
   const iconProps = { size: 20, className: "block" };
-  const [spotsClaimed, setSpotsClaimed] = React.useState(37);
+  const [spotsClaimed, setSpotsClaimed] = React.useState(() => {
+    const startDate = new Date('2026-05-01T00:00:00').getTime();
+    const now = Date.now();
+    const hoursElapsed = (now - startDate) / (1000 * 60 * 60);
+    const count = Math.round(37 + (hoursElapsed * (163 / 720)));
+    return Math.min(count, 200);
+  });
   
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
