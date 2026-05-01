@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineCheckCircle, HiOutlineClock, HiOutlinePlus } from "react-icons/hi2";
@@ -41,7 +42,8 @@ const hostFooterSections: FooterSection[] = [
 
 export default function HostPage() {
   const iconProps = { size: 20, className: "block" };
-
+  const [spotsClaimed, setSpotsClaimed] = React.useState(37);
+  
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       <Navbar
@@ -53,7 +55,7 @@ export default function HostPage() {
         <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
           <Container className="py-12 lg:py-16">
             <div className="grid items-stretch gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-                <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8">
+                <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8" onSubmit={() => setSpotsClaimed(s => Math.min(s + 1, 200))}>
                 <EarlyAccessForm
                   pageName="Host"
                   redirectHref="/thank-you"
@@ -92,22 +94,22 @@ export default function HostPage() {
                     Founding Host Spots Claimed
                   </p>
                   <div className="w-full rounded-full bg-white/10 h-2">
-                    <div className="h-2 rounded-full bg-amber-400" style={{ width: '18.5%' }} />
+                    <div className="h-2 rounded-full bg-amber-400" style={{ width: `${(spotsClaimed / 200) * 100}%` }} />
                   </div>
                   <div className="flex items-baseline justify-between">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-extrabold text-amber-400">37</span>
+                      <span className="text-3xl font-extrabold text-amber-400">{spotsClaimed}</span>
                       <span className="text-lg font-bold text-white"> of 200</span>
                     </div>
-                    <span className="text-sm font-semibold text-amber-400">163 spots remaining</span>
+                     <span className="text-sm font-semibold text-amber-400">{200 - spotsClaimed} spots remaining</span>
                   </div>
                 </div>
-                <Link
-                  href="/host#early-access-form"
-                  className="inline-block rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-[#1f1746] transition hover:bg-amber-300"
+                <button
+                  onClick={() => { setSpotsClaimed(s => Math.min(s + 1, 200)); window.location.href = '#early-access-form'; }}
+                  className="inline-block rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-[#1f1746] transition hover:bg-amber-300 w-full text-center"
                 >
                   Claim Your Spot — Join Free for 2 Months
-                </Link>
+                </button>
               </div>
 
             </div>
