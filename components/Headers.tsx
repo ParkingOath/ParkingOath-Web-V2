@@ -8,11 +8,11 @@ export interface HeadingProps
 }
 
 const levelStyles: Record<NonNullable<HeadingProps["level"]>, string> = {
-  1: "text-4xl font-semibold tracking-tight sm:text-5xl",
-  2: "text-3xl font-semibold tracking-tight sm:text-4xl",
-  3: "text-2xl font-semibold tracking-tight sm:text-3xl",
-  4: "text-xl font-semibold tracking-tight sm:text-2xl",
-  5: "text-lg font-semibold tracking-tight",
+  1: "text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl",
+  2: "text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl",
+  3: "text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl",
+  4: "text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl",
+  5: "text-lg font-semibold tracking-tight sm:text-xl lg:text-2xl",
 };
 
 const defaultColor = "text-black";
