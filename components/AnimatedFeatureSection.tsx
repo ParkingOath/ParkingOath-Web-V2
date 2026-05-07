@@ -49,20 +49,20 @@ export function AnimatedFeatureSection({
         <div className="mx-auto max-w-3xl text-center">
           <H2 className="text-3xl sm:text-4xl lg:text-5xl">{title}</H2>
           {description ? (
-            <div className="mt-4 text-lg sm:text-xl text-slate-600">
+            <div className="mt-4 text-base sm:text-lg text-slate-600">
               {description}
             </div>
           ) : null}
         </div>
         <div
           className={cn(
-            "mt-10 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]",
-            imagePosition === "left" && "lg:grid-cols-[0.9fr_1.1fr]"
+            "mt-8 grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr]",
+            imagePosition === "left" && "lg:grid-cols-[0.95fr_1.05fr]"
           )}
         >
           <div className={cn("space-y-8 lg:max-w-xl", imagePosition === "left" && "lg:order-2")}> 
             {sectionLabel ? (
-              <p className="text-lg font-semibold uppercase tracking-[0.24em] text-brand">
+              <p className="text-base sm:text-lg font-semibold tracking-[0.28em] text-brand">
                 {sectionLabel}
               </p>
             ) : null}
@@ -76,7 +76,7 @@ export function AnimatedFeatureSection({
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-lg sm:text-xl font-semibold text-black">
+                    <p className="text-base sm:text-lg font-semibold text-black leading-7">
                       {item.title}
                     </p>
                     {item.description ? <Text tone="muted">{item.description}</Text> : null}
@@ -87,7 +87,7 @@ export function AnimatedFeatureSection({
           </div>
           <div
             className={cn(
-              "relative mx-auto w-full max-w-[24rem] lg:max-w-[24rem] xl:max-w-[26rem]",
+              "relative mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[24rem] xl:max-w-[26rem]",
               imagePosition === "left" && "lg:order-1"
             )}
           >
@@ -102,7 +102,7 @@ export function AnimatedFeatureSection({
           </div>
         </div>
         {supportingText ? (
-          <div className="mx-auto mt-10 max-w-2xl text-center text-lg sm:text-xl text-slate-600">
+          <div className="mx-auto mt-8 max-w-2xl text-center text-base sm:text-lg text-slate-600">
             {supportingText}
           </div>
         ) : null}

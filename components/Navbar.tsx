@@ -12,6 +12,7 @@ import logo from "@/assets/icon/Vector.png";
 export type NavLink = {
   label: string;
   href: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 };
 
 export interface NavCta extends NavLink {
@@ -81,6 +82,7 @@ export function Navbar({
             <Link
               key={link.label}
               href={link.href}
+              onClick={link.onClick}
               className="transition-colors hover:text-black"
             >
               {link.label}
@@ -133,7 +135,12 @@ export function Navbar({
                   key={link.label}
                   href={link.href}
                   className="transition-colors hover:text-black"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(event) => {
+                    setIsMobileMenuOpen(false);
+                    if (link.onClick) {
+                      link.onClick(event);
+                    }
+                  }}
                 >
                   {link.label}
                 </Link>

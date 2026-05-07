@@ -3,7 +3,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HiOutlineCheckCircle, HiOutlineClock, HiOutlinePlus } from "react-icons/hi2";
+import {
+  HiOutlineBuildingOffice,
+  HiOutlineCheckCircle,
+  HiOutlineClock,
+  HiOutlineEnvelope,
+  HiOutlineIdentification,
+  HiOutlineMapPin,
+  HiOutlinePhone,
+  HiOutlinePlus,
+} from "react-icons/hi2";
 import { MdOutlinePriceChange } from "react-icons/md";
 
 import { AnimatedFeatureSection } from "@/components/AnimatedFeatureSection";
@@ -25,8 +34,39 @@ import hostHero from "@/assets/v2/host_hero.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
 const hostNavLinks: NavLink[] = [
-  { label: "How It Works", href: "/host#how-it-works" },
-  { label: "FAQs", href: "/host#host-faqs" },
+  {
+    label: "How it works",
+    href: "/host#how-it-works",
+    onClick: (event) => {
+      event.preventDefault();
+      const target = document.getElementById("how-it-works");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
+  {
+    label: "FAQs",
+    href: "/host#host-faqs",
+    onClick: (event) => {
+      event.preventDefault();
+      const target = document.getElementById("host-faqs");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
+  {
+    label: "Contact us",
+    href: "/host#contact-us",
+    onClick: (event) => {
+      event.preventDefault();
+      const target = document.getElementById("contact-us");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
 ];
 
 const hostFooterSections: FooterSection[] = [
@@ -97,16 +137,16 @@ export default function HostPage() {
                 </div>
                 <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
                   <button
-                  type="button"
-                  onClick={scrollToForm}
-                  className={buttonClasses({ size: "lg" })}
-                >
-                  Claim a founding host spot
-                </button>
+                    type="button"
+                    onClick={scrollToForm}
+                    className={buttonClasses({ size: "lg" })}
+                  >
+                    Claim a founding host spot
+                  </button>
                 </div>
               </div>
               <div className="relative">
-                <div className="relative z-10 overflow-hidden rounded-2xl shadow-2xl">
+                <div className="relative z-10 mx-auto overflow-hidden rounded-2xl shadow-2xl max-w-[28rem] sm:max-w-[32rem] lg:max-w-[36rem]">
                   <Image
                     src={hostHero}
                     alt="Modern Australian home with available parking"
@@ -152,7 +192,7 @@ export default function HostPage() {
         <AnimatedFeatureSection
           id="get-paid"
           backgroundImage={functionsBackground}
-          title="PAID WHEN THEY PARK"
+          title="Paid when they park"
           description={
             <>
               <Text>
@@ -192,7 +232,7 @@ export default function HostPage() {
 
         <AnimatedFeatureSection
           backgroundImage={functionsBackground}
-          title="WHY HOSTS TRUST PARKINGOATH"
+          title="Why hosts trust ParkingOath"
           items={[
             {
               title: "Every driver verified before they can book",
@@ -293,15 +333,15 @@ export default function HostPage() {
           </Container>
         </section>
 
-        <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
-          <Container className="py-16 lg:py-20">
-            <div className={"grid items-stretch gap-8 lg:gap-12 " + (showFoundingHostCard ? "lg:grid-cols-[1.15fr_0.85fr]" : "lg:grid-cols-1") }>
+        <section id="early-access-form" className="bg-slate-50">
+          <Container className="pt-16 lg:pt-20 pb-10 lg:pb-14">
+            <div className={"grid items-stretch gap-8 lg:gap-12 " + (showFoundingHostCard ? "lg:grid-cols-[1.15fr_0.85fr]" : "lg:grid-cols-1")}>
               <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8">
                 <EarlyAccessForm
                   pageName="Host"
                   redirectHref="/thank-you"
-                  title="Get Early Host Access"
-                  description="Fill in your details to be notified when hosting access opens in your area."
+                  title="Claim a founding host spot"
+                  description=""
                   submitLabel="Claim My Spot"
                 />
               </div>
@@ -349,6 +389,43 @@ export default function HostPage() {
                 </div>
               )}
 
+            </div>
+          </Container>
+        </section>
+
+        <section id="contact-us" className="bg-slate-50">
+          <Container className="pb-14 lg:pb-16">
+            <div className="mx-auto max-w-4xl">
+              <div className="grid gap-6 rounded-[1.75rem] bg-white/95 px-6 py-6 shadow-sm sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                <div className="space-y-2">
+                  <H2 className="text-3xl sm:text-4xl">Contact us</H2>
+                  <p className="max-w-xl text-sm leading-6 text-slate-600 sm:text-base">
+                    Reach out for founding host enquiries or support from ParkingOath.
+                  </p>
+                </div>
+                <div className="grid gap-3 text-sm sm:text-base text-slate-700">
+                  <div className="flex items-start gap-3">
+                    <HiOutlineBuildingOffice size={20} className="shrink-0 text-brand" />
+                    <p className="font-semibold text-slate-900">ParkingOath Pty Ltd</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <HiOutlineIdentification size={20} className="shrink-0 text-brand" />
+                    <p>ABN: 62 666 831 394</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <HiOutlineMapPin size={20} className="shrink-0 text-brand" />
+                    <p>Location: VIC 3000</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <HiOutlineEnvelope size={20} className="shrink-0 text-brand" />
+                    <p>parkingoath@parkingoath.com</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <HiOutlinePhone size={20} className="shrink-0 text-brand" />
+                    <p>+61 494 026 396</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </Container>
         </section>
