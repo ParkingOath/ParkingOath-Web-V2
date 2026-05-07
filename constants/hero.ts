@@ -1,14 +1,14 @@
 export const HERO_CONTENT = {
     title: {
-        highlight1: "Tell us where you're going.",
-        text1: "We'll handle the",
-        highlight2: "parking.",
+        highlight1: "We put our cut in the first sentence.",
+        text1: "",
+        highlight2: "10%.",
         text2: "",
     },
-    description1: "A voice-led parking app for Australia.",
-    description2: "ParkingOath helps drivers find parking without circling, guessing, or switching between apps. Set your preferences, say your destination, and let us guide you to parking near where you're going.",
+    description1: "Founding hosts pay 0% for two months. Then 10% locked in. Future hosts pay 15%.",
+    description2: "No setup fees. Sydney and Gold Coast hosts wanted now.",
     cta: {
-        primary: "Get Early Access",
+        primary: "Claim a founding host spot",
         secondary: "List your parking space",
     },
     featuredBadge: "Featured blog post",

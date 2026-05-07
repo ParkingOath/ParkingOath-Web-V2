@@ -16,7 +16,9 @@ export interface AnimatedFeatureSectionProps {
   id?: string;
   backgroundImage: StaticImageData;
   title: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
+  sectionLabel?: React.ReactNode;
+  supportingText?: React.ReactNode;
   items: AnimatedFeatureSectionItem[];
   illustration: StaticImageData;
   imagePosition?: "left" | "right";
@@ -29,6 +31,8 @@ export function AnimatedFeatureSection({
   backgroundImage,
   title,
   description,
+  sectionLabel,
+  supportingText,
   items,
   illustration,
   imagePosition = "right",
@@ -45,18 +49,23 @@ export function AnimatedFeatureSection({
         <div className="mx-auto max-w-3xl text-center">
           <H2 className="text-3xl sm:text-4xl lg:text-5xl">{title}</H2>
           {description ? (
-            <Text className="mt-4 text-base sm:text-lg" tone="muted">
+            <div className="mt-4 text-lg sm:text-xl text-slate-600">
               {description}
-            </Text>
+            </div>
           ) : null}
         </div>
         <div
           className={cn(
-            "mt-12 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]",
-            imagePosition === "left" && "lg:grid-cols-[0.95fr_1.05fr]"
+            "mt-10 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]",
+            imagePosition === "left" && "lg:grid-cols-[0.9fr_1.1fr]"
           )}
         >
-          <div className={cn(imagePosition === "left" && "lg:order-2")}>
+          <div className={cn("space-y-8 lg:max-w-xl", imagePosition === "left" && "lg:order-2")}> 
+            {sectionLabel ? (
+              <p className="text-lg font-semibold uppercase tracking-[0.24em] text-brand">
+                {sectionLabel}
+              </p>
+            ) : null}
             <FeatureList
               items={items}
               renderItem={(item) => (
@@ -67,10 +76,10 @@ export function AnimatedFeatureSection({
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-base font-semibold text-black">
+                    <p className="text-lg sm:text-xl font-semibold text-black">
                       {item.title}
                     </p>
-                    <Text tone="muted">{item.description}</Text>
+                    {item.description ? <Text tone="muted">{item.description}</Text> : null}
                   </div>
                 </div>
               )}
@@ -78,18 +87,25 @@ export function AnimatedFeatureSection({
           </div>
           <div
             className={cn(
-              "relative mx-auto w-full max-w-md lg:max-w-none",
+              "relative mx-auto w-full max-w-[24rem] lg:max-w-[24rem] xl:max-w-[26rem]",
               imagePosition === "left" && "lg:order-1"
             )}
           >
-            <Image
-              src={illustration}
-              alt="Feature illustration"
-              className={cn("w-full object-contain", illustrationClassName)}
-              priority
-            />
+            <div className="overflow-hidden rounded-3xl shadow-md max-h-[40rem]">
+              <Image
+                src={illustration}
+                alt="Feature illustration"
+                className={cn("w-full h-full object-contain", illustrationClassName)}
+                priority
+              />
+            </div>
           </div>
         </div>
+        {supportingText ? (
+          <div className="mx-auto mt-10 max-w-2xl text-center text-lg sm:text-xl text-slate-600">
+            {supportingText}
+          </div>
+        ) : null}
       </Container>
     </section>
   );

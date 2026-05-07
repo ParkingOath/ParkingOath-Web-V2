@@ -20,6 +20,7 @@ import { hostFaqs } from "@/app/faqs/faq-data";
 import functionsBackground from "@/assets/landing_page/functions/background.png";
 import hostPayment from "@/assets/landing_page/early_access/illustration.png";
 import howItWorksImage from "@/assets/v2/How it works.png";
+import transparentPricing from "@/assets/v2/Transparent pricing.png";
 import hostHero from "@/assets/v2/host_hero.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 
@@ -42,6 +43,8 @@ const hostFooterSections: FooterSection[] = [
 
 export default function HostPage() {
   const iconProps = { size: 20, className: "block" };
+  const showFlexibilitySection = false;
+  const showFoundingHostCard = false;
   const [spotsClaimed, setSpotsClaimed] = React.useState(() => {
     const startDate = new Date('2026-05-01T00:00:00').getTime();
     const now = Date.now();
@@ -49,99 +52,57 @@ export default function HostPage() {
     const count = Math.round(37 + (hoursElapsed * (163 / 720)));
     return Math.min(count, 200);
   });
-  
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo({ top: 0, left: 0 });
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  const scrollToForm = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    event.preventDefault();
+    const target = document.getElementById("early-access-form");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       <Navbar
         brandHref="/host"
         links={hostNavLinks}
-        cta={{ label: "Get Early Access", href: "/host#early-access-form" }}
+        cta={{ label: "Claim a founding host spot", href: "/host", onClick: scrollToForm }}
       />
       <main className="flex-grow">
-        <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
-          <Container className="py-12 lg:py-16">
-            <div className="grid items-stretch gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-                <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8" onSubmit={() => setSpotsClaimed(s => Math.min(s + 1, 200))}>
-                <EarlyAccessForm
-                  pageName="Host"
-                  redirectHref="/thank-you"
-                  title="Get Early Host Access"
-                  description="Fill in your details to be notified when hosting access opens in your area."
-                  submitLabel="Claim My Spot"
-                />
-              </div>
-              <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8 order-1 lg:order-2">
-                <div className="inline-flex rounded-full bg-amber-400/20 px-4 py-1 text-sm font-semibold text-amber-300">
-                  🔥 Only 200 founding spots available
-                </div>
-                <H2 className="text-white">Keep 100% of what you earn.  For your first 2 months.</H2>
-                <Text className="text-white/80">
-                  Be one of the first{" "}
-                  <span className="font-bold text-white">200 Founding Hosts</span>{" "}
-                  to join ParkingOath and you&apos;ll keep every dollar for the first two months.{" "}
-                  <span className="font-bold text-white">No fees!</span>
-                </Text>
-                <Text className="text-white font-semibold text-lg">
-                  After that, you&apos;re permanently locked at 10%, while everyone else pays 15%.
-                </Text>
-                <div className="flex flex-wrap gap-3">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
-                    🔒 0% commission · 2 months
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
-                    ♾️ Locked at 10% forever
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
-                    ⚡ Instant payouts
-                  </div>
-                </div>
-                <div className="rounded-2xl bg-white/5 p-4 space-y-3">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                    Founding Host Spots Claimed
-                  </p>
-                  <div className="w-full rounded-full bg-white/10 h-2">
-                    <div className="h-2 rounded-full bg-amber-400" style={{ width: `${(spotsClaimed / 200) * 100}%` }} />
-                  </div>
-                  <div className="flex items-baseline justify-between">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-extrabold text-amber-400">{spotsClaimed}</span>
-                      <span className="text-lg font-bold text-white"> of 200</span>
-                    </div>
-                     <span className="text-sm font-semibold text-amber-400">{200 - spotsClaimed} spots remaining</span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => { setSpotsClaimed(s => Math.min(s + 1, 200)); window.location.href = '#early-access-form'; }}
-                  className="inline-block rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-[#1f1746] transition hover:bg-amber-300 w-full text-center"
-                >
-                  Claim Your Spot — Join Free for 2 Months
-                </button>
-              </div>
-
-            </div>
-          </Container>
-        </section>
-
         <section className="overflow-hidden bg-white">
-          <Container className="py-16 lg:py-24">
+          <Container className="py-16 lg:py-20">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div className="space-y-8 text-center lg:text-left">
                 <div className="space-y-6">
-                  <H1 className="leading-tight">Turn your empty parking space into extra cash</H1>
-                  <Text size="lg" className="text-slate-600">
-                    List your parking space and get bookings when you need the
-                    money, not weeks in advance.
+                  <H1 className="leading-tight">
+                    We put our cut in the first sentence. 10%.
+                  </H1>
+                  <Text className="text-lg sm:text-xl lg:text-2xl text-slate-600">
+                    Founding hosts pay 0% for two months. Then 10% locked in. Future hosts pay 15%.
                   </Text>
-                  <Text className="mx-auto max-w-2xl text-slate-600 lg:mx-0">
-                    ParkingOath lets you earn money from your driveway or private off-street
-                    parking space on your terms. No calendars. No long commitments. No waiting
-                    for pre-bookings.
+                  <Text className="mx-auto max-w-2xl text-lg sm:text-xl text-slate-600 lg:mx-0">
+                    No setup fees. Sydney and Gold Coast hosts wanted now.
                   </Text>
                 </div>
                 <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
-                  <Link href="/host#early-access-form" className={buttonClasses({ size: "lg" })}>
-                    Get Early Access
-                  </Link>
+                  <button
+                  type="button"
+                  onClick={scrollToForm}
+                  className={buttonClasses({ size: "lg" })}
+                >
+                  Claim a founding host spot
+                </button>
                 </div>
               </div>
               <div className="relative">
@@ -159,50 +120,6 @@ export default function HostPage() {
             </div>
           </Container>
         </section>
-<section id="host-faqs" className="bg-slate-50">
-          <Container className="py-16 lg:py-20">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <H2>ParkingOath FAQs</H2>
-              <Text size="lg" className="mt-4 text-slate-600">
-                Everything you need to know about hosting with ParkingOath.
-              </Text>
-            </div>
-            <div className="mx-auto max-w-3xl">
-              <FaqAccordion items={hostFaqs} />
-            </div>
-          </Container>
-        </section>
-        <AnimatedFeatureSection
-          id="get-paid"
-          backgroundImage={functionsBackground}
-          title="Get paid when it matters!"
-          description="Most parking platforms expect you to plan ahead. ParkingOath is built for right now."
-          imagePosition="left"
-          items={[
-            {
-              title: "List instantly",
-              description: "If your space is empty right now, it can be earning right now.",
-              icon: <HiOutlinePlus {...iconProps} />,
-            },
-            {
-              title: "Automatic earnings",
-              description: "When a driver parks, the payment is handled automatically.",
-              icon: <MdOutlinePriceChange {...iconProps} />,
-            },
-            {
-              title: "Secure payouts",
-              description: "Your earnings are transferred directly and safely to your bank.",
-              icon: <HiOutlineCheckCircle {...iconProps} />,
-            },
-            {
-              title: "Stay informed",
-              description: "Get real-time push notifications for every booking and payout.",
-              icon: <HiOutlineClock {...iconProps} />,
-            },
-          ]}
-          illustration={phoneNew}
-        />
-
         <section id="how-it-works" className="bg-white">
           <Container className="py-16 lg:py-20">
             <div className="mx-auto mb-8 max-w-3xl text-center">
@@ -218,93 +135,220 @@ export default function HostPage() {
           </Container>
         </section>
 
-        <AnimatedFeatureSection
-          backgroundImage={functionsBackground}
-          title="Why hosts choose ParkingOath"
-          items={[
-            {
-              title: "List instantly",
-              description:
-                "Add your parking space in minutes. No complex setup, just the details drivers need.",
-              icon: <HiOutlinePlus {...iconProps} />,
-            },
-            {
-              title: "You decide when it's available",
-              description: "List your space only when it suits you. Pause or relist anytime.",
-              icon: <HiOutlineClock {...iconProps} />,
-            },
-            {
-              title: "You set the price",
-              description: "Charge what you want. It's your call.",
-              icon: <MdOutlinePriceChange {...iconProps} />,
-            },
-            {
-              title: "More turnover, more opportunity",
-              description:
-                "When one driver leaves, you can automatically relist straight away. No waiting for future bookings.",
-              icon: <HiOutlineCheckCircle {...iconProps} />,
-            },
-          ]}
-          illustration={hostPayment}
-        />
-
-        <AnimatedFeatureSection
-          backgroundImage={functionsBackground}
-          title="Built for flexibility, not commitment"
-          description="Hosting your driveway or private off-street parking space on ParkingOath does not mean giving up access to your space."
-          items={[
-            {
-              title: "Full control",
-              description: "You decide exactly when your driveway is available to drivers.",
-              icon: <HiOutlinePlus {...iconProps} />,
-            },
-            {
-              title: "Zero commitment",
-              description: "No long-term contracts or lock-ins. Host on your own schedule.",
-              icon: <HiOutlineCheckCircle {...iconProps} />,
-            },
-            {
-              title: "Pause anytime",
-              description: "Need your space back? Pause your listing with a single tap.",
-              icon: <HiOutlineClock {...iconProps} />,
-            },
-            {
-              title: "Set your rules",
-              description: "Define your own pricing and vehicle requirements effortlessly.",
-              icon: <MdOutlinePriceChange {...iconProps} />,
-            },
-          ]}
-          illustration={phoneNew}
-        />
-
-        
-
-        <section className="bg-[#1f1746] text-white">
-          <Container className="py-20 lg:py-24">
-            <div className="mx-auto max-w-3xl space-y-4 text-center">
-              <H2 className="text-white">Launching soon</H2>
-              <Text className="text-white/80">
-                We&apos;re onboarding a limited number of early hosts ahead of launch. Early
-                hosts get priority visibility, help shape how the app works, and are ready to
-                earn from day one.
-              </Text>
-              <div className="flex justify-center">
-                <Link href="/host#early-access-form" className={buttonClasses({ size: "lg" })}>
-                  Get Early Access
-                </Link>
+        <section className="bg-white">
+          <Container className="py-16 lg:py-20">
+            <div className="mx-auto max-w-6xl">
+              <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
+                <Image
+                  src={transparentPricing}
+                  alt="Transparent pricing"
+                  className="h-auto w-full object-contain"
+                />
               </div>
             </div>
           </Container>
         </section>
 
-        <section className="bg-white">
-          <Container className="py-16">
-            <div className="mx-auto max-w-3xl space-y-3 text-center">
-              <H2>Your space. Your timing. Your money.</H2>
-              <Text className="text-slate-600">
-                ParkingOath gives you a simple way to earn from something you already have,
-                without planning your life around it.
+        <AnimatedFeatureSection
+          id="get-paid"
+          backgroundImage={functionsBackground}
+          title="PAID WHEN THEY PARK"
+          description={
+            <>
+              <Text>
+                Watching someone use your space while your payment is still "processing" is enough to put anyone off.
               </Text>
+              <Text className="mt-4">
+                That's why ParkingOath is built differently.
+              </Text>
+            </>
+          }
+          sectionLabel="The flow"
+          supportingText={
+            <Text>
+              No tenant relationship. No long contract. Toggle availability off when you need the space back.
+            </Text>
+          }
+          imagePosition="left"
+          items={[
+            {
+              title: "Driver books → notification hits your phone",
+              description: "",
+              icon: <HiOutlinePlus {...iconProps} />,
+            },
+            {
+              title: "Booking confirms → payout flows the same moment",
+              description: "",
+              icon: <MdOutlinePriceChange {...iconProps} />,
+            },
+            {
+              title: "Driver parks → you can message them directly through the app",
+              description: "",
+              icon: <HiOutlineCheckCircle {...iconProps} />,
+            },
+          ]}
+          illustration={phoneNew}
+        />
+
+        <AnimatedFeatureSection
+          backgroundImage={functionsBackground}
+          title="WHY HOSTS TRUST PARKINGOATH"
+          items={[
+            {
+              title: "Every driver verified before they can book",
+              description: "",
+              icon: <HiOutlinePlus {...iconProps} />,
+            },
+            {
+              title: "You set when your space is on. You stay in control.",
+              description: "",
+              icon: <HiOutlineClock {...iconProps} />,
+            },
+            {
+              title: "Payout flows the moment a booking confirms, not at month-end",
+              description: "",
+              icon: <MdOutlinePriceChange {...iconProps} />,
+            },
+            {
+              title: "Direct messaging through the app so you can tell the driver exactly where to park",
+              description: "",
+              icon: <HiOutlineCheckCircle {...iconProps} />,
+            },
+            {
+              title: "Australian-built. Real humans on support.",
+              description: "",
+              icon: <HiOutlinePlus {...iconProps} />,
+            },
+          ]}
+          illustration={hostPayment}
+        />
+
+        <section id="host-faqs" className="bg-slate-50">
+          <Container className="py-16 lg:py-20">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <H2>ParkingOath FAQs</H2>
+              <Text size="lg" className="mt-4 text-slate-600">
+                Everything you need to know about hosting with ParkingOath.
+              </Text>
+            </div>
+            <div className="mx-auto max-w-3xl">
+              <FaqAccordion items={hostFaqs} />
+            </div>
+          </Container>
+        </section>
+
+        {showFlexibilitySection && (
+          <AnimatedFeatureSection
+            backgroundImage={functionsBackground}
+            title="Built for flexibility, not commitment"
+            description="Hosting your driveway or private off-street parking space on ParkingOath does not mean giving up access to your space."
+            items={[
+              {
+                title: "Full control",
+                description: "You decide exactly when your driveway is available to drivers.",
+                icon: <HiOutlinePlus {...iconProps} />,
+              },
+              {
+                title: "Zero commitment",
+                description: "No long-term contracts or lock-ins. Host on your own schedule.",
+                icon: <HiOutlineCheckCircle {...iconProps} />,
+              },
+              {
+                title: "Pause anytime",
+                description: "Need your space back? Pause your listing with a single tap.",
+                icon: <HiOutlineClock {...iconProps} />,
+              },
+              {
+                title: "Set your rules",
+                description: "Define your own pricing and vehicle requirements effortlessly.",
+                icon: <MdOutlinePriceChange {...iconProps} />,
+              },
+            ]}
+            illustration={phoneNew}
+          />
+        )}
+
+
+
+        <section className="bg-[#1f1746] text-white">
+          <Container className="py-16 lg:py-20">
+            <div className="mx-auto max-w-3xl space-y-6 text-center">
+              <H2 className="text-white">Founding rate doesn't repeat.</H2>
+              <Text className="text-white/80 max-w-2xl mx-auto">
+                Two months at 0%. Then 10% for as long as you host. Sydney and Gold Coast hosts wanted now. 4 minutes to list.
+              </Text>
+              <div className="flex flex-col items-center gap-4">
+                <button
+                  type="button"
+                  onClick={scrollToForm}
+                  className={buttonClasses({ size: "lg" })}
+                >
+                  Claim a founding host spot
+                </button>
+                <Text className="text-white/80 max-w-md">
+                  No setup fees. You set the price. Cancel anytime.
+                </Text>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
+          <Container className="py-16 lg:py-20">
+            <div className={"grid items-stretch gap-8 lg:gap-12 " + (showFoundingHostCard ? "lg:grid-cols-[1.15fr_0.85fr]" : "lg:grid-cols-1") }>
+              <div className="text-[112%] order-2 lg:order-1 h-full flex flex-col justify-between bg-white rounded-3xl shadow-sm p-6 sm:p-8">
+                <EarlyAccessForm
+                  pageName="Host"
+                  redirectHref="/thank-you"
+                  title="Get Early Host Access"
+                  description="Fill in your details to be notified when hosting access opens in your area."
+                  submitLabel="Claim My Spot"
+                />
+              </div>
+              {showFoundingHostCard && (
+                <div className="space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8 order-1 lg:order-2">
+                  <div className="inline-flex rounded-full bg-amber-400/20 px-4 py-1 text-sm font-semibold text-amber-300">
+                    🔥 Only 200 founding spots available
+                  </div>
+                  <H2 className="text-white">Keep 100% of what you earn.  For your first 2 months.</H2>
+                  <Text className="text-white/80">
+                    Be one of the first{" "}
+                    <span className="font-bold text-white">200 Founding Hosts</span>{" "}
+                    to join ParkingOath and you&apos;ll keep every dollar for the first two months.{" "}
+                    <span className="font-bold text-white">No fees!</span>
+                  </Text>
+                  <Text className="text-white font-semibold text-lg">
+                    After that, you&apos;re permanently locked at 10%, while everyone else pays 15%.
+                  </Text>
+                  <div className="flex flex-wrap gap-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                      🔒 0% commission · 2 months
+                    </div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                      ♾️ Locked at 10% forever
+                    </div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                      ⚡ Instant payouts
+                    </div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 p-4 space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                      Founding Host Spots Claimed
+                    </p>
+                    <div className="w-full rounded-full bg-white/10 h-2">
+                      <div className="h-2 rounded-full bg-amber-400" style={{ width: `${(spotsClaimed / 200) * 100}%` }} />
+                    </div>
+                    <div className="flex items-baseline justify-between">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-extrabold text-amber-400">{spotsClaimed}</span>
+                        <span className="text-lg font-bold text-white"> of 200</span>
+                      </div>
+                      <span className="text-sm font-semibold text-amber-400">{200 - spotsClaimed} spots remaining</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </div>
           </Container>
         </section>

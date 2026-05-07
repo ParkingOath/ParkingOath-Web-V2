@@ -41,8 +41,8 @@ const Home = async () => {
       <Functions />
       {/* <Testimonials /> */}
       {/* <FaqSection /> */}
-      <ContactSection />
       <CtaSection />
+      <ContactSection />
       <Footer />
     </>
   );

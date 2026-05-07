@@ -9,8 +9,8 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
 
 const sizeStyles = {
   sm: "text-sm leading-6",
-  base: "text-base leading-7",
-  lg: "text-lg leading-8",
+  base: "text-base leading-7 sm:text-lg",
+  lg: "text-lg leading-8 sm:text-xl",
 };
 
 const toneStyles = {

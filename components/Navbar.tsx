@@ -14,11 +14,15 @@ export type NavLink = {
   href: string;
 };
 
+export interface NavCta extends NavLink {
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}
+
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   brand?: React.ReactNode;
   brandHref?: string;
   links?: NavLink[];
-  cta?: NavLink;
+  cta?: NavCta;
 }
 
 const defaultLinks: NavLink[] = [
@@ -89,6 +93,7 @@ export function Navbar({
           {cta ? (
             <Link
               href={cta.href}
+              onClick={cta.onClick}
               className={buttonClasses({ variant: "primary", size: "lg" })}
             >
               {cta.label}
@@ -139,7 +144,12 @@ export function Navbar({
                 <Link
                   href={cta.href}
                   className={buttonClasses({ variant: "primary", size: "md", className: "w-full justify-center" })}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(event) => {
+                    setIsMobileMenuOpen(false);
+                    if (cta.onClick) {
+                      cta.onClick(event);
+                    }
+                  }}
                 >
                   {cta.label}
                 </Link>

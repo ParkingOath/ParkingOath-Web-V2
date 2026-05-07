@@ -33,7 +33,7 @@ export function FeatureList({ items, className, renderItem }: FeatureListProps) 
                 <p className="text-base font-semibold text-black">
                   {item.title}
                 </p>
-                <Text tone="muted">{item.description}</Text>
+                {item.description ? <Text tone="muted">{item.description}</Text> : null}
               </div>
             </div>
           )}
