@@ -77,7 +77,7 @@ export function EarlyAccessForm({
     <div className={className ?? "rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"}>
       <div className="space-y-2">
         <h2 className="text-xl font-bold text-slate-900">{title}</h2>
-        <Text tone="muted">{description}</Text>
+        {description ? <Text tone="muted">{description}</Text> : null}
       </div>
 
       <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
