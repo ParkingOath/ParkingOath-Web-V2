@@ -26,7 +26,7 @@ export const hostFaqs: FaqItemData[] = [
     },
     {
         question: "How is this different from Spacer or Kerb?",
-        answer: "Lower fees, stated up front. 10% against their 20%-plus combined take. Payout flows the moment a booking confirms, not at month-end. Built for the host, not the platform.",
+        answer: "Lower fees, stated up front. 10% against their 20% plus combined take. Payout flows the moment a booking confirms, not at month-end. Built for the host, not the platform.",
     },
 ];
 
