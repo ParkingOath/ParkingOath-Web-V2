@@ -25,7 +25,7 @@ import { ProcessSteps } from "@/components/ProcessSteps";
 import { Text } from "@/components/Text";
 import { hostFaqs } from "@/app/faqs/faq-data";
 
-import functionsBackground from "@/assets/landing_page/functions/background.png";
+import functionsBackground from "@/assets/landing_page/early_access/background.png";
 import hostPayment from "@/assets/landing_page/early_access/illustration.png";
 import phoneNew from "@/assets/v2/phone_new.png";
 

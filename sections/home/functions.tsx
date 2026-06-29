@@ -4,7 +4,7 @@ import { TbAdjustmentsHorizontal } from "react-icons/tb";
 
 import { AnimatedFeatureSection } from "@/components";
 import { FUNCTIONS_CONTENT, FUNCTIONS_ITEMS } from "@/constants/functions";
-import functionsBackground from "@/assets/landing_page/functions/background.png";
+import functionsBackground from "@/assets/landing_page/early_access/background.png";
 import functionsIcon from "@/assets/landing_page/functions/icon.png";
 
 const iconProps = { size: 20, className: "block" };

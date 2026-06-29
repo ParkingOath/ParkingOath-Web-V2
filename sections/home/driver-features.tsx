@@ -6,7 +6,7 @@ import { TbNavigation } from "react-icons/tb";
 
 import { AnimatedFeatureSection } from "@/components";
 import { DRIVER_FEATURES_CONTENT, DRIVER_FEATURES_ITEMS } from "@/constants/driver-features";
-import functionsBackground from "@/assets/landing_page/functions/background.png";
+import functionsBackground from "@/assets/landing_page/early_access/background.png";
 import driverIllustration from "@/assets/landing_page/driver/illustration.png";
 
 const iconProps = { size: 20, className: "block" };

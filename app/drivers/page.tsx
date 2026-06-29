@@ -22,7 +22,7 @@ import { ProcessSteps } from "@/components/ProcessSteps";
 import { Text } from "@/components/Text";
 import { driverFaqs } from "@/app/faqs/faq-data";
 
-import functionsBackground from "@/assets/landing_page/functions/background.png";
+import functionsBackground from "@/assets/landing_page/early_access/background.png";
 import seekerHero from "@/assets/v2/seeker_hero.png";
 import navMapNew from "@/assets/v2/nav_map_new.png";
 import driverNew from "@/assets/v2/driver_new.png";

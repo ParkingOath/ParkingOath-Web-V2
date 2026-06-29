@@ -5,51 +5,35 @@ import {
   getCookieValue,
   sendMetaServerEvent,
 } from "@/lib/meta-conversions-api";
+import { sendLeadEmail } from "@/lib/resend-email";
 
 export async function POST(request: Request) {
   try {
-    const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
-    const hubspotFormId = process.env.HUBSPOT_EARLY_ACCESS_FORM_ID;
-
-    if (!hubspotPortalId || !hubspotFormId) {
-      return NextResponse.json(
-        { message: "HubSpot configuration is missing" },
-        { status: 500 }
-      );
-    }
-
     const body = await request.json();
+    const pageName = typeof body.pageName === "string" && body.pageName.length > 0
+      ? body.pageName
+      : "Early Access";
+    const fullName = [body.firstName, body.lastName]
+      .filter((value) => typeof value === "string" && value.trim().length > 0)
+      .join(" ");
 
-    const fields = [
-      { name: "firstname", value: body.firstName },
-      { name: "lastname", value: body.lastName },
-      { name: "email", value: body.email },
-      { name: "location__suburb", value: body.location },
-      { name: "frequency", value: body.frequency },
-      { name: "_early_access_completed", value: "yes" },
-    ].filter((field) => field.value);
-
-    const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`;
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fields,
-        context: {
-          pageUri: request.headers.get("referer") ?? undefined,
-          pageName: body.pageName || "Early Access",
-        },
-      }),
+    const emailResponse = await sendLeadEmail({
+      subject: `New ${pageName} signup${fullName ? ` - ${fullName}` : ""}`,
+      rows: [
+        ["Source", pageName],
+        ["First name", body.firstName],
+        ["Last name", body.lastName],
+        ["Email", body.email],
+        ["Location", body.location],
+        ["Frequency", body.frequency],
+        ["Page URL", request.headers.get("referer")],
+      ],
     });
 
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
+    if (!emailResponse.ok) {
       return NextResponse.json(
-        { message: errorBody?.message ?? "HubSpot submission failed" },
-        { status: response.status }
+        { message: emailResponse.message },
+        { status: emailResponse.status }
       );
     }
 

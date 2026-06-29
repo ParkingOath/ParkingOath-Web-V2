@@ -1,48 +1,32 @@
 import { NextResponse } from "next/server";
 
+import { sendLeadEmail } from "@/lib/resend-email";
+
 export async function POST(request: Request) {
   try {
-    const hubspotPortalId = process.env.HUBSPOT_PORTAL_ID;
-    const hubspotFormId = process.env.HUBSPOT_CONTACT_FORM_ID;
-
-    if (!hubspotPortalId || !hubspotFormId) {
-      return NextResponse.json(
-        { message: "HubSpot configuration is missing" },
-        { status: 500 }
-      );
-    }
-
     const body = await request.json();
+    const pageName = "Ambassador interest";
+    const fullName = [body.firstName, body.lastName]
+      .filter((value) => typeof value === "string" && value.trim().length > 0)
+      .join(" ");
 
-    const fields = [
-      { name: "firstname", value: body.firstName },
-      { name: "lastname", value: body.lastName },
-      { name: "email", value: body.email },
-      { name: "phone", value: body.phone },
-      { name: "message", value: body.message },
-    ].filter((field) => field.value);
-
-    const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${hubspotPortalId}/${hubspotFormId}`;
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fields,
-        context: {
-          pageUri: request.headers.get("referer") ?? undefined,
-          pageName: "Contact",
-        },
-      }),
+    const emailResponse = await sendLeadEmail({
+      subject: `New ${pageName}${fullName ? ` - ${fullName}` : ""}`,
+      rows: [
+        ["Source", pageName],
+        ["First name", body.firstName],
+        ["Last name", body.lastName],
+        ["Email", body.email],
+        ["Phone", body.phone],
+        ["Message", body.message],
+        ["Page URL", request.headers.get("referer")],
+      ],
     });
 
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
+    if (!emailResponse.ok) {
       return NextResponse.json(
-        { message: errorBody?.message ?? "HubSpot submission failed" },
-        { status: response.status }
+        { message: emailResponse.message },
+        { status: emailResponse.status }
       );
     }
 
