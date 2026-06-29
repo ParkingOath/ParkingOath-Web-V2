@@ -12,34 +12,30 @@ import logo from "@/assets/icon/Vector.png";
 export type NavLink = {
   label: string;
   href: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 };
-
-export interface NavCta extends NavLink {
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-}
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   brand?: React.ReactNode;
   brandHref?: string;
   links?: NavLink[];
-  cta?: NavCta;
+  cta?: NavLink | null;
+  secondaryCta?: NavLink | null;
 }
 
 const defaultLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Host", href: "/host" },
-  { label: "Seeker", href: "/seeker" },
-  { label: "Blog", href: "/blog" },
-  { label: "FAQs", href: "/faqs" },
-  { label: "Contact", href: "/contact" },
+  { label: "Drivers", href: "/drivers" },
+  { label: "Hosts", href: "/hosts" },
+  { label: "Ambassadors", href: "/ambassadors" },
+  { label: "About", href: "/about" },
+  { label: "Newsroom", href: "/newsroom" },
 ];
 
 export function Navbar({
   brand,
   brandHref = "/",
   links = defaultLinks,
-  cta = { label: "Get Early Access", href: "/early-access" },
+  cta = { label: "Find parking", href: "/early-access" },
+  secondaryCta = { label: "List your space", href: "/hosts#early-access-form" },
   className,
   ...props
 }: NavbarProps) {
@@ -82,7 +78,6 @@ export function Navbar({
             <Link
               key={link.label}
               href={link.href}
-              onClick={link.onClick}
               className="transition-colors hover:text-black"
             >
               {link.label}
@@ -91,11 +86,18 @@ export function Navbar({
         </nav>
 
         {/* Desktop CTA */}
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-3 md:flex">
+          {secondaryCta ? (
+            <Link
+              href={secondaryCta.href}
+              className={buttonClasses({ variant: "secondary", size: "lg" })}
+            >
+              {secondaryCta.label}
+            </Link>
+          ) : null}
           {cta ? (
             <Link
               href={cta.href}
-              onClick={cta.onClick}
               className={buttonClasses({ variant: "primary", size: "lg" })}
             >
               {cta.label}
@@ -135,31 +137,32 @@ export function Navbar({
                   key={link.label}
                   href={link.href}
                   className="transition-colors hover:text-black"
-                  onClick={(event) => {
-                    setIsMobileMenuOpen(false);
-                    if (link.onClick) {
-                      link.onClick(event);
-                    }
-                  }}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
-            {cta ? (
-              <div className="pt-2">
-                <Link
-                  href={cta.href}
-                  className={buttonClasses({ variant: "primary", size: "md", className: "w-full justify-center" })}
-                  onClick={(event) => {
-                    setIsMobileMenuOpen(false);
-                    if (cta.onClick) {
-                      cta.onClick(event);
-                    }
-                  }}
-                >
-                  {cta.label}
-                </Link>
+            {cta || secondaryCta ? (
+              <div className="flex flex-col gap-3 pt-2">
+                {cta ? (
+                  <Link
+                    href={cta.href}
+                    className={buttonClasses({ variant: "primary", size: "md", className: "w-full justify-center" })}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {cta.label}
+                  </Link>
+                ) : null}
+                {secondaryCta ? (
+                  <Link
+                    href={secondaryCta.href}
+                    className={buttonClasses({ variant: "secondary", size: "md", className: "w-full justify-center" })}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {secondaryCta.label}
+                  </Link>
+                ) : null}
               </div>
             ) : null}
           </Container>

@@ -5,26 +5,14 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import { Button, Container, H1, Text } from "@/components";
+import { Button, buttonClasses, Container, H1, Text } from "@/components";
 import { HERO_CONTENT } from "@/constants/hero";
 import heroBackground from "@/assets/hero/background.png";
 import park1 from "@/assets/hero/park1.png";
 import yellowCar from "@/assets/hero/yellow_car.png";
 import purpleCar from "@/assets/hero/purple_car.png";
 
-type FeaturedPost = {
-    slug: string;
-    title: string;
-    description: string;
-    imageUrl: string | null;
-    imageAlt: string;
-};
-
-type HeroProps = {
-    featuredPost?: FeaturedPost | null;
-};
-
-const Hero = ({ featuredPost }: HeroProps) => {
+const Hero = () => {
     const [showYellow, setShowYellow] = useState(false);
     const [showPurple, setShowPurple] = useState(false);
 
@@ -32,7 +20,6 @@ const Hero = ({ featuredPost }: HeroProps) => {
         const timers: ReturnType<typeof setTimeout>[] = [];
 
         timers.push(setTimeout(() => setShowYellow(true), 100));
-        timers.push(setTimeout(() => setShowPurple(true), 100 + 1500));
         timers.push(setTimeout(() => setShowPurple(true), 100 + 1500));
 
         return () => {
@@ -56,54 +43,41 @@ const Hero = ({ featuredPost }: HeroProps) => {
                     }}
                 >
                     <H1 className="max-w-xl text-black">
-                        <span className="text-brand">{HERO_CONTENT.title.highlight1}</span> {HERO_CONTENT.title.text1} <span className="text-brand">{HERO_CONTENT.title.highlight2}</span> {HERO_CONTENT.title.text2}
+                        {HERO_CONTENT.title.text1}{" "}
+                        <span className="text-brand">{HERO_CONTENT.title.highlight}</span>{" "}
+                        {HERO_CONTENT.title.text2}
                     </H1>
-                    <div className="space-y-4">
-                        <Text className="max-w-xl">
-                            {HERO_CONTENT.description1}
-                        </Text>
-                        <Text className="max-w-xl" tone="muted">
-                            {HERO_CONTENT.description2}
-                        </Text>
-                    </div>
+                    <Text className="max-w-xl" tone="muted">
+                        {HERO_CONTENT.subhead}
+                    </Text>
+                    <Text className="max-w-xl font-semibold text-black">
+                        {HERO_CONTENT.hook}
+                    </Text>
                     <div className="flex flex-wrap gap-4">
-                        <Link  href="/early-access">
+                        <Link href={HERO_CONTENT.cta.primaryHref}>
                             <Button>{HERO_CONTENT.cta.primary}</Button>
                         </Link>
-                        {/* <Button variant="secondary">{HERO_CONTENT.cta.secondary}</Button> */}
+                        <Link
+                            href={HERO_CONTENT.cta.secondaryHref}
+                            className={buttonClasses({ variant: "secondary" })}
+                        >
+                            {HERO_CONTENT.cta.secondary}
+                        </Link>
                     </div>
-                    {featuredPost ? (
-                        <div className="rounded-2xl bg-white/90 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-[#64748b]">
-                                {HERO_CONTENT.featuredBadge}
-                            </p>
-                            <div className="mt-3 flex gap-3">
-                                {featuredPost.imageUrl ? (
-                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
-                                        <Image
-                                            src={featuredPost.imageUrl}
-                                            alt={featuredPost.imageAlt}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    </div>
-                                ) : null}
-                                <div className="min-w-0">
-                                    <Link
-                                        href={`/blog/${featuredPost.slug}`}
-                                        className="block text-sm font-semibold text-black hover:text-brand"
-                                    >
-                                        {featuredPost.title}
-                                    </Link>
-                                    {featuredPost.description ? (
-                                        <p className="mt-1 line-clamp-2 text-sm text-[#475569]">
-                                            {featuredPost.description}
-                                        </p>
-                                    ) : null}
-                                </div>
-                            </div>
-                        </div>
-                    ) : null}
+                    <Text size="sm" tone="muted" className="max-w-xl">
+                        {HERO_CONTENT.trustStrip}
+                    </Text>
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Text size="sm" tone="muted" className="m-0">
+                            {HERO_CONTENT.ambassador.text}
+                        </Text>
+                        <Link
+                            href={HERO_CONTENT.ambassador.href}
+                            className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand-dark"
+                        >
+                            {HERO_CONTENT.ambassador.linkLabel} <span aria-hidden="true">→</span>
+                        </Link>
+                    </div>
                 </motion.div>
                 <div className="relative hero-image-scale min-h-[280px] w-full sm:min-h-[320px] lg:min-h-[360px]">
                     <Image

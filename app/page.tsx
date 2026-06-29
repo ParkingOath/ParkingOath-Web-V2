@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components";
+
+import { Footer, Navbar } from "@/components";
 import Hero from "@/sections/home/hero";
-import Functions from "@/sections/home/functions";
-import DriverFeatures from "@/sections/home/driver-features";
-import ProcessSection from "@/sections/home/process";
-import ContactSection from "@/sections/home/contact";
-import ControlSection from "@/sections/home/control";
-import Testimonials from "@/sections/home/testimonials";
-// import FaqSection from "@/sections/home/faq";
-import CtaSection from "@/sections/home/cta";
-import { Footer } from "@/components";
-import { getAssetAlt, getAssetUrl, getLandingPage } from "@/lib/contentful";
+import ProofBar from "@/sections/home/proof-bar";
+import Problem from "@/sections/home/problem";
+import HowItWorks from "@/sections/home/how-it-works";
+import WhyParkingOath from "@/sections/home/why-parkingoath";
+import AudiencePaths from "@/sections/home/audience-paths";
+import Movement from "@/sections/home/movement";
+import PressStrip from "@/sections/home/press-strip";
+import FinalCta from "@/sections/home/final-cta";
 
 export const metadata: Metadata = {
   title: "ParkingOath - Peer to peer parking",
@@ -18,34 +17,22 @@ export const metadata: Metadata = {
     "The smarter way to find and list parking. Find nearby spaces or earn from your driveway with ParkingOath.",
 };
 
-const Home = async () => {
-  const landing = await getLandingPage();
-  const featuredEntry = landing?.fields.featuredBlogPost;
-  const featuredPost = featuredEntry
-    ? {
-      slug: featuredEntry.fields.slug,
-      title: featuredEntry.fields.title,
-      description: featuredEntry.fields.shortDescription ?? "",
-      imageUrl: getAssetUrl(featuredEntry.fields.featuredImage),
-      imageAlt: getAssetAlt(featuredEntry.fields.featuredImage),
-    }
-    : null;
-
+const Home = () => {
   return (
     <>
       <Navbar />
       <Hero />
-      <DriverFeatures />
-      <ControlSection />
-      <ProcessSection />
-      <Functions />
-      {/* <Testimonials /> */}
-      {/* <FaqSection /> */}
-      <CtaSection />
-      <ContactSection />
+      <ProofBar />
+      <Problem />
+      <HowItWorks />
+      <WhyParkingOath />
+      <AudiencePaths />
+      <Movement />
+      <PressStrip />
+      <FinalCta />
       <Footer />
     </>
   );
-}
+};
 
 export default Home;

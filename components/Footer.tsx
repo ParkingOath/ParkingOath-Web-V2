@@ -34,12 +34,21 @@ const defaultSections: FooterSection[] = [
       { label: "Features", href: "/#features" },
       { label: "How it Works", href: "/#how-it-works" },
       { label: "FAQ's", href: "/faqs" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Newsroom", href: "/newsroom" },
+      { label: "Blog", href: "/blog" },
       { label: "Get in Touch", href: "/contact" },
     ],
   },
   {
     title: "Legal & Trust",
     links: [
+      { label: "Trust & Safety", href: "/trust-safety" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms & Conditions", href: "/terms" },
     ],
@@ -58,7 +67,7 @@ export function Footer({
   "We consider various parking options, such as driveways, lots, garages, and carports, provided they are secure and easily accessible.",
   sections = defaultSections,
   socialLinks = defaultSocialLinks,
-  copyright = "©2025 ParkingOath. All Rights Reserved.",
+  copyright = "©2026 ParkingOath. All Rights Reserved.",
   className,
   ...props
 }: FooterProps) {
@@ -98,7 +107,7 @@ export function Footer({
               ))}
             </div>
           </div>
-          <div className="grid gap-10 sm:grid-cols-2">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {sections.map((section) => (
               <div key={section.title} className="space-y-4">
                 <p className="text-sm font-semibold text-black">

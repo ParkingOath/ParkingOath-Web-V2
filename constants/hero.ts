@@ -1,15 +1,21 @@
 export const HERO_CONTENT = {
     title: {
-        highlight1: "We put our cut in the first sentence.",
-        text1: "",
-        highlight2: "10%.",
-        text2: "",
+        text1: "Australia's",
+        highlight: "verified neighbourhood",
+        text2: "parking network.",
     },
-    description1: "Founding hosts pay 0% for two months. Then 10% locked in. Future hosts pay 15%.",
-    description2: "No setup fees. Sydney and Gold Coast hosts wanted now.",
+    subhead: "Forget the boring parking apps. This is a street-level revolution, led by local Ambassadors who believe Australians should look out for each other, not just download another app.",
+    hook: "Here's the difference: find a verified park in real time, no pre-booking needed, or list your driveway and get paid the moment a booking completes.",
     cta: {
-        primary: "Claim a founding host spot",
-        secondary: "List your parking space",
+        primary: "Find parking",
+        primaryHref: "/early-access",
+        secondary: "List your space",
+        secondaryHref: "/hosts#early-access-form",
     },
-    featuredBadge: "Featured blog post",
+    trustStrip: "Every driver verified · Hosts paid the moment a booking completes · No lock-in",
+    ambassador: {
+        text: "Want to bring ParkingOath to your street?",
+        linkLabel: "Become an Ambassador, no joining fee, no cap on what you earn",
+        href: "/ambassadors",
+    },
 };

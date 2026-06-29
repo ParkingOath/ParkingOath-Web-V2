@@ -5,74 +5,104 @@ export interface FaqItemData {
 
 export const hostFaqs: FaqItemData[] = [
     {
-        question: "How does the founding host rate work?",
-        answer: "Two months at 0%. Then 10% for as long as you host. Future hosts will pay 15%, but the rate you lock in on signup day stays with you.",
-    },
-    {
         question: "Who actually pays me?",
-        answer: "The driver. They pay through the app. The moment the booking confirms, the money flows to your account.",
+        answer: "ParkingOath does, straight to you, the moment a booking completes.",
     },
     {
         question: "What if my space gets damaged?",
-        answer: "Every driver is verified before they can book. If something happens to a vehicle during a booking, that's covered under the driver's own car insurance, the same as a parking incident on a public street. We don't duplicate insurance we can't substantiate. What we do is screen the people who can use the platform.",
+        answer: "Our support team is here to help if something goes wrong. Full details of our damage and dispute process are being finalised and will be published on our Trust and Safety page before launch.",
     },
     {
         question: "Can I block certain drivers or times?",
-        answer: "You control when your space is available. While the listing is live, any verified driver can book it. The moment they do, you get their details and can message them straight through the app, confirm exactly where to park, share access notes, whatever they need. Need the space back before a future booking lands? Toggle availability off and bookings stop instantly. Once a booking is confirmed though, it's locked in for that driver.",
+        answer: "Yes. You set your availability and stay in control of who parks.",
     },
     {
         question: "Is there a contract?",
-        answer: "No. List when you want it earning. Pull it down when you don't.",
+        answer: "No lock-in. Toggle your space off whenever you need it back.",
     },
     {
-        question: "How is this different from Spacer or Kerb?",
-        answer: "Lower fees, stated up front. 10% against their 20% plus combined take. Payout flows the moment a booking confirms, not at month-end. Built for the host, not the platform.",
+        question: "How is this different from other platforms?",
+        answer: "You are paid the moment a booking completes rather than at month-end, every driver is verified, and you keep full control of your space.",
+    },
+    {
+        question: "How quickly can I list my parking space?",
+        answer: "You can list it in just minutes. Add your details, set your availability, and you're ready for bookings.",
     },
 ];
 
-// Archived host FAQ items preserved for later re-enable if needed.
-// export const archivedHostFaqs: FaqItemData[] = [
-//     {
-//         question: "How are fees charged when someone parks in my driveway?",
-//         answer: "Each time a driver parks, we deduct a small percentage from the payment before you receive your earnings. You'll see all transactions in your dashboard.",
-//     },
-//     {
-//         question: "Will I pay any fees if no one parks in my space?",
-//         answer: "No, you only pay when a parking transaction happens. If your space isn't used, there's no fee.",
-//     },
-//     {
-//         question: "What's the difference between the early access fee and the standard fee?",
-//         answer: "Early adopters pay no fees for two months and then only 10% afterward. Standard hosts pay a competitive 15%.",
-//     },
-//     {
-//         question: "How do I know the person parking is safe?",
-//         answer: "We verify all drivers and secure their payment details. You control when your space is available, your safety is important to us.",
-//     },
-//     {
-//         question: "How long can I list my parking space for?",
-//         answer: "It's fully flexible! You decide your availability, daily, hourly, or whenever suits you.",
-//     },
-//     {
-//         question: "How quickly can I list my parking space?",
-//         answer: "You can list it in just minutes, add your details, set availability, and you're ready for bookings at launch!",
-//     },
-// ];
-
 export const driverFaqs: FaqItemData[] = [
     {
-        question: "How does ParkingOath help me find parking?",
-        answer: "ParkingOath shows parking as it becomes available near your destination. Set your preferences, say where you're going, and the app guides you to parking without circling or guessing."
+        question: "Do I need to book ahead?",
+        answer: "No. ParkingOath is built for the moment you need a park. Find and book a verified space in real time from the car.",
     },
     {
-        question: "Do I need to book parking in advance?",
-        answer: "ParkingOath is built for real-time parking. It's designed for busy conditions where timing matters. Advance booking is available as you require it"
+        question: "How do I know the space is safe?",
+        answer: "Every host is verified and every space is described and priced up front, so you know exactly what you are getting.",
     },
     {
-        question: "Can I use ParkingOath while on the move?",
-        answer: "ParkingOath supports voice-led search, so you can find parking hands-free stay focused on the road."
+        question: "What does it cost?",
+        answer: "You pay the host's set price for the space you book. There is no membership fee.",
     },
     {
-        question: "What happens if the parking spot is no longer available?",
-        answer: "ParkingOath reflects live parking availability. If a space is no longer available, the app directs you to the next closest option so you can keep moving."
+        question: "How do I pay?",
+        answer: "Securely in the app. No cash, no fuss.",
+    },
+    {
+        question: "What if something goes wrong?",
+        answer: "Real, Australian-based support is there to help, and you can message the host directly through the app.",
+    },
+];
+
+export const ambassadorFaqs: FaqItemData[] = [
+    {
+        question: "How do I get started?",
+        answer: "Register your interest below. We will be in touch with the details and next steps for your community.",
+    },
+    {
+        question: "How and when do I get paid?",
+        answer: "We pay Ambassadors monthly: $20 for each host you introduced who completes their first booking, then 20% of what we earn from that host for as long as they keep hosting.",
+    },
+    {
+        question: "Do I need to follow a script or hit a quota?",
+        answer: "No. We will suggest ideas that have worked for other Ambassadors, and connect you with other Ambassadors to swap ideas and generate new ones, but how, when and where you introduce ParkingOath is entirely up to you.",
+    },
+    {
+        question: "How do Ambassadors help shape the app?",
+        answer: "Your friends, family and community will tell you what is working and what is not. Bring that feedback back to us and the wider Ambassador community, where the best ideas get built into ParkingOath.",
+    },
+    {
+        question: "Is my community exclusive to me?",
+        answer: "There is no exclusive territory attached to the program. In practice we look to bring one Ambassador into a community at a time, but it is not a guaranteed exclusive right.",
+    },
+    {
+        question: "Is this a job with ParkingOath?",
+        answer: "No. Ambassadors are independent, not ParkingOath employees or franchisees. You introduce ParkingOath to people you know, and we pay you for the hosts who join through you.",
+    },
+    {
+        question: "Can I do this alongside other work?",
+        answer: "Yes. Most Ambassadors fit this around things they are already doing, study, other jobs, or parenting. There is no minimum hours requirement.",
+    },
+];
+
+export const trustSafetyFaqs: FaqItemData[] = [
+    {
+        question: "How are drivers verified?",
+        answer: "Identity is checked through our verification partner, Didit, before anyone can book.",
+    },
+    {
+        question: "How do I get paid as a host?",
+        answer: "Securely in the app, the moment a booking completes.",
+    },
+    {
+        question: "What if my space is damaged?",
+        answer: "Our support team is here to help if something goes wrong. We're finalising the full damage and dispute process and will publish it here once confirmed. In the meantime, you can message the other party directly through the app to resolve most issues quickly.",
+    },
+    {
+        question: "Can I choose who parks in my space?",
+        answer: "Yes. You stay in control of your availability and your space.",
+    },
+    {
+        question: "Is my information safe?",
+        answer: "Yes. We protect your data and use it responsibly. See our Privacy Policy for the detail.",
     },
 ];

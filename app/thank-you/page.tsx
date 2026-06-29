@@ -11,18 +11,18 @@ import { Text } from "@/components/Text";
 import earlyMattersGraphic from "@/assets/v2/your-early-that-matters.png";
 
 const hostNavLinks: NavLink[] = [
-  { label: "How It Works", href: "/host#how-it-works" },
-  { label: "FAQs", href: "/host#host-faqs" },
+  { label: "How It Works", href: "/hosts#how-it-works" },
+  { label: "FAQs", href: "/hosts#host-faqs" },
 ];
 
 const hostFooterSections: FooterSection[] = [
   {
     title: "Host",
     links: [
-      { label: "Join Early Access", href: "/host#early-access-form" },
-      { label: "Get Paid", href: "/host#get-paid" },
-      { label: "How It Works", href: "/host#how-it-works" },
-      { label: "FAQs", href: "/host#host-faqs" },
+      { label: "Join Early Access", href: "/hosts#early-access-form" },
+      { label: "Get Paid", href: "/hosts#get-paid" },
+      { label: "How It Works", href: "/hosts#how-it-works" },
+      { label: "FAQs", href: "/hosts#host-faqs" },
     ],
   },
 ];
@@ -50,17 +50,13 @@ export default function ThankYouPage() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       <MetaPixelLeadTracker />
-      <Navbar
-        brandHref="/host"
-        links={hostNavLinks}
-        cta={{ label: "Back to Host Page", href: "/host" }}
-      />
+      <Navbar />
       <main className="flex-1">
         <Container className="py-16 sm:py-24">
           <div className="mx-auto max-w-5xl space-y-10">
             <div className="rounded-3xl border border-slate-200 bg-white px-8 py-12 shadow-sm sm:px-12">
               <div className="mx-auto max-w-3xl space-y-5 text-center">
-                <div className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
+                <div className="inline-flex rounded-full bg-blue-100 px-4 py-1 text-sm font-semibold text-blue-700">
                   Submission received
                 </div>
                 <H1>You're in.</H1>
@@ -121,7 +117,7 @@ export default function ThankYouPage() {
                 />
               </div>
               <div className="mt-10 flex justify-center">
-                <Link href="/host" className={buttonClasses({ size: "lg" })}>
+                <Link href="/hosts" className={buttonClasses({ size: "lg" })}>
                   Back to Host Page
                 </Link>
               </div>
@@ -135,7 +131,7 @@ export default function ThankYouPage() {
           </div>
         </Container>
       </main>
-      <Footer sections={hostFooterSections} />
+      <Footer />
     </div>
   );
 }
