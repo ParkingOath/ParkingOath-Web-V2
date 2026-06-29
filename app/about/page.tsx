@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   HiOutlineBolt,
+  HiOutlineLockClosed,
   HiOutlineMapPin,
   HiOutlineMicrophone,
   HiOutlineShieldCheck,
@@ -46,6 +47,11 @@ const differentiators = [
     title: "Community-shaped.",
     description: "Built with the locals who grow it.",
     icon: <HiOutlineUserGroup size={20} />,
+  },
+  {
+    title: "You stay in control.",
+    description: "No tenant relationship, no lock-in, your space your rules.",
+    icon: <HiOutlineLockClosed size={20} />,
   },
 ];
 
