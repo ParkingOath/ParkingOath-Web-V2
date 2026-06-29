@@ -89,7 +89,7 @@ export default function HostsPage() {
                   submitLabel="Claim My Spot"
                 />
               </div>
-              <div className="order-1 space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8 lg:order-2">
+              <div className="order-1 self-center space-y-5 rounded-3xl bg-[#1f1746] px-6 py-8 text-white shadow-sm sm:px-8 lg:order-2">
                 <div className="inline-flex rounded-full bg-amber-400/20 px-4 py-1 text-sm font-semibold text-amber-300">
                   200 founding host spots
                 </div>
@@ -110,13 +110,13 @@ export default function HostsPage() {
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
                     Instant payouts
                   </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                    Every driver verified
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
+                    No lock-in, cancel anytime
+                  </div>
                 </div>
-                <Link
-                  href="#early-access-form"
-                  className="inline-block w-full rounded-full bg-amber-400 px-6 py-3 text-center text-sm font-bold text-[#1f1746] transition hover:bg-amber-300"
-                >
-                  Claim a founding host spot
-                </Link>
               </div>
             </div>
           </Container>
