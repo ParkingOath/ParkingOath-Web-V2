@@ -49,7 +49,7 @@ export function Navbar({
       )}
       {...props}
     >
-      <Container className="flex items-center justify-between py-4">
+      <Container reveal={false} className="flex items-center justify-between py-4">
         <div className="flex items-center gap-3">
           {brand ?? (
             <Link
@@ -130,7 +130,7 @@ export function Navbar({
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white">
-          <Container className="flex flex-col gap-4 py-6">
+          <Container reveal={false} className="flex flex-col gap-4 py-6">
             <nav className="flex flex-col gap-4 text-lg font-medium text-[#475569]">
               {links.map((link) => (
                 <Link

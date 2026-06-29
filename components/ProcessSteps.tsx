@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { Button, Text } from "@/components";
 import { buttonClasses } from "./Button";
+import { AnimatedCard, StaggerReveal } from "./Reveal";
 import { cn } from "./utils";
 
 export type ProcessStep = {
@@ -47,9 +48,9 @@ export function ProcessSteps({
             {title}
           </h2>
         </div>
-        <div className="mt-16 grid gap-12 lg:grid-cols-3">
+        <StaggerReveal className="mt-16 grid gap-12 lg:grid-cols-3">
           {steps.map((step) => (
-            <div
+            <AnimatedCard
               key={step.step}
               className="group relative flex flex-col rounded-[2.5rem] border border-slate-200/60 bg-white p-8 pt-10 shadow-[0_8px_30px_rgb(15,23,42,0.04)] transition-all hover:shadow-[0_8px_40px_rgb(15,23,42,0.08)]"
             >
@@ -73,9 +74,9 @@ export function ProcessSteps({
                   {step.description}
                 </Text>
               </div>
-            </div>
+            </AnimatedCard>
           ))}
-        </div>
+        </StaggerReveal>
         {ctaLabel ? (
           <div className="mt-10 flex justify-center">
             {onCtaClick ? (

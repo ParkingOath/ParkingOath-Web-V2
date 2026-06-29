@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import { Button, buttonClasses, Container, H1, Text } from "@/components";
@@ -32,7 +32,7 @@ const Hero = () => {
             className="bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${heroBackground.src})` }}
         >
-            <Container className="grid items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
+            <Container reveal={false} className="grid items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
                 <motion.div
                     className="space-y-6"
                     initial={{ opacity: 0, x: -40 }}

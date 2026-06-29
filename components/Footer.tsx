@@ -76,7 +76,7 @@ export function Footer({
       className={cn("border-t border-slate-200 bg-white", className)}
       {...props}
     >
-      <Container className="py-14">
+      <Container reveal={false} className="py-14">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
             {brand ?? (

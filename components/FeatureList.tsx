@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { StaggerItem, StaggerReveal } from "./Reveal";
 import { Text } from "./Text";
 import { cn } from "./utils";
 
@@ -17,9 +18,9 @@ export interface FeatureListProps {
 
 export function FeatureList({ items, className, renderItem }: FeatureListProps) {
   return (
-    <div className={cn("space-y-8", className)}>
+    <StaggerReveal className={cn("space-y-8", className)}>
       {items.map((item) => (
-        <React.Fragment key={item.title}>
+        <StaggerItem key={item.title}>
           {renderItem ? (
             renderItem(item)
           ) : (
@@ -37,8 +38,8 @@ export function FeatureList({ items, className, renderItem }: FeatureListProps) 
               </div>
             </div>
           )}
-        </React.Fragment>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerReveal>
   );
 }
