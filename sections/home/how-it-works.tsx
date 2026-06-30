@@ -62,7 +62,7 @@ const HowItWorks = () => {
                         step: "Step 2",
                         title: "Get paid instantly",
                         description:
-                            "A driver books. The payout flows the moment the booking completes.",
+                            "An identity verified driver books. The payout flows the moment the booking completes.",
                         icon: <MdOutlinePriceChange size={20} />,
                     },
                     {
