@@ -88,7 +88,7 @@ export async function sendLeadEmail({ subject, rows }: LeadEmailInput) {
   return { ok: true as const };
 }
 
-const WELCOME_EMAIL_FROM = "Arch, Bhavya, Akshat & Adam (ParkingOath) <noreply@parkingoath.com.au>";
+const WELCOME_EMAIL_FROM = "Arch, Bhavya, Akshat & Adam (ParkingOath) <team@parkingoath.com.au>";
 const WELCOME_EMAIL_REPLY_TO = "apps@parkingoath.com";
 
 type WelcomeEmailInput = {
@@ -102,7 +102,7 @@ function buildWelcomeTextBody(firstName?: string) {
   return [
     `Hey ${greetingName},`,
     "",
-    "We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.",
+    "Thanks for reaching out to ParkingOath, we mean that. We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.",
     "",
     "Here's the part that actually matters to us. Every parking app out there makes you guess and book a spot hours ahead, for a trip you haven't even planned yet. That never made sense to us. Parking is something you need right now, not something you pre-book like a dinner reservation. So we're building ParkingOath to show real spaces, free right now, the moment you actually need one.",
     "",
@@ -123,7 +123,7 @@ function buildWelcomeHtmlBody(firstName?: string) {
   return `
     <div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#1e293b;">
       <p>Hey ${greetingName},</p>
-      <p>We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.</p>
+      <p>Thanks for reaching out to ParkingOath, we mean that. We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.</p>
       <p>Here's the part that actually matters to us. Every parking app out there makes you guess and book a spot hours ahead, for a trip you haven't even planned yet. That never made sense to us. Parking is something you need right now, not something you pre-book like a dinner reservation. So we're building ParkingOath to show real spaces, free right now, the moment you actually need one.</p>
       <p>That's the bet we're making, and it's a big one. Honestly, we've started calling it Australia's biggest social experiment: can a whole community make parking better for itself, suburb by suburb, without a single new car park being built? You just joined it.</p>
       <p>We're starting small and building trust the slow way instead of the loud way, and you're now part of that from day one.</p>
