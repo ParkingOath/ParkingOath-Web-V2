@@ -9,6 +9,10 @@ export const hostFaqs: FaqItemData[] = [
         answer: "ParkingOath does, straight to you, the moment a booking completes.",
     },
     {
+        question: "What does ParkingOath take as a host?",
+        answer: "Founding hosts pay 0% for the first two months, then a flat 10% for as long as they host. Standard hosts pay 20%. No setup fees, and you keep the rest.",
+    },
+    {
         question: "What if my space gets damaged?",
         answer: "Our support team is here to help if something goes wrong. Full details of our damage and dispute process are being finalised and will be published on our Trust and Safety page before launch.",
     },
