@@ -15,6 +15,12 @@ function formatValue(value: unknown) {
   return value.trim();
 }
 
+function formatEnvValue(value: string | undefined, fallback: string) {
+  const rawValue = value?.trim() || fallback;
+
+  return rawValue.replace(/^["']|["']$/g, "");
+}
+
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -49,8 +55,8 @@ function buildHtmlBody(rows: LeadEmailInput["rows"]) {
 
 export async function sendLeadEmail({ subject, rows }: LeadEmailInput) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL ?? DEFAULT_LEADS_EMAIL_FROM;
-  const to = process.env.LEADS_EMAIL_TO ?? DEFAULT_LEADS_EMAIL_TO;
+  const from = formatEnvValue(process.env.RESEND_FROM_EMAIL, DEFAULT_LEADS_EMAIL_FROM);
+  const to = formatEnvValue(process.env.LEADS_EMAIL_TO, DEFAULT_LEADS_EMAIL_TO);
 
   if (!apiKey) {
     return { ok: false as const, status: 500, message: "Resend configuration is missing" };
