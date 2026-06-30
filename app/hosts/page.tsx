@@ -32,7 +32,7 @@ import phoneNew from "@/assets/v2/phone_new.png";
 export const metadata: Metadata = {
   title: "For Hosts | ParkingOath",
   description:
-    "List your driveway, garage or carport and earn from the space you already have. Founding hosts pay 0% for two months, then a flat 10% for good.",
+    "List your driveway, garage or carport and earn from the space you already have. Founding hosts pay 10% for two months, then a flat 15% for good.",
 };
 
 const hostNavLinks: NavLink[] = [
@@ -95,17 +95,17 @@ export default function HostsPage() {
                 </div>
                 <H2 className="text-white">Founding rates do not come back.</H2>
                 <Text className="text-white/80">
-                  Two months at 0%, then{" "}
-                  <span className="font-bold text-white">10% locked in for good</span>.
+                  Two months at 10%, then{" "}
+                  <span className="font-bold text-white">15% locked in for good</span>.
                   Future hosts pay 20%. No setup fees, you set the price, and it takes about
                   four minutes to list.
                 </Text>
                 <div className="flex flex-wrap gap-3">
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
-                    0% commission, 2 months
+                    10% commission, 2 months
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
-                    Locked at 10% forever
+                    Locked at 15% forever
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90">
                     Instant payouts
@@ -224,7 +224,7 @@ export default function HostsPage() {
             <div className="mx-auto max-w-3xl space-y-4 text-center">
               <H2>We put our cut up front.</H2>
               <Text size="lg" className="text-slate-600">
-                Founding hosts pay 0% for the first two months, then a flat 10% for as long as
+                Founding hosts pay 10% for the first two months, then a flat 15% for as long as
                 you host. Future hosts pay 20%. No setup fees. You set the price, you keep the
                 large majority. Honesty is the whole point.
               </Text>
