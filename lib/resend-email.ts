@@ -102,11 +102,15 @@ function buildWelcomeTextBody(firstName?: string) {
   return [
     `Hey ${greetingName},`,
     "",
-    "We're Arch, Bhavya, Akshat and Adam, the four of us behind ParkingOath.",
+    "We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.",
     "",
-    "Thanks for putting your trust in something this early. We're rolling ParkingOath out suburb by suburb, and you're now part of that from the very start.",
+    "Here's the part that actually matters to us. Every parking app out there makes you guess and book a spot hours ahead, for a trip you haven't even planned yet. That never made sense to us. Parking is something you need right now, not something you pre-book like a dinner reservation. So we're building ParkingOath to show real spaces, free right now, the moment you actually need one.",
     "",
-    "P.S. What brought you here? Hit reply and let us know, we read every reply.",
+    "That's the bet we're making, and it's a big one. Honestly, we've started calling it Australia's biggest social experiment: can a whole community make parking better for itself, suburb by suburb, without a single new car park being built? You just joined it.",
+    "",
+    "We're starting small and building trust the slow way instead of the loud way, and you're now part of that from day one.",
+    "",
+    "P.S. What brought you here? Hit reply and let us know, we read every single one.",
     "",
     "Cheers,",
     "Arch, Bhavya, Akshat & Adam",
@@ -119,9 +123,11 @@ function buildWelcomeHtmlBody(firstName?: string) {
   return `
     <div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#1e293b;">
       <p>Hey ${greetingName},</p>
-      <p>We're Arch, Bhavya, Akshat and Adam, the four of us behind ParkingOath.</p>
-      <p>Thanks for putting your trust in something this early. We're rolling ParkingOath out suburb by suburb, and you're now part of that from the very start.</p>
-      <p><strong>P.S.</strong> What brought you here? Hit reply and let us know, we read every reply.</p>
+      <p>We're Arch, Bhavya, Akshat and Adam, the four people who got sick of circling the block looking for a park, so we decided to build something about it. We'll be in touch about your enquiry really soon, but we wanted to send this one ourselves first.</p>
+      <p>Here's the part that actually matters to us. Every parking app out there makes you guess and book a spot hours ahead, for a trip you haven't even planned yet. That never made sense to us. Parking is something you need right now, not something you pre-book like a dinner reservation. So we're building ParkingOath to show real spaces, free right now, the moment you actually need one.</p>
+      <p>That's the bet we're making, and it's a big one. Honestly, we've started calling it Australia's biggest social experiment: can a whole community make parking better for itself, suburb by suburb, without a single new car park being built? You just joined it.</p>
+      <p>We're starting small and building trust the slow way instead of the loud way, and you're now part of that from day one.</p>
+      <p><strong>P.S.</strong> What brought you here? Hit reply and let us know, we read every single one.</p>
       <p>Cheers,<br>Arch, Bhavya, Akshat &amp; Adam</p>
     </div>
   `;
