@@ -97,7 +97,7 @@ export default function HostsPage() {
                 <Text className="text-white/80">
                   Two months at 0%, then{" "}
                   <span className="font-bold text-white">10% locked in for good</span>.
-                  Future hosts pay 15%. No setup fees, you set the price, and it takes about
+                  Future hosts pay 20%. No setup fees, you set the price, and it takes about
                   four minutes to list.
                 </Text>
                 <div className="flex flex-wrap gap-3">
@@ -225,7 +225,7 @@ export default function HostsPage() {
               <H2>We put our cut up front.</H2>
               <Text size="lg" className="text-slate-600">
                 Founding hosts pay 0% for the first two months, then a flat 10% for as long as
-                you host. Future hosts pay 15%. No setup fees. You set the price, you keep the
+                you host. Future hosts pay 20%. No setup fees. You set the price, you keep the
                 large majority. Honesty is the whole point.
               </Text>
             </div>
