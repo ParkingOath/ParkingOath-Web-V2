@@ -77,6 +77,7 @@ export default function AmbassadorsPage() {
                                 title="Register your interest"
                                 subtitle="Tell us a bit about you and your community, and we will be in touch about becoming an Ambassador."
                                 buttonText="Register interest"
+                                redirectHref="/thank-you"
                             />
                         </div>
                     </Container>

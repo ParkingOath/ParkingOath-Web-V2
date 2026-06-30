@@ -30,20 +30,20 @@ const hostFooterSections: FooterSection[] = [
 export default function ThankYouPage() {
   const nextSteps = [
     {
-      title: "We'll email you when it's ready",
-      description: "You'll receive an email as soon as the ParkingOath app is live.",
+      title: "We've got your details",
+      description: "Your submission has been received and saved in our system.",
     },
     {
-      title: "Download the app",
-      description: "Follow the link in the email to download ParkingOath and create your host account.",
+      title: "Our team takes a look",
+      description: "We review what you've shared and work out the right next step for you.",
     },
     {
-      title: "Add your parking space",
-      description: "Upload your driveway or off-street parking space so drivers nearby can see it.",
+      title: "We follow up",
+      description: "Expect to hear from us directly by email, whether that's a welcome, an update, or an answer to your question.",
     },
     {
-      title: "Go live and start earning",
-      description: "Once the platform opens, drivers can park and you'll get paid.",
+      title: "Stay in the loop",
+      description: "As ParkingOath rolls out suburb by suburb, we'll keep you posted on what matters to you.",
     },
   ];
 
@@ -61,13 +61,13 @@ export default function ThankYouPage() {
                 </div>
                 <H1>You're in.</H1>
                 <Text size="lg" className="text-slate-600">
-                  You're now one of the first ParkingOath hosts preparing to earn money
-                  from an unused driveway or parking space.
+                  Thanks for reaching out. We&apos;ve received your details and our
+                  team will be in touch soon.
                 </Text>
                 <Text className="text-slate-600">
-                  Early hosts are ready when drivers start looking for parking.
-                  You&apos;re now in position to be one of the first spaces visible
-                  in your area.
+                  Whether you&apos;re hosting a space, looking to park, joining as an
+                  Ambassador, or just have a question, you&apos;re now on our radar
+                  and we&apos;ll follow up shortly.
                 </Text>
               </div>
             </div>
@@ -117,15 +117,15 @@ export default function ThankYouPage() {
                 />
               </div>
               <div className="mt-10 flex justify-center">
-                <Link href="/hosts" className={buttonClasses({ size: "lg" })}>
-                  Back to Host Page
+                <Link href="/" className={buttonClasses({ size: "lg" })}>
+                  Back to ParkingOath
                 </Link>
               </div>
               <Text className="mt-8 text-center text-slate-500">
                 ParkingOath
               </Text>
               <Text className="text-center text-slate-500">
-                Your space. Your timing. Your money.
+                Real-time parking, not pre-planning.
               </Text>
             </div>
           </div>

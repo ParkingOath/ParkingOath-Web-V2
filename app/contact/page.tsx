@@ -49,7 +49,7 @@ export default function ContactPage() {
                         </div>
 
                         {/* <H2 className="mb-6">Send us a message</H2> */}
-                        <ContactForm />
+                        <ContactForm redirectHref="/thank-you" />
                     </div>
                 </Container>
             </main>

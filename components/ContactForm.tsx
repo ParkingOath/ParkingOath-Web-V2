@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button, Text } from "@/components";
 import { cn } from "./utils";
@@ -12,6 +13,7 @@ export interface ContactFormProps
   subtitle?: string;
   buttonText?: string;
   className?: string;
+  redirectHref?: string;
 }
 
 export function ContactForm({
@@ -19,8 +21,10 @@ export function ContactForm({
   subtitle = "Have questions or need assistance? Our team is always ready to guide you on your journey.",
   buttonText = "Send message",
   className,
+  redirectHref,
   ...props
 }: ContactFormProps) {
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
@@ -54,8 +58,12 @@ export function ContactForm({
         throw new Error(data?.message ?? "Submission failed");
       }
 
-      setStatus("success");
       form.reset();
+      if (redirectHref) {
+        router.push(redirectHref);
+        return;
+      }
+      setStatus("success");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Something went wrong";
