@@ -107,15 +107,11 @@ export default function ThankYouPage() {
               </div>
             </section>
 
-            <div className="rounded-3xl border border-slate-200 bg-white px-8 py-12 shadow-sm sm:px-12">
-              <div className="overflow-hidden rounded-3xl border border-slate-100 bg-slate-50">
-                <Image
-                  src={earlyMattersGraphic}
-                  alt="You're early. That matters."
-                  className="h-auto w-full"
-                  priority
-                />
-              </div>
+            <div className="rounded-3xl border border-slate-200 bg-white px-8 py-12 shadow-sm sm:px-12 text-center">
+              <Text size="lg" className="text-slate-600">
+                Keep an eye on your inbox, you&apos;ll be hearing from us
+                personally.
+              </Text>
               <div className="mt-10 flex justify-center">
                 <Link href="/" className={buttonClasses({ size: "lg" })}>
                   Back to ParkingOath

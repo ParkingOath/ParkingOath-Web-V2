@@ -14,6 +14,7 @@ export interface ContactFormProps
   buttonText?: string;
   className?: string;
   redirectHref?: string;
+  pageName?: string;
 }
 
 export function ContactForm({
@@ -22,6 +23,7 @@ export function ContactForm({
   buttonText = "Send message",
   className,
   redirectHref,
+  pageName = "General enquiry",
   ...props
 }: ContactFormProps) {
   const router = useRouter();
@@ -44,6 +46,7 @@ export function ContactForm({
       email: String(formData.get("email") ?? ""),
       phone: String(formData.get("phone") ?? ""),
       message: String(formData.get("message") ?? ""),
+      pageName,
     };
 
     try {

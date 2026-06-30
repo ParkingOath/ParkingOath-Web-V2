@@ -5,7 +5,7 @@ import {
   getCookieValue,
   sendMetaServerEvent,
 } from "@/lib/meta-conversions-api";
-import { sendLeadEmail } from "@/lib/resend-email";
+import { sendLeadEmail, sendLeadWelcomeEmail } from "@/lib/resend-email";
 
 export async function POST(request: Request) {
   try {
@@ -35,6 +35,14 @@ export async function POST(request: Request) {
         { message: emailResponse.message },
         { status: emailResponse.status }
       );
+    }
+
+    if (typeof body.email === "string" && body.email.trim().length > 0) {
+      try {
+        await sendLeadWelcomeEmail({ to: body.email, firstName: body.firstName });
+      } catch (welcomeError) {
+        console.error("Welcome email failed", welcomeError);
+      }
     }
 
     if (typeof body.metaEventId === "string" && body.metaEventId.length > 0) {
