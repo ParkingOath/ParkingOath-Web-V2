@@ -1,5 +1,5 @@
 const RESEND_EMAIL_ENDPOINT = "https://api.resend.com/emails";
-const DEFAULT_LEADS_EMAIL_TO = "apps@parkingoath.com.au";
+const DEFAULT_LEADS_EMAIL_TO = "apps@parkingoath.com";
 const DEFAULT_LEADS_EMAIL_FROM = "ParkingOath Website <noreply@parkingoath.com.au>";
 
 type LeadEmailInput = {
