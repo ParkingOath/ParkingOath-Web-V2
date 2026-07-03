@@ -61,8 +61,8 @@ export default function AmbassadorsPage() {
                                 <Text size="lg" className="mb-6 text-slate-600">
                                     Help the hosts in your community get verified and earning,
                                     and we will pay you for it. We pay Ambassadors monthly: $20
-                                    for every host you introduce who completes their first
-                                    booking, then 20% of what ParkingOath earns from that host
+                                    for every host you introduce who completes 3 bookings,
+                                    then 20% of what ParkingOath earns from that host
                                     for as long as they keep hosting. No joining fee, ever.
                                 </Text>
                                 <Text size="lg" className="text-slate-600">
@@ -101,9 +101,9 @@ export default function AmbassadorsPage() {
                         },
                         {
                             step: "Step 2",
-                            title: "They get their first booking",
+                            title: "They complete 3 bookings",
                             description:
-                                "Once a host you introduced lists their space and completes their first booking, you're paid $20 in your next monthly payout.",
+                                "Once a host you introduced lists their space and completes 3 bookings, you're paid $20 in your next monthly payout.",
                             icon: <HiOutlineCheckCircle size={20} />,
                         },
                         {
@@ -131,7 +131,7 @@ export default function AmbassadorsPage() {
                                 {
                                     title: "$20 per host",
                                     description:
-                                        "Paid once a host you introduced completes their first booking.",
+                                        "Paid once a host you introduced completes 3 bookings.",
                                     icon: <MdOutlinePriceChange {...iconProps} />,
                                 },
                                 {
