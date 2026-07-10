@@ -41,7 +41,6 @@ const defaultSections: FooterSection[] = [
     links: [
       { label: "About", href: "/about" },
       { label: "Newsroom", href: "/newsroom" },
-      { label: "Blog", href: "/blog" },
       { label: "Get in Touch", href: "/contact" },
     ],
   },
