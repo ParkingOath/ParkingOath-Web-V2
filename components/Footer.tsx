@@ -63,7 +63,7 @@ const defaultSocialLinks: FooterLink[] = [
 export function Footer({
   brand,
   description =
-  "We consider various parking options, such as driveways, lots, garages, and carports, provided they are secure and easily accessible.",
+  "We consider various parking options, such as driveways, lots, garages, and carports, provided they are easily accessible.",
   sections = defaultSections,
   socialLinks = defaultSocialLinks,
   copyright = "©2026 ParkingOath. All Rights Reserved.",
