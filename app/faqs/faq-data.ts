@@ -64,7 +64,7 @@ export const ambassadorFaqs: FaqItemData[] = [
     },
     {
         question: "How and when do I get paid?",
-        answer: "We pay Ambassadors monthly: $20 for each host you introduced who completes their first booking, then 20% of what we earn from that host for as long as they keep hosting.",
+        answer: "We pay Ambassadors monthly: $20 for each host you introduced who completes 3 bookings, then 20% of what we earn from that host for as long as they keep hosting.",
     },
     {
         question: "Do I need to follow a script or hit a quota?",
