@@ -44,6 +44,9 @@ export async function POST(request: Request) {
       ["--- COMPETITIVE CONTEXT ---", ""],
       ["Other parking apps used", body.otherApps],
       ["How ParkingOath compares", body.comparison],
+      ["--- FINAL THOUGHTS ---", ""],
+      ["One thing they would change", body.changeOne],
+      ["One thing they would add", body.addOne],
       ["--- NPS ---", ""],
       ["Likelihood to recommend (0-10)", body.nps]
     );

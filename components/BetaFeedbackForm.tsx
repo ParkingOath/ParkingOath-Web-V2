@@ -28,6 +28,8 @@ interface BetaFormData {
   churnReason: string;
   otherApps: string;
   comparison: string;
+  changeOne: string;
+  addOne: string;
   nps: string;
 }
 
@@ -52,6 +54,8 @@ const INITIAL_FORM: BetaFormData = {
   churnReason: "",
   otherApps: "",
   comparison: "",
+  changeOne: "",
+  addOne: "",
   nps: "",
 };
 
@@ -371,6 +375,25 @@ export default function BetaFeedbackForm() {
           <textarea
             value={form.comparison}
             onChange={(e) => set("comparison", e.target.value)}
+            rows={3}
+            className={textareaClass}
+          />
+        </Question>
+      </Section>
+
+      <Section title="Final thoughts">
+        <Question label="What is one thing you would change on the app?">
+          <textarea
+            value={form.changeOne}
+            onChange={(e) => set("changeOne", e.target.value)}
+            rows={3}
+            className={textareaClass}
+          />
+        </Question>
+        <Question label="What is one thing you would add to the app?">
+          <textarea
+            value={form.addOne}
+            onChange={(e) => set("addOne", e.target.value)}
             rows={3}
             className={textareaClass}
           />
