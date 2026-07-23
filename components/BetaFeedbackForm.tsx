@@ -210,9 +210,9 @@ export default function BetaFeedbackForm() {
   if (status === "success") {
     return (
       <div className="rounded-2xl bg-blue-50 border border-blue-100 p-10 text-center">
-        <p className="text-2xl mb-3">Thanks for your feedback.</p>
+        <p className="text-2xl mb-3">Thanks so much for your feedback you Legend!</p>
         <p className="text-slate-600 text-sm">
-          Your responses have been received. We will review everything before launch.
+          Your response has been received and the ParkingOath team really appreciate your support. ParkingOath, makes hard parking easy.
         </p>
       </div>
     );
