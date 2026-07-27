@@ -50,6 +50,7 @@ const defaultSections: FooterSection[] = [
       { label: "Trust & Safety", href: "/trust-safety" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms & Conditions", href: "/terms" },
+      { label: "Delete Account", href: "/delete-account" },
     ],
   },
 ];
