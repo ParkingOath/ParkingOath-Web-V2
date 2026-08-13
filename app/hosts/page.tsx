@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import {
   HiOutlineCheckCircle,
@@ -24,6 +25,10 @@ import { DrivewayIllustration } from "@/components/DrivewayIllustration";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { Text } from "@/components/Text";
 import { hostFaqs } from "@/app/faqs/faq-data";
+import {
+  AMBASSADOR_REFERRAL_COOKIE,
+  verifyReferralToken,
+} from "@/lib/ambassador-referrals";
 
 import functionsBackground from "@/assets/landing_page/early_access/background.png";
 import hostPayment from "@/assets/landing_page/early_access/illustration.png";
@@ -66,8 +71,15 @@ const faqSchema = {
   })),
 };
 
-export default function HostsPage() {
+export default async function HostsPage() {
   const iconProps = { size: 20, className: "block" };
+  const referralToken = (await cookies()).get(AMBASSADOR_REFERRAL_COOKIE)?.value;
+  let referralCode: string | null = null;
+  try {
+    referralCode = referralToken ? verifyReferralToken(referralToken)?.referralCode ?? null : null;
+  } catch {
+    // Missing server configuration must not produce an unverified success banner.
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
@@ -77,6 +89,16 @@ export default function HostsPage() {
       />
       <Navbar />
       <main className="flex-grow">
+        {referralCode ? (
+          <section className="border-b border-brand/20 bg-brand/5">
+            <Container className="py-4">
+              <p className="text-center text-sm text-slate-700">
+                Referral code <strong>{referralCode}</strong> saved. Keep this code for when
+                you sign up in the ParkingOath app.
+              </p>
+            </Container>
+          </section>
+        ) : null}
         <section id="early-access-form" className="border-b border-slate-200 bg-slate-50">
           <Container className="py-12 lg:py-16">
             <div className="grid items-stretch gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
