@@ -26,7 +26,7 @@ import { ambassadorFaqs } from "@/app/faqs/faq-data";
 export const metadata: Metadata = {
     title: "Become an Ambassador | ParkingOath",
     description:
-        "Help your community discover ParkingOath and earn for every host who joins through you. $20 per host, plus 20% of what ParkingOath earns from them, for as long as they host. No joining fee, ever.",
+        "Help your community discover ParkingOath and earn ongoing rewards when hosts you introduce receive bookings, plus $20 when they reach their third paid booking.",
 };
 
 const faqSchema = {
@@ -60,10 +60,10 @@ export default function AmbassadorsPage() {
                                 <H1 className="mb-6">Become a ParkingOath Ambassador.</H1>
                                 <Text size="lg" className="mb-6 text-slate-600">
                                     Help the hosts in your community get verified and earning,
-                                    and we will pay you for it. We pay Ambassadors monthly: $20
-                                    for every host you introduce who completes 3 bookings,
-                                    then 20% of what ParkingOath earns from that host
-                                    for as long as they keep hosting. No joining fee, ever.
+                                    and we will pay you for it. Earn $20 when a host you introduce
+                                    receives their third paid booking, plus ongoing rewards from that
+                                    host&apos;s bookings, starting with their first paid booking. No joining
+                                    fee, ever.
                                 </Text>
                                 <Text size="lg" className="text-slate-600">
                                     There is no script and no quota. Ambassadors reach their
@@ -101,16 +101,16 @@ export default function AmbassadorsPage() {
                         },
                         {
                             step: "Step 2",
-                            title: "They complete 3 bookings",
+                            title: "They receive their third paid booking",
                             description:
-                                "Once a host you introduced lists their space and completes 3 bookings, you're paid $20 in your next monthly payout.",
+                                "When a host you introduced receives their third paid booking, you earn the one-time $20 reward.",
                             icon: <HiOutlineCheckCircle size={20} />,
                         },
                         {
                             step: "Step 3",
                             title: "You keep earning",
                             description:
-                                "You earn 20% of what ParkingOath makes from that host, paid monthly, for as long as they keep hosting.",
+                                "Your ongoing rewards begin with the host's first paid booking and continue as they keep hosting.",
                             icon: <HiOutlineBolt size={20} />,
                         },
                     ]}
@@ -131,13 +131,13 @@ export default function AmbassadorsPage() {
                                 {
                                     title: "$20 per host",
                                     description:
-                                        "Paid once a host you introduced completes 3 bookings.",
+                                        "Earned when a host you introduce receives their third paid booking.",
                                     icon: <MdOutlinePriceChange {...iconProps} />,
                                 },
                                 {
                                     title: "20% ongoing",
                                     description:
-                                        "Earn 20% of what ParkingOath makes from that host, for as long as they keep hosting.",
+                                        "Ongoing rewards begin with the host's first paid booking and continue as they keep hosting.",
                                     icon: <HiOutlineClock {...iconProps} />,
                                 },
                                 {
