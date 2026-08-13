@@ -1,0 +1,165 @@
+#!/usr/bin/env node
+
+import assert from "node:assert/strict";
+import { initializeApp as initializeAdmin } from "firebase-admin/app";
+import { getAuth as getAdminAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp, deleteApp } from "firebase/app";
+import { connectAuthEmulator, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { connectFunctionsEmulator, getFunctions, httpsCallable } from "firebase/functions";
+
+for (const name of ["FIREBASE_AUTH_EMULATOR_HOST", "FIRESTORE_EMULATOR_HOST", "FUNCTIONS_EMULATOR_HOST"]) {
+  if (!process.env[name]) throw new Error(`${name} is required; refusing non-emulator integration testing.`);
+}
+const projectId = process.env.GCLOUD_PROJECT || "demo-parkingoath-ambassadors";
+const website = process.env.WEBSITE_TEST_URL || "http://127.0.0.1:3100";
+const password = "Synthetic-only-password-123!";
+const adminApp = initializeAdmin({ projectId }, `website-integration-${Date.now()}`);
+const adminAuth = getAdminAuth(adminApp);
+const db = getFirestore(adminApp);
+const clientApps = [];
+let passed = 0;
+
+async function check(name, action) {
+  await action();
+  passed += 1;
+  process.stdout.write(`ok ${passed} - ${name}\n`);
+}
+
+async function client(uid, email, claims = {}) {
+  try { await adminAuth.getUser(uid); await adminAuth.updateUser(uid, { password, email, emailVerified: true }); }
+  catch { await adminAuth.createUser({ uid, email, password, emailVerified: true }); }
+  await adminAuth.setCustomUserClaims(uid, claims);
+  const app = initializeApp({ apiKey: "fake-api-key", authDomain: "localhost", projectId }, `website-client-${uid}-${Date.now()}`);
+  clientApps.push(app);
+  const auth = getAuth(app);
+  connectAuthEmulator(auth, `http://${process.env.FIREBASE_AUTH_EMULATOR_HOST}`, { disableWarnings: true });
+  await signInWithEmailAndPassword(auth, email, password);
+  await auth.currentUser.getIdToken(true);
+  const functions = getFunctions(app, "us-central1");
+  const [host, port] = process.env.FUNCTIONS_EMULATOR_HOST.split(":");
+  connectFunctionsEmulator(functions, host, Number(port));
+  return { auth, call: (name, data) => httpsCallable(functions, name)(data) };
+}
+
+async function websiteSession(auth) {
+  const response = await fetch(`${website}/api/auth/session`, {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ idToken: await auth.currentUser.getIdToken(true) }),
+  });
+  assert.equal(response.status, 200);
+  const cookie = response.headers.get("set-cookie");
+  assert.match(cookie || "", /parkingoath_partner_session=/);
+  return cookie.split(";")[0];
+}
+
+async function page(path, cookie) {
+  return fetch(`${website}${path}`, { headers: cookie ? { cookie } : {}, redirect: "manual" });
+}
+
+const admin = await client("fixture-admin", "admin@example.test", { admin: true });
+const user = await client("fixture-user", "user@example.test", {});
+const ambassador = await client("fixture-ambassador-a", "ambassador-a@example.test", {});
+const unmapped = await client("fixture-unmapped", "unmapped@example.test", {});
+const adminCookie = await websiteSession(admin.auth);
+const userCookie = await websiteSession(user.auth);
+const ambassadorCookie = await websiteSession(ambassador.auth);
+const unmappedCookie = await websiteSession(unmapped.auth);
+
+await check("unauthenticated private pages redirect", async () => {
+  assert.equal((await page("/admin")).status, 307);
+  assert.equal((await page("/partners")).status, 307);
+});
+await check("admin session loads admin", async () => assert.equal((await page("/admin", adminCookie)).status, 200));
+await check("normal user is denied admin and partners", async () => {
+  assert.equal((await page("/admin", userCookie)).status, 307);
+  assert.equal((await page("/partners", userCookie)).status, 307);
+});
+await check("active Ambassador loads own dashboard and not admin", async () => {
+  const response = await page("/partners", ambassadorCookie);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /AMB-A/);
+  assert.match(html, /3(?:<!-- -->)? paid bookings/);
+  assert.match(html, /Refund adjustment/);
+  assert.match(html, /\$22\.36/);
+  assert.equal((await page("/admin", ambassadorCookie)).status, 307);
+});
+await check("unmapped authenticated user has no private access", async () => {
+  assert.equal((await page("/partners", unmappedCookie)).status, 307);
+  assert.equal((await page("/admin", unmappedCookie)).status, 307);
+});
+await check("payout statement ownership is enforced", async () => {
+  const own = await page("/partners/payouts/fixture-pending-run", ambassadorCookie);
+  assert.equal(own.status, 200);
+  const html = await own.text();
+  assert.match(html, /Refund adjustment/);
+  assert.match(html, /-\$1\.00/);
+  assert.equal((await page("/partners/payouts/fixture-b-run", ambassadorCookie)).status, 404);
+});
+await check("referral route captures an active code and preserves first touch", async () => {
+  const first = await page("/r/AMB-A");
+  assert.equal(first.status, 303);
+  assert.equal(new URL(first.headers.get("location")).pathname, "/hosts");
+  const setCookie = first.headers.get("set-cookie") || "";
+  assert.match(setCookie, /parkingoath_referral=/);
+  assert.match(setCookie, /HttpOnly/i);
+  const referralCookie = setCookie.split(";")[0];
+  const second = await page("/r/AMB-B", referralCookie);
+  assert.equal(second.status, 303);
+  assert.equal(second.headers.get("set-cookie"), null);
+});
+await check("unknown and malformed referral codes redirect without attribution", async () => {
+  for (const code of ["UNKNOWN", "%20%20%20"]) {
+    const response = await page(`/r/${code}`);
+    assert.equal(response.status, 303);
+    assert.equal(new URL(response.headers.get("location")).pathname, "/hosts");
+    assert.equal(response.headers.get("set-cookie"), null);
+  }
+});
+await check("normal and Ambassador tokens are rejected by every admin callable", async () => {
+  for (const actor of [user, ambassador]) for (const [name, data] of [
+    ["approveAmbassador", { ambassadorId: "pending-ambassador" }],
+    ["setAmbassadorPayoutDetails", { ambassadorId: "ambassador-a", accountName: "Test", bsb: "123456", accountNumber: "12345678" }],
+    ["markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "DENIED" }],
+  ]) await assert.rejects(actor.call(name, data), (error) => error?.code === "functions/permission-denied");
+});
+await check("admin approval is canonical and idempotent", async () => {
+  const first = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
+  const second = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
+  assert.equal(first.status, "active"); assert.equal(second.referralCode, first.referralCode);
+  assert.match(first.referralLink, /^https:\/\/parkingoath\.com\.au\/r\//);
+  const approved = (await db.doc("ambassadors/pending-ambassador").get()).data();
+  assert.equal((await db.doc(`ambassadorAuthUids/${approved.authUid}`).get()).data().ambassadorId, "pending-ambassador");
+  assert.equal((await adminAuth.getUserByEmail("pending@example.test")).uid, approved.authUid);
+});
+await check("admin stores synthetic payout details without response leakage", async () => {
+  const result = (await admin.call("setAmbassadorPayoutDetails", { ambassadorId: "ambassador-b", accountName: "Test Ambassador", bsb: "123-456", accountNumber: "12345678" })).data;
+  assert.equal(result.payoutsEnabled, true); assert.equal("accountNumber" in result, false);
+  assert.equal((await db.doc("ambassadors/ambassador-b/private/payout").get()).data().accountNumber, "12345678");
+  assert.equal((await db.doc("ambassadors/ambassador-b").get()).data().payoutsEnabled, true);
+});
+await check("admin marks payout paid without changing amounts and retry is idempotent", async () => {
+  const before = await Promise.all(["service-fixture", "onboarding-fixture", "refund-fixture"].map((id) => db.doc(`ledgerEntries/${id}`).get()));
+  const first = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
+  const second = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
+  assert.equal(first.idempotent, false); assert.equal(second.idempotent, true);
+  const run = (await db.doc("payoutRuns/fixture-pending-run").get()).data();
+  assert.equal(run.status, "paid"); assert.equal(run.paymentReference, "FAKE-WEBSITE-PAID"); assert.equal(run.paidByAdminUid, "fixture-admin"); assert.ok(run.paidAt);
+  const after = await Promise.all(before.map((entry) => db.doc(`ledgerEntries/${entry.id}`).get()));
+  after.forEach((entry, index) => { assert.equal(entry.data().status, "paid"); assert.equal(entry.data().amountCents, before[index].data().amountCents); assert.equal(entry.data().payoutRunId, "fixture-pending-run"); });
+});
+await check("malformed sessions remain denied", async () => {
+  assert.equal((await page("/admin", "parkingoath_partner_session=malformed")).status, 307);
+});
+await check("revoked admin sessions are rejected", async () => {
+  const revokedAdmin = await client("fixture-revoked-admin", "revoked-admin@example.test", { admin: true });
+  const cookie = await websiteSession(revokedAdmin.auth);
+  assert.equal((await page("/admin", cookie)).status, 200);
+  await new Promise((resolve) => setTimeout(resolve, 1100));
+  await adminAuth.revokeRefreshTokens("fixture-revoked-admin");
+  assert.equal((await page("/admin", cookie)).status, 307);
+});
+
+await Promise.all(clientApps.map(deleteApp));
+process.stdout.write(`1..${passed}\n${passed} website/emulator integration checks passed.\n`);
