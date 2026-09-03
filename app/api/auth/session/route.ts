@@ -25,7 +25,10 @@ export async function POST(request: NextRequest) {
       maxAge: AUTH_SESSION_MAX_AGE_SECONDS,
     });
     return response;
-  } catch {
+  } catch (error) {
+    console.error("Unable to create Firebase Admin session", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json({ error: "Unable to create a session." }, { status: 401 });
   }
 }
