@@ -28,7 +28,7 @@ function sydneyPeriodMonth(value = new Date()) {
 }
 
 export async function getPartnerDashboard(ambassadorId: string) {
-  const db = getAdminDb();
+  const db = await getAdminDb();
   const ambassadorRef = db.collection("ambassadors").doc(ambassadorId);
   const [ambassador, hosts, ledger, payouts] = await Promise.all([
     ambassadorRef.get(),
@@ -60,7 +60,7 @@ export async function getPartnerDashboard(ambassadorId: string) {
 }
 
 export async function getPartnerPayout(ambassadorId: string, runId: string) {
-  const db = getAdminDb();
+  const db = await getAdminDb();
   const run = await db.collection("payoutRuns").doc(runId).get();
   if (!run.exists || run.data()?.ambassadorId !== ambassadorId) return null;
   const entryIds: string[] = Array.isArray(run.data()?.entryIds) ? run.data()!.entryIds.filter((id: unknown): id is string => typeof id === "string") : [];
@@ -69,7 +69,7 @@ export async function getPartnerPayout(ambassadorId: string, runId: string) {
 }
 
 export async function getAdminDashboard() {
-  const db = getAdminDb();
+  const db = await getAdminDb();
   const [ambassadors, ledger, payouts] = await Promise.all([
     db.collection("ambassadors").get(), db.collection("ledgerEntries").get(), db.collection("payoutRuns").get(),
   ]);

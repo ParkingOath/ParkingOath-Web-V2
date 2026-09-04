@@ -9,11 +9,12 @@ export async function POST(request: NextRequest) {
     if (typeof body.idToken !== "string" || !body.idToken) {
       return NextResponse.json({ error: "A Firebase ID token is required." }, { status: 400 });
     }
-    const decoded = await getAdminAuth().verifyIdToken(body.idToken);
+    const auth = await getAdminAuth();
+    const decoded = await auth.verifyIdToken(body.idToken);
     if (Date.now() / 1000 - decoded.auth_time > 5 * 60) {
       return NextResponse.json({ error: "Please sign in again." }, { status: 401 });
     }
-    const session = await getAdminAuth().createSessionCookie(body.idToken, {
+    const session = await auth.createSessionCookie(body.idToken, {
       expiresIn: AUTH_SESSION_MAX_AGE_SECONDS * 1000,
     });
     const response = NextResponse.json({ ok: true });

@@ -16,14 +16,15 @@ export async function resolveWebsiteIdentity(): Promise<WebsiteIdentity | null> 
   const value = (await cookies()).get(AUTH_SESSION_COOKIE)?.value;
   if (!value) return null;
   try {
-    const decoded = await getAdminAuth().verifySessionCookie(value, true);
+    const decoded = await (await getAdminAuth()).verifySessionCookie(value, true);
     if (decoded.admin === true) {
       return { kind: "admin", uid: decoded.uid, email: decoded.email ?? null };
     }
-    const mapping = await getAdminDb().collection("ambassadorAuthUids").doc(decoded.uid).get();
+    const db = await getAdminDb();
+    const mapping = await db.collection("ambassadorAuthUids").doc(decoded.uid).get();
     const ambassadorId = mapping.data()?.ambassadorId;
     if (typeof ambassadorId !== "string" || !ambassadorId) return null;
-    const ambassador = await getAdminDb().collection("ambassadors").doc(ambassadorId).get();
+    const ambassador = await db.collection("ambassadors").doc(ambassadorId).get();
     if (!ambassador.exists || ambassador.data()?.status !== "active") return null;
     return { kind: "ambassador", uid: decoded.uid, email: decoded.email ?? null, ambassadorId };
   } catch {

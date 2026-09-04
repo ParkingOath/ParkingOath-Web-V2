@@ -57,6 +57,19 @@ async function page(path, cookie) {
   return fetch(`${website}${path}`, { headers: cookie ? { cookie } : {}, redirect: "manual" });
 }
 
+async function adminApi(action, input, cookie) {
+  const response = await fetch(`${website}/api/admin/ambassador-actions`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      ...(cookie ? { cookie } : {}),
+    },
+    body: JSON.stringify({ action, input }),
+  });
+  const body = await response.json();
+  return { response, body };
+}
+
 const admin = await client("fixture-admin", "admin@example.test", { admin: true });
 const user = await client("fixture-user", "user@example.test", {});
 const ambassador = await client("fixture-ambassador-a", "ambassador-a@example.test", {});
@@ -124,25 +137,65 @@ await check("normal and Ambassador tokens are rejected by every admin callable",
     ["markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "DENIED" }],
   ]) await assert.rejects(actor.call(name, data), (error) => error?.code === "functions/permission-denied");
 });
-await check("admin approval is canonical and idempotent", async () => {
-  const first = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
-  const second = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
+await check("website admin API rejects missing, normal-user and Ambassador sessions", async () => {
+  for (const cookie of [undefined, userCookie, ambassadorCookie]) {
+    const { response } = await adminApi(
+      "approveAmbassador",
+      { ambassadorId: "pending-ambassador" },
+      cookie,
+    );
+    assert.equal(response.status, 403);
+  }
+});
+await check("website admin approval is canonical and idempotent", async () => {
+  const firstResponse = await adminApi(
+    "approveAmbassador",
+    { ambassadorId: "pending-ambassador" },
+    adminCookie,
+  );
+  const secondResponse = await adminApi(
+    "approveAmbassador",
+    { ambassadorId: "pending-ambassador" },
+    adminCookie,
+  );
+  assert.equal(firstResponse.response.status, 200);
+  assert.equal(secondResponse.response.status, 200);
+  const first = firstResponse.body.result;
+  const second = secondResponse.body.result;
   assert.equal(first.status, "active"); assert.equal(second.referralCode, first.referralCode);
   assert.match(first.referralLink, /^https:\/\/parkingoath\.com\.au\/r\//);
   const approved = (await db.doc("ambassadors/pending-ambassador").get()).data();
   assert.equal((await db.doc(`ambassadorAuthUids/${approved.authUid}`).get()).data().ambassadorId, "pending-ambassador");
   assert.equal((await adminAuth.getUserByEmail("pending@example.test")).uid, approved.authUid);
 });
-await check("admin stores synthetic payout details without response leakage", async () => {
-  const result = (await admin.call("setAmbassadorPayoutDetails", { ambassadorId: "ambassador-b", accountName: "Test Ambassador", bsb: "123-456", accountNumber: "12345678" })).data;
+await check("website admin stores synthetic payout details without response leakage", async () => {
+  const action = await adminApi(
+    "setAmbassadorPayoutDetails",
+    { ambassadorId: "ambassador-b", accountName: "Test Ambassador", bsb: "123-456", accountNumber: "12345678" },
+    adminCookie,
+  );
+  assert.equal(action.response.status, 200);
+  const result = action.body.result;
   assert.equal(result.payoutsEnabled, true); assert.equal("accountNumber" in result, false);
   assert.equal((await db.doc("ambassadors/ambassador-b/private/payout").get()).data().accountNumber, "12345678");
   assert.equal((await db.doc("ambassadors/ambassador-b").get()).data().payoutsEnabled, true);
 });
-await check("admin marks payout paid without changing amounts and retry is idempotent", async () => {
+await check("website admin marks payout paid without changing amounts and retry is idempotent", async () => {
   const before = await Promise.all(["service-fixture", "onboarding-fixture", "refund-fixture"].map((id) => db.doc(`ledgerEntries/${id}`).get()));
-  const first = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
-  const second = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
+  const firstResponse = await adminApi(
+    "markAmbassadorPayoutPaid",
+    { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" },
+    adminCookie,
+  );
+  const secondResponse = await adminApi(
+    "markAmbassadorPayoutPaid",
+    { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" },
+    adminCookie,
+  );
+  assert.equal(firstResponse.response.status, 200);
+  assert.equal(secondResponse.response.status, 200);
+  const first = firstResponse.body.result;
+  const second = secondResponse.body.result;
   assert.equal(first.idempotent, false); assert.equal(second.idempotent, true);
   const run = (await db.doc("payoutRuns/fixture-pending-run").get()).data();
   assert.equal(run.status, "paid"); assert.equal(run.paymentReference, "FAKE-WEBSITE-PAID"); assert.equal(run.paidByAdminUid, "fixture-admin"); assert.ok(run.paidAt);

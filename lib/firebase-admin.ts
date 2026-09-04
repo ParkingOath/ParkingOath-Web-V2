@@ -1,15 +1,16 @@
 import "server-only";
 
+import fs from "node:fs";
+
 import { getVercelOidcToken } from "@vercel/oidc";
 import {
+  applicationDefault,
   getApps,
   initializeApp,
   type App,
-  type Credential,
 } from "firebase-admin/app";
 import { getAuth, type Auth } from "firebase-admin/auth";
 import { getFirestore, type Firestore } from "firebase-admin/firestore";
-import { ExternalAccountClient } from "google-auth-library";
 
 type FirebaseAdminEnvironment = {
   firebaseProjectId: string;
@@ -21,11 +22,10 @@ type FirebaseAdminEnvironment = {
   audience: string;
 };
 
-const FIREBASE_ADMIN_SCOPES = [
-  "https://www.googleapis.com/auth/cloud-platform",
-  "https://www.googleapis.com/auth/identitytoolkit",
-  "https://www.googleapis.com/auth/userinfo.email",
-];
+const ADMIN_APP_NAME = "parkingoath-web-admin";
+const OIDC_TOKEN_PATH = "/tmp/parkingoath-vercel-oidc-token";
+const EXTERNAL_ACCOUNT_CONFIG_PATH = "/tmp/parkingoath-google-external-account.json";
+let adminAppPromise: Promise<App> | null = null;
 
 function requireEnvironmentValue(name: string): string {
   const value = process.env[name]?.trim();
@@ -65,17 +65,28 @@ function getFirebaseAdminEnvironment(): FirebaseAdminEnvironment {
   return environment;
 }
 
-function createVercelOidcCredential(
-  environment: FirebaseAdminEnvironment,
-): Credential {
-  // Google's STS request identifies the provider with a protocol-relative full
-  // resource name, while the Vercel OIDC token uses the provider's HTTPS URL in
-  // its `aud` claim. Keep these two representations deliberately separate.
+function getEmulatorHosts(): string[] {
+  return [
+    process.env.FIREBASE_AUTH_EMULATOR_HOST,
+    process.env.FIRESTORE_EMULATOR_HOST,
+  ].filter(Boolean) as string[];
+}
+
+function getExistingAdminApp(): App | undefined {
+  return getApps().find((app) => app.name === ADMIN_APP_NAME);
+}
+
+async function prepareExternalAccountCredential(environment: FirebaseAdminEnvironment) {
+  const oidcToken = await getVercelOidcToken({ audience: environment.audience });
+  fs.writeFileSync(OIDC_TOKEN_PATH, oidcToken, { encoding: "utf8", mode: 0o600 });
+
+  // STS identifies the provider with a protocol-relative resource name, while
+  // the Vercel token uses the HTTPS form above in its `aud` claim.
   const externalAccountAudience =
     `//iam.googleapis.com/projects/${environment.projectNumber}` +
     `/locations/global/workloadIdentityPools/${environment.workloadIdentityPoolId}` +
     `/providers/${environment.workloadIdentityPoolProviderId}`;
-  const authClient = ExternalAccountClient.fromJSON({
+  const credentialConfig = {
     type: "external_account",
     audience: externalAccountAudience,
     subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
@@ -83,43 +94,21 @@ function createVercelOidcCredential(
     service_account_impersonation_url:
       "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/" +
       `${environment.serviceAccountEmail}:generateAccessToken`,
-    scopes: FIREBASE_ADMIN_SCOPES,
-    subject_token_supplier: {
-      getSubjectToken: () =>
-        getVercelOidcToken({ audience: environment.audience }),
-    },
-  });
-
-  if (!authClient) {
-    throw new Error("Unable to create the Google external account client.");
-  }
-
-  return {
-    async getAccessToken() {
-      const response = await authClient.getAccessToken();
-      const token = response.token;
-      const expiryDate = authClient.credentials.expiry_date;
-      if (!token || !expiryDate) {
-        throw new Error("Google did not return a usable access token for Firebase Admin.");
-      }
-
-      return {
-        access_token: token,
-        expires_in: Math.max(1, Math.floor((expiryDate - Date.now()) / 1000)),
-      };
+    credential_source: {
+      file: OIDC_TOKEN_PATH,
+      format: { type: "text" },
     },
   };
+  fs.writeFileSync(EXTERNAL_ACCOUNT_CONFIG_PATH, JSON.stringify(credentialConfig), {
+    encoding: "utf8",
+    mode: 0o600,
+  });
+  process.env.GOOGLE_APPLICATION_CREDENTIALS = EXTERNAL_ACCOUNT_CONFIG_PATH;
 }
 
-function getAdminApp(): App {
-  const existingApp = getApps()[0];
-  if (existingApp) return existingApp;
-
+async function getAdminApp(): Promise<App> {
   const firebaseProjectId = requireEnvironmentValue("FIREBASE_PROJECT_ID");
-  const emulatorHosts = [
-    process.env.FIREBASE_AUTH_EMULATOR_HOST,
-    process.env.FIRESTORE_EMULATOR_HOST,
-  ].filter(Boolean) as string[];
+  const emulatorHosts = getEmulatorHosts();
   if (emulatorHosts.length) {
     if (process.env.NODE_ENV === "production") {
       throw new Error("Firebase Admin emulators cannot be enabled in production.");
@@ -127,20 +116,40 @@ function getAdminApp(): App {
     if (emulatorHosts.some((host) => !/^(localhost|127\.0\.0\.1):\d+$/.test(host))) {
       throw new Error("Firebase Admin emulator hosts must use localhost or 127.0.0.1.");
     }
-    return initializeApp({ projectId: firebaseProjectId });
+    return (
+      getExistingAdminApp() ?? initializeApp({ projectId: firebaseProjectId }, ADMIN_APP_NAME)
+    );
   }
 
   const environment = getFirebaseAdminEnvironment();
-  return initializeApp({
-    credential: createVercelOidcCredential(environment),
-    projectId: environment.firebaseProjectId,
-  });
+  // Refresh the file-sourced subject token on every server request. The Google
+  // auth client caches its short-lived access token and rereads this file when
+  // it needs to exchange a fresh one.
+  await prepareExternalAccountCredential(environment);
+  const existingApp = getExistingAdminApp();
+  if (existingApp) return existingApp;
+
+  if (!adminAppPromise) {
+    adminAppPromise = Promise.resolve(
+      initializeApp(
+        {
+          credential: applicationDefault(),
+          projectId: environment.firebaseProjectId,
+        },
+        ADMIN_APP_NAME,
+      ),
+    ).catch((error) => {
+      adminAppPromise = null;
+      throw error;
+    });
+  }
+  return adminAppPromise;
 }
 
-export function getAdminDb(): Firestore {
-  return getFirestore(getAdminApp());
+export async function getAdminDb(): Promise<Firestore> {
+  return getFirestore(await getAdminApp());
 }
 
-export function getAdminAuth(): Auth {
-  return getAuth(getAdminApp());
+export async function getAdminAuth(): Promise<Auth> {
+  return getAuth(await getAdminApp());
 }
