@@ -26,6 +26,7 @@ export function ContactForm({
   pageName = "General enquiry",
   ...props
 }: ContactFormProps) {
+  const isAmbassadorApplication = pageName === "Ambassador interest";
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
@@ -95,6 +96,8 @@ export function ContactForm({
               placeholder="First name"
               type="text"
               name="firstName"
+              required={isAmbassadorApplication}
+              maxLength={80}
             />
           </label>
           <label className="block space-y-2 text-sm font-medium text-[#334155]">
@@ -104,6 +107,8 @@ export function ContactForm({
               placeholder="Last name"
               type="text"
               name="lastName"
+              required={isAmbassadorApplication}
+              maxLength={80}
             />
           </label>
         </div>
@@ -115,6 +120,8 @@ export function ContactForm({
             placeholder="Your email"
             type="email"
             name="email"
+            required={isAmbassadorApplication}
+            maxLength={254}
           />
         </label>
         <label className="block space-y-2 text-sm font-medium text-[#334155]">
@@ -124,6 +131,7 @@ export function ContactForm({
             placeholder="Phone number"
             type="tel"
             name="phone"
+            maxLength={40}
           />
         </label>
         <label className="block space-y-2 text-sm font-medium text-[#334155]">
@@ -132,6 +140,7 @@ export function ContactForm({
             className="min-h-[140px] w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#1e293b] outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
             placeholder="Your message"
             name="message"
+            maxLength={2000}
           />
         </label>
         <Button

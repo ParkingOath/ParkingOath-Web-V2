@@ -79,6 +79,40 @@ const userCookie = await websiteSession(user.auth);
 const ambassadorCookie = await websiteSession(ambassador.auth);
 const unmappedCookie = await websiteSession(unmapped.auth);
 
+await check("website Ambassador form creates one pending application per email", async () => {
+  const invalidResponse = await fetch(`${website}/api/hubspot/contact`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ pageName: "Ambassador interest", email: "invalid" }),
+  });
+  assert.equal(invalidResponse.status, 400);
+  const payload = {
+    firstName: "Website",
+    lastName: "Applicant",
+    email: "website-applicant@example.test",
+    phone: "+61 400 000 000",
+    message: "Synthetic emulator application",
+    pageName: "Ambassador interest",
+  };
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const response = await fetch(`${website}/api/hubspot/contact`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    assert.equal(response.status, 200);
+  }
+  const applications = await db.collection("ambassadors")
+    .where("email", "==", "website-applicant@example.test")
+    .get();
+  assert.equal(applications.size, 1);
+  const application = applications.docs[0].data();
+  assert.equal(application.displayName, "Website Applicant");
+  assert.equal(application.status, "pending");
+  assert.equal(application.referralCode, null);
+  assert.equal(application.applicationSource, "website_ambassador_interest");
+});
+
 await check("unauthenticated private pages redirect", async () => {
   assert.equal((await page("/admin")).status, 307);
   assert.equal((await page("/partners")).status, 307);
