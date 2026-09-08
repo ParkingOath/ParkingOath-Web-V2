@@ -54,6 +54,11 @@ export async function POST(request: Request) {
       );
     }
 
+    console.info("Partner sign-in email accepted by provider", {
+      recipientKind: recipient.kind,
+      providerMessageId: result.providerMessageId,
+    });
+
     return NextResponse.json(GENERIC_SUCCESS, {
       headers: { "Cache-Control": "no-store" },
     });

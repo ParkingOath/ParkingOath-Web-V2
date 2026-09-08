@@ -263,13 +263,16 @@ export async function sendPartnerSignInEmail(input: PartnerSignInEmailInput) {
     }),
   });
 
+  const responseBody = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({}));
-    const message = typeof errorBody?.message === "string"
-      ? errorBody.message
+    const message = typeof responseBody?.message === "string"
+      ? responseBody.message
       : "Partner sign-in email failed";
     return { ok: false as const, status: response.status, message };
   }
 
-  return { ok: true as const };
+  return {
+    ok: true as const,
+    providerMessageId: typeof responseBody?.id === "string" ? responseBody.id : null,
+  };
 }

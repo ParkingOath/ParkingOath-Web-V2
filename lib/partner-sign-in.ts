@@ -106,7 +106,9 @@ export async function sendWebsiteSignInLink({
   referralLink?: string;
   idempotencyKey?: string;
 }) {
-  if (isLocalAuthEmulator()) return { ok: true as const, simulated: true as const };
+  if (isLocalAuthEmulator()) {
+    return { ok: true as const, simulated: true as const, providerMessageId: null };
+  }
 
   const firebaseAuth = auth ?? await getAdminAuth();
   const signInLink = await firebaseAuth.generateSignInWithEmailLink(email, {

@@ -154,7 +154,12 @@ export async function approveAmbassador(ambassadorIdValue: unknown, adminUid: st
       idempotencyKey: `ambassador-approval-${ambassadorId}`,
     });
     signInEmailSent = emailResult.ok;
-    if (!emailResult.ok) {
+    if (emailResult.ok) {
+      console.info("Ambassador approved and sign-in email accepted by provider", {
+        ambassadorId,
+        providerMessageId: emailResult.providerMessageId ?? null,
+      });
+    } else {
       console.error("Ambassador was approved but the sign-in email was rejected", {
         ambassadorId,
         status: emailResult.status,
