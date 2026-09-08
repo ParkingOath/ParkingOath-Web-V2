@@ -5,6 +5,7 @@ import { randomBytes } from "node:crypto";
 import { FieldValue } from "firebase-admin/firestore";
 
 import { getAdminAuth, getAdminDb } from "@/lib/firebase-admin";
+import { sendWebsiteSignInLink } from "@/lib/partner-sign-in";
 
 const REFERRAL_BASE_URL = "https://parkingoath.com.au";
 const MAX_REFERRAL_CODE_ATTEMPTS = 8;
@@ -140,11 +141,38 @@ export async function approveAmbassador(ambassadorIdValue: unknown, adminUid: st
   await linkAmbassadorAuthUid(ambassadorId, authUser.uid);
   const referralCode = await issueReferralCode(ambassadorId, adminUid);
   const approved = await ambassadorRef.get();
+  const approvedData = approved.data();
+  const referralLink = asNonEmptyString(approvedData?.referralLink);
+  let signInEmailSent = false;
+  try {
+    const emailResult = await sendWebsiteSignInLink({
+      auth,
+      email,
+      displayName: asNonEmptyString(approvedData?.displayName),
+      purpose: "approval",
+      referralLink,
+      idempotencyKey: `ambassador-approval-${ambassadorId}`,
+    });
+    signInEmailSent = emailResult.ok;
+    if (!emailResult.ok) {
+      console.error("Ambassador was approved but the sign-in email was rejected", {
+        ambassadorId,
+        status: emailResult.status,
+        message: emailResult.message,
+      });
+    }
+  } catch (error) {
+    console.error("Ambassador was approved but the sign-in email could not be generated", {
+      ambassadorId,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
   return {
     ambassadorId,
-    status: asNonEmptyString(approved.data()?.status),
+    status: asNonEmptyString(approvedData?.status),
     referralCode,
-    referralLink: asNonEmptyString(approved.data()?.referralLink),
+    referralLink,
+    signInEmailSent,
   };
 }
 

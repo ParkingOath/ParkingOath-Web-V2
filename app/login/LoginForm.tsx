@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink } from "firebase/auth";
+import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 import { getClientAuth } from "@/lib/firebase-client";
@@ -60,12 +60,15 @@ export function LoginForm() {
         await completeEmailLink(emailAddress);
         return;
       }
-      await sendSignInLinkToEmail(auth, email.trim(), {
-        url: `${window.location.origin}/login`,
-        handleCodeInApp: true,
+      const response = await fetch("/api/auth/email-link", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email: emailAddress }),
       });
+      const body = await response.json().catch(() => ({})) as { error?: string; message?: string };
+      if (!response.ok) throw new Error(body.error || "Sign-in email failed");
       window.localStorage.setItem(EMAIL_KEY, emailAddress);
-      setMessage("Check your email for your secure ParkingOath sign-in link.");
+      setMessage(body.message || "Check your email for your secure ParkingOath sign-in link.");
     } catch {
       setMessage(
         hasEmailLink

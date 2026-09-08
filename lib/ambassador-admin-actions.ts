@@ -26,6 +26,7 @@ export const approveAmbassador = (ambassadorId: string) =>
     status: string;
     referralCode: string;
     referralLink: string;
+    signInEmailSent: boolean;
   }>("approveAmbassador", { ambassadorId });
 
 export const savePayoutDetails = (input: {

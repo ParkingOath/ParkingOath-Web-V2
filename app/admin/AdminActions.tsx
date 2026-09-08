@@ -18,9 +18,9 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
 
-  async function run(key: string, action: () => Promise<unknown>, success: string): Promise<boolean> {
+  async function run<T>(key: string, action: () => Promise<T>, success: string | ((result: T) => string)): Promise<boolean> {
     setBusy(key); setMessage("");
-    try { await action(); setMessage(success); router.refresh(); return true; }
+    try { const result = await action(); setMessage(typeof success === "function" ? success(result) : success); router.refresh(); return true; }
     catch (error) { setMessage(error instanceof Error ? error.message : "The operation could not be completed."); return false; }
     finally { setBusy(""); }
   }
@@ -31,7 +31,7 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
       <div className="mt-4 divide-y">{pending.length ? pending.map((item) =>
         <div key={item.id} className="flex flex-wrap items-center justify-between gap-4 py-4">
           <div><p className="font-semibold">{item.displayName}</p><p className="text-sm text-slate-600">{item.email} · {item.applicationDate}</p></div>
-          <button type="button" disabled={Boolean(busy)} onClick={() => run(`approve-${item.id}`, () => approveAmbassador(item.id), `${item.displayName} approved.`)} className="rounded-xl bg-brand px-4 py-2 font-semibold text-white disabled:opacity-50">
+          <button type="button" disabled={Boolean(busy)} onClick={() => run(`approve-${item.id}`, () => approveAmbassador(item.id), (result) => result.signInEmailSent ? `${item.displayName} approved and their sign-in email was sent.` : `${item.displayName} was approved, but the sign-in email could not be sent. They can request another from the Partner sign-in page.`)} className="rounded-xl bg-brand px-4 py-2 font-semibold text-white disabled:opacity-50">
             {busy === `approve-${item.id}` ? "Approving…" : "Approve"}
           </button>
         </div>) : <p className="py-4 text-slate-500">No pending applications.</p>}</div>
@@ -57,7 +57,7 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
   </div>;
 }
 
-function PayoutDetailsForm({ ambassador, busy, run }: { ambassador: Ambassador; busy: string; run: (key: string, action: () => Promise<unknown>, success: string) => Promise<boolean> }) {
+function PayoutDetailsForm({ ambassador, busy, run }: { ambassador: Ambassador; busy: string; run: <T>(key: string, action: () => Promise<T>, success: string | ((result: T) => string)) => Promise<boolean> }) {
   const [accountName, setAccountName] = useState(""); const [bsb, setBsb] = useState(""); const [accountNumber, setAccountNumber] = useState("");
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -73,7 +73,7 @@ function PayoutDetailsForm({ ambassador, busy, run }: { ambassador: Ambassador; 
   </form>;
 }
 
-function MarkPaidForm({ runItem, busy, run }: { runItem: PayoutRun; busy: string; run: (key: string, action: () => Promise<unknown>, success: string) => Promise<boolean> }) {
+function MarkPaidForm({ runItem, busy, run }: { runItem: PayoutRun; busy: string; run: <T>(key: string, action: () => Promise<T>, success: string | ((result: T) => string)) => Promise<boolean> }) {
   const [reference, setReference] = useState("");
   async function submit(event: FormEvent) {
     event.preventDefault();

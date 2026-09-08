@@ -166,3 +166,110 @@ export async function sendLeadWelcomeEmail({ to, firstName }: WelcomeEmailInput)
 
   return { ok: true as const };
 }
+
+export type PartnerSignInEmailPurpose = "approval" | "login";
+
+type PartnerSignInEmailInput = {
+  to: string;
+  displayName?: string;
+  signInLink: string;
+  purpose: PartnerSignInEmailPurpose;
+  referralLink?: string;
+  idempotencyKey?: string;
+};
+
+function buildPartnerSignInTextBody({
+  displayName,
+  signInLink,
+  purpose,
+  referralLink,
+}: Omit<PartnerSignInEmailInput, "to" | "idempotencyKey">) {
+  const greetingName = displayName?.trim() || "there";
+  const lines = [
+    `Hi ${greetingName},`,
+    "",
+    purpose === "approval"
+      ? "Your ParkingOath Ambassador application has been approved."
+      : "Use the secure link below to sign in to your ParkingOath partner portal.",
+    "",
+    `Sign in: ${signInLink}`,
+  ];
+
+  if (purpose === "approval" && referralLink) {
+    lines.push("", `Your referral link: ${referralLink}`);
+  }
+
+  lines.push(
+    "",
+    "If the sign-in link has expired, request another one from the Partner sign-in page.",
+    "",
+    "Thanks,",
+    "ParkingOath",
+  );
+  return lines.join("\n");
+}
+
+function buildPartnerSignInHtmlBody({
+  displayName,
+  signInLink,
+  purpose,
+  referralLink,
+}: Omit<PartnerSignInEmailInput, "to" | "idempotencyKey">) {
+  const greetingName = escapeHtml(displayName?.trim() || "there");
+  const safeSignInLink = escapeHtml(signInLink);
+  const referralParagraph = purpose === "approval" && referralLink
+    ? `<p>Your referral link:<br><a href="${escapeHtml(referralLink)}">${escapeHtml(referralLink)}</a></p>`
+    : "";
+
+  return `
+    <div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#1e293b;">
+      <p>Hi ${greetingName},</p>
+      <p>${purpose === "approval"
+        ? "Your ParkingOath Ambassador application has been approved."
+        : "Use the secure link below to sign in to your ParkingOath partner portal."}</p>
+      <p><a href="${safeSignInLink}" style="display:inline-block;border-radius:8px;background:#2443c3;color:#fff;padding:12px 18px;text-decoration:none;font-weight:600;">Sign in to ParkingOath</a></p>
+      ${referralParagraph}
+      <p style="color:#64748b;font-size:13px;">If the sign-in link has expired, request another one from the Partner sign-in page.</p>
+      <p>Thanks,<br>ParkingOath</p>
+    </div>
+  `;
+}
+
+export async function sendPartnerSignInEmail(input: PartnerSignInEmailInput) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = formatEnvValue(process.env.RESEND_FROM_EMAIL, DEFAULT_LEADS_EMAIL_FROM);
+  const to = input.to.trim();
+
+  if (!apiKey || !to || !input.signInLink) {
+    return { ok: false as const, status: 500, message: "Partner sign-in email configuration is missing" };
+  }
+
+  const response = await fetch(RESEND_EMAIL_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      ...(input.idempotencyKey ? { "Idempotency-Key": input.idempotencyKey } : {}),
+    },
+    body: JSON.stringify({
+      from,
+      to,
+      reply_to: WELCOME_EMAIL_REPLY_TO,
+      subject: input.purpose === "approval"
+        ? "Your ParkingOath Ambassador account is approved"
+        : "Your ParkingOath partner sign-in link",
+      html: buildPartnerSignInHtmlBody(input),
+      text: buildPartnerSignInTextBody(input),
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({}));
+    const message = typeof errorBody?.message === "string"
+      ? errorBody.message
+      : "Partner sign-in email failed";
+    return { ok: false as const, status: response.status, message };
+  }
+
+  return { ok: true as const };
+}

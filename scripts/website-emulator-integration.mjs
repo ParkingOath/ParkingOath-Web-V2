@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { initializeApp as initializeAdmin } from "firebase-admin/app";
 import { getAuth as getAdminAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
@@ -136,6 +137,21 @@ await check("unmapped authenticated user has no private access", async () => {
   assert.equal((await page("/partners", unmappedCookie)).status, 307);
   assert.equal((await page("/admin", unmappedCookie)).status, 307);
 });
+await check("partner sign-in email endpoint is generic and restricted to approved users", async () => {
+  for (const email of ["ambassador-a@example.test", "unknown@example.test"]) {
+    const response = await fetch(`${website}/api/auth/email-link`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).ok, true);
+  }
+  const approvedHash = createHash("sha256").update("ambassador-a@example.test").digest("hex");
+  const unknownHash = createHash("sha256").update("unknown@example.test").digest("hex");
+  assert.equal((await db.doc(`partnerLoginEmailRequests/${approvedHash}`).get()).exists, true);
+  assert.equal((await db.doc(`partnerLoginEmailRequests/${unknownHash}`).get()).exists, false);
+});
 await check("payout statement ownership is enforced", async () => {
   const own = await page("/partners/payouts/fixture-pending-run", ambassadorCookie);
   assert.equal(own.status, 200);
@@ -197,6 +213,7 @@ await check("website admin approval is canonical and idempotent", async () => {
   const first = firstResponse.body.result;
   const second = secondResponse.body.result;
   assert.equal(first.status, "active"); assert.equal(second.referralCode, first.referralCode);
+  assert.equal(first.signInEmailSent, true); assert.equal(second.signInEmailSent, true);
   assert.match(first.referralLink, /^https:\/\/parkingoath\.com\.au\/r\//);
   const approved = (await db.doc("ambassadors/pending-ambassador").get()).data();
   assert.equal((await db.doc(`ambassadorAuthUids/${approved.authUid}`).get()).data().ambassadorId, "pending-ambassador");
