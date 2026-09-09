@@ -34,18 +34,22 @@ export function LoginForm() {
   }, [router]);
 
   useEffect(() => {
-    const auth = getClientAuth();
-    if (!isSignInWithEmailLink(auth, window.location.href)) return;
-    setHasEmailLink(true);
-    const savedEmail = window.localStorage.getItem(EMAIL_KEY);
-    if (!savedEmail) {
-      setMessage("Enter the email address that received this sign-in link to continue.");
-      return;
+    try {
+      const auth = getClientAuth();
+      if (!isSignInWithEmailLink(auth, window.location.href)) return;
+      setHasEmailLink(true);
+      const savedEmail = window.localStorage.getItem(EMAIL_KEY);
+      if (!savedEmail) {
+        setMessage("Enter the email address that received this sign-in link to continue.");
+        return;
+      }
+      setBusy(true);
+      completeEmailLink(savedEmail)
+        .catch(() => setMessage("This sign-in link is invalid or expired. Request a new one."))
+        .finally(() => setBusy(false));
+    } catch {
+      setMessage("Sign-in is temporarily unavailable. Refresh the page and try again.");
     }
-    setBusy(true);
-    completeEmailLink(savedEmail)
-      .catch(() => setMessage("This sign-in link is invalid or expired. Request a new one."))
-      .finally(() => setBusy(false));
   }, [completeEmailLink]);
 
   async function submit(event: FormEvent) {

@@ -9,14 +9,16 @@ function required(name: string, value: string | undefined): string {
   return value;
 }
 
-const firebaseClientConfig = {
-  apiKey: required("NEXT_PUBLIC_FIREBASE_API_KEY", process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
-  authDomain: required("NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN", process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN),
-  projectId: required("NEXT_PUBLIC_FIREBASE_PROJECT_ID", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID),
-};
+function getFirebaseClientConfig() {
+  return {
+    apiKey: required("NEXT_PUBLIC_FIREBASE_API_KEY", process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
+    authDomain: required("NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN", process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN),
+    projectId: required("NEXT_PUBLIC_FIREBASE_PROJECT_ID", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID),
+  };
+}
 
 export function getClientAuth() {
-  const app = getApps()[0] ?? initializeApp(firebaseClientConfig);
+  const app = getApps()[0] ?? initializeApp(getFirebaseClientConfig());
   const auth = getAuth(getApp(app.name));
   connectLocalEmulators(auth.app);
   return auth;
