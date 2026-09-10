@@ -7,7 +7,8 @@
       "namespace": "android_app",
       "package_name": "au.com.parkingoath",
       "sha256_cert_fingerprints": [
-        "9F:1B:A0:A8:24:C8:34:D0:FB:2C:CB:92:7A:35:5D:E8:AC:04:BD:80:9A:8C:FD:8E:AC:BC:11:99:15:6B:38:BD"
+        "9F:1B:A0:A8:24:C8:34:D0:FB:2C:CB:92:7A:35:5D:E8:AC:04:BD:80:9A:8C:FD:8E:AC:BC:11:99:15:6B:38:BD",
+        "DE:38:AC:1A:87:27:25:5C:A8:66:6C:D8:16:61:6C:3C:0E:F2:F9:28:92:42:5A:B5:58:74:1A:24:8D:50:D6:EA"
       ]
     }
   }
