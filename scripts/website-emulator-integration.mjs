@@ -43,12 +43,16 @@ async function client(uid, email, claims = {}) {
   return { auth, call: (name, data) => httpsCallable(functions, name)(data) };
 }
 
-async function websiteSession(auth) {
+async function websiteSession(auth, expectedStatus = 200) {
   const response = await fetch(`${website}/api/auth/session`, {
     method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ idToken: await auth.currentUser.getIdToken(true) }),
   });
-  assert.equal(response.status, 200);
+  assert.equal(response.status, expectedStatus);
+  if (expectedStatus !== 200) {
+    assert.equal(response.headers.get("set-cookie"), null);
+    return undefined;
+  }
   const cookie = response.headers.get("set-cookie");
   assert.match(cookie || "", /parkingoath_partner_session=/);
   return cookie.split(";")[0];
@@ -76,9 +80,9 @@ const user = await client("fixture-user", "user@example.test", {});
 const ambassador = await client("fixture-ambassador-a", "ambassador-a@example.test", {});
 const unmapped = await client("fixture-unmapped", "unmapped@example.test", {});
 const adminCookie = await websiteSession(admin.auth);
-const userCookie = await websiteSession(user.auth);
+const userCookie = await websiteSession(user.auth, 403);
 const ambassadorCookie = await websiteSession(ambassador.auth);
-const unmappedCookie = await websiteSession(unmapped.auth);
+const unmappedCookie = await websiteSession(unmapped.auth, 403);
 
 await check("website Ambassador form creates one pending application per email", async () => {
   const invalidResponse = await fetch(`${website}/api/hubspot/contact`, {
