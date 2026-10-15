@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { approveAmbassador, markPayoutPaid, savePayoutDetails } from "@/lib/ambassador-admin-actions";
+import { ReferralLinkActions } from "@/components/PartnerPortalControls";
 
 type PendingAmbassador = { id: string; displayName: string; email: string; applicationDate: string };
 type Ambassador = { id: string; displayName: string; status: string; referralCode: string; referralLink: string; payoutsEnabled: boolean };
@@ -26,6 +27,7 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
   }
 
   return <div className="space-y-10">
+    {message ? <p role="status" aria-live="polite" className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 shadow-sm">{message}</p> : null}
     <section className="rounded-3xl bg-white p-8 shadow-sm">
       <h2 className="text-2xl font-semibold">Pending applications</h2>
       <div className="mt-4 divide-y">{pending.length ? pending.map((item) =>
@@ -39,12 +41,17 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
 
     <section className="rounded-3xl bg-white p-8 shadow-sm">
       <h2 className="text-2xl font-semibold">Ambassadors</h2>
-      <div className="mt-4 divide-y">{ambassadors.map((item) =>
+      <div className="mt-4 divide-y">{ambassadors.length ? ambassadors.map((item) =>
         <div key={item.id} className="py-5">
-          <div className="flex flex-wrap justify-between gap-3"><span className="font-semibold">{item.displayName}</span><span>{item.status}</span><span>{item.referralCode || "No code"}</span><span>{item.payoutsEnabled ? "Payout details on file" : "Payout setup required"}</span></div>
-          {item.referralLink ? <p className="mt-1 text-sm text-slate-500">{item.referralLink}</p> : null}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <span className="min-w-0 break-words"><span className="block text-xs text-slate-500">Ambassador</span><span className="font-semibold">{item.displayName}</span></span>
+            <span><span className="block text-xs text-slate-500">Status</span>{item.status}</span>
+            <span className="break-all"><span className="block text-xs text-slate-500">Referral code</span>{item.referralCode || "No code"}</span>
+            <span><span className="block text-xs text-slate-500">Payout setup</span>{item.payoutsEnabled ? "Details on file" : "Required"}</span>
+          </div>
+          {item.referralLink ? <div className="mt-3"><ReferralLinkActions href={item.referralLink} compact /></div> : null}
           <PayoutDetailsForm ambassador={item} busy={busy} run={run} />
-        </div>)}</div>
+        </div>) : <p className="py-4 text-slate-500">No active Ambassadors.</p>}</div>
     </section>
 
     <section className="rounded-3xl bg-white p-8 shadow-sm">
@@ -53,7 +60,6 @@ export function AdminActions({ pending, ambassadors, pendingRuns }: {
         <MarkPaidForm key={runItem.id} runItem={runItem} busy={busy} run={run} />
       ) : <p className="py-4 text-slate-500">No pending payout runs.</p>}</div>
     </section>
-    {message ? <p role="status" className="rounded-xl bg-slate-100 p-4 text-sm text-slate-700">{message}</p> : null}
   </div>;
 }
 

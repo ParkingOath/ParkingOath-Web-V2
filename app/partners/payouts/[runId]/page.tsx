@@ -5,6 +5,7 @@ import { Container } from "@/components/Container";
 import { H1 } from "@/components/Headers";
 import { requireAmbassador } from "@/lib/auth-session";
 import { aud, displayDate, getPartnerPayout } from "@/lib/partner-data";
+import { PartnerPortalControls } from "@/components/PartnerPortalControls";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -13,9 +14,9 @@ export default async function PayoutPage({ params }: { params: Promise<{ runId: 
   const { runId } = await params;
   const payout = await getPartnerPayout(identity.ambassadorId, runId);
   if (!payout) notFound();
-  return <main className="min-h-screen bg-slate-50 py-12"><Container>
+  return <main className="min-h-screen bg-slate-50 py-12"><Container reveal={false}>
     <div className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm">
-      <Link href="/partners" className="text-sm font-semibold text-brand">← Back to Ambassador portal</Link>
+      <div className="flex flex-wrap items-center justify-between gap-4"><Link href="/partners" className="text-sm font-semibold text-brand">← Back to Ambassador portal</Link><PartnerPortalControls portal="partner" /></div>
       <H1>Payout statement</H1>
       <dl className="mt-6 grid gap-3 sm:grid-cols-2">
         <div><dt className="text-sm text-slate-500">Period</dt><dd>{payout.periodMonth as string}</dd></div>
