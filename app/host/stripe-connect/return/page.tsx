@@ -11,7 +11,7 @@ export default function StripeConnectReturnPage() {
   return (
     <StripeConnectRedirect
       title="Returning you to ParkingOath…"
-      description="Your Stripe payout details have been received. The app will refresh your payout status when it opens."
+      description="ParkingOath will check your Stripe payout status when the app opens and show anything that still needs to be completed."
     />
   );
 }
