@@ -21,7 +21,7 @@ export default function ArchivedTermsPage() {
                 <Container reveal={false}>
                     <div className="mx-auto max-w-3xl">
                         <Text size="sm" className="mb-4 font-semibold text-slate-500">
-                            Archived version. These terms were replaced on 20 October 2026 by the{" "}
+                            Archived version. These terms were replaced on 20 October 2026 by Terms of Service v1.0 (since updated). See the{" "}
                             <Link href="/terms" className="text-blue-600 hover:text-blue-500 font-semibold">
                                 current Terms of Service
                             </Link>

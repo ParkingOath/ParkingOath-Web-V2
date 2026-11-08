@@ -26,7 +26,7 @@ export default function TermsPage() {
                             Parking Oath Pty Ltd ABN 62 666 831 394
                         </Text>
                         <Text size="sm" className="mt-4 text-slate-500">
-                            Version 1.0. Effective 20 October 2026.
+                            Version 1.1. Effective 8 November 2026.
                         </Text>
 
                         <div className="mt-10">
@@ -47,7 +47,11 @@ export default function TermsPage() {
                                 <Link href="/privacy" className="text-blue-600 hover:text-blue-500 font-semibold">
                                     Privacy Policy
                                 </Link>
-                                . Previous version:{" "}
+                                . Previous versions:{" "}
+                                <Link href="/terms/archive/v1-0" className="text-blue-600 hover:text-blue-500 font-semibold">
+                                    Terms of Service v1.0, 20 October 2026
+                                </Link>
+                                {" "}and{" "}
                                 <Link href="/terms/archive/2026-02-06" className="text-blue-600 hover:text-blue-500 font-semibold">
                                     Terms &amp; Conditions, 6 February 2026
                                 </Link>
