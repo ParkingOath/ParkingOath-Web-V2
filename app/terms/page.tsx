@@ -47,14 +47,6 @@ export default function TermsPage() {
                                 <Link href="/privacy" className="text-blue-600 hover:text-blue-500 font-semibold">
                                     Privacy Policy
                                 </Link>
-                                . Previous versions:{" "}
-                                <Link href="/terms/archive/v1-0" className="text-blue-600 hover:text-blue-500 font-semibold">
-                                    Terms of Service v1.0, 20 October 2026
-                                </Link>
-                                {" "}and{" "}
-                                <Link href="/terms/archive/2026-02-06" className="text-blue-600 hover:text-blue-500 font-semibold">
-                                    Terms &amp; Conditions, 6 February 2026
-                                </Link>
                                 .
                             </Text>
                         </section>
