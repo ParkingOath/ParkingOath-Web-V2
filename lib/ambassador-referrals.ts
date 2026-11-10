@@ -119,7 +119,7 @@ export async function resolveActiveAmbassadorByCode(
   const referralCode = normalizeReferralCode(rawCode);
   if (!referralCode) return null;
 
-  const db = getAdminDb();
+  const db = await getAdminDb();
   const reservation = await db
     .collection("ambassadorReferralCodes")
     .doc(referralCode)

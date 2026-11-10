@@ -114,7 +114,7 @@ export const TERMS_OF_SERVICE: LegalBlock[] = [
           ],
           [
             {
-              "t": "You pay for the full period you book. There is no refund for change of mind, not turning up, arriving late or leaving early. If the Host cannot provide the space at all, you get a full refund (clauses D7.1 and D7.2)."
+              "t": "You can cancel a Booking in the app any time before its start time for a full refund, including the Booking Fee. Once the Booking has started, you pay for the full period: there is no refund for not turning up, arriving late, leaving early or using less time. If the Host cannot provide the space at all, you get a full refund (clauses C7.1, C7.2, D7.1 and D7.2)."
             }
           ],
           [
@@ -2475,7 +2475,7 @@ export const TERMS_OF_SERVICE: LegalBlock[] = [
         "b": true
       },
       {
-        "t": " You pay for the full period you book. A change-of-mind cancellation, failure to attend, late arrival, early departure or use of less than the booked time does not entitle you to a refund of the Parking Price or Booking Fee. This rule must be clearly disclosed before booking and is subject to clauses C7.2 and C7.3 and rights that cannot lawfully be excluded."
+        "t": " You may cancel a Booking in the app at any time before its start time. If you do, PO refunds the Parking Price and Booking Fee for that Booking in full. Once the start time has passed, you pay for the full period you booked: failure to attend, late arrival, early departure or use of less than the booked time does not entitle you to a refund of the Parking Price or Booking Fee. These rules must be clearly disclosed before booking and are subject to clauses C7.2 and C7.3 and rights that cannot lawfully be excluded."
       }
     ]
   },
@@ -2499,7 +2499,7 @@ export const TERMS_OF_SERVICE: LegalBlock[] = [
         "b": true
       },
       {
-        "t": " Problems affecting only part of a Booking, materially inaccurate listings, unsafe or inaccessible spaces, and failures in PO's own services are assessed under the Booking Agreement and applicable law. The change-of-mind and unused-time rules do not remove an established right to a refund or compensation for a failure to supply the agreed service. Actual use is relevant evidence but does not automatically extinguish a legal right."
+        "t": " Problems affecting only part of a Booking, materially inaccurate listings, unsafe or inaccessible spaces, and failures in PO's own services are assessed under the Booking Agreement and applicable law. The unused-time rules do not remove an established right to a refund or compensation for a failure to supply the agreed service. Actual use is relevant evidence but does not automatically extinguish a legal right."
       }
     ]
   },
@@ -3101,7 +3101,7 @@ export const TERMS_OF_SERVICE: LegalBlock[] = [
         "b": true
       },
       {
-        "t": " The Seeker pays for the full period booked. Change-of-mind cancellation, non-attendance, late arrival, voluntary early departure or using less time gives no refund of the Parking Price or Booking Fee. This rule must be disclosed before payment and does not exclude remedies required by law or the service-failure rules below."
+        "t": " The Seeker may cancel a Booking in the app at any time before its start time and receives a full refund of the Parking Price and Booking Fee. No Host payout is payable for a Booking cancelled before its start time. Once the start time has passed, the Seeker pays for the full period booked: non-attendance, late arrival, voluntary early departure or using less time gives no refund of the Parking Price or Booking Fee. These rules must be disclosed before payment and do not exclude remedies required by law or the service-failure rules below."
       }
     ]
   },

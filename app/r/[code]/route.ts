@@ -12,6 +12,12 @@ function hostsDestination(request: NextRequest): URL {
   return new URL("/hosts", request.url);
 }
 
+function referralRedirect(request: NextRequest) {
+  const response = NextResponse.redirect(hostsDestination(request), 303);
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ code: string }> }
@@ -21,7 +27,7 @@ export async function GET(
     try {
       const existingReferral = verifyReferralToken(existingToken);
       if (existingReferral) {
-        return NextResponse.redirect(hostsDestination(request), 303);
+        return referralRedirect(request);
       }
     } catch {
       // Treat unverifiable cookies as absent and continue with the supplied code.
@@ -32,10 +38,10 @@ export async function GET(
   try {
     const referral = await resolveActiveAmbassadorByCode(code);
     if (!referral) {
-      return NextResponse.redirect(hostsDestination(request), 303);
+      return referralRedirect(request);
     }
 
-    const response = NextResponse.redirect(hostsDestination(request), 303);
+    const response = referralRedirect(request);
     response.cookies.set({
       name: AMBASSADOR_REFERRAL_COOKIE,
       value: createReferralToken(referral.ambassadorId, referral.referralCode),
@@ -51,6 +57,6 @@ export async function GET(
       codeProvided: Boolean(code),
       error: error instanceof Error ? error.message : "Unknown error",
     });
-    return NextResponse.redirect(hostsDestination(request), 303);
+    return referralRedirect(request);
   }
 }

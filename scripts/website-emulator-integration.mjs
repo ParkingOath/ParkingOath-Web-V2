@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { initializeApp as initializeAdmin } from "firebase-admin/app";
 import { getAuth as getAdminAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
@@ -42,12 +43,16 @@ async function client(uid, email, claims = {}) {
   return { auth, call: (name, data) => httpsCallable(functions, name)(data) };
 }
 
-async function websiteSession(auth) {
+async function websiteSession(auth, expectedStatus = 200) {
   const response = await fetch(`${website}/api/auth/session`, {
     method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ idToken: await auth.currentUser.getIdToken(true) }),
   });
-  assert.equal(response.status, 200);
+  assert.equal(response.status, expectedStatus);
+  if (expectedStatus !== 200) {
+    assert.equal(response.headers.get("set-cookie"), null);
+    return undefined;
+  }
   const cookie = response.headers.get("set-cookie");
   assert.match(cookie || "", /parkingoath_partner_session=/);
   return cookie.split(";")[0];
@@ -57,14 +62,61 @@ async function page(path, cookie) {
   return fetch(`${website}${path}`, { headers: cookie ? { cookie } : {}, redirect: "manual" });
 }
 
+async function adminApi(action, input, cookie) {
+  const response = await fetch(`${website}/api/admin/ambassador-actions`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      ...(cookie ? { cookie } : {}),
+    },
+    body: JSON.stringify({ action, input }),
+  });
+  const body = await response.json();
+  return { response, body };
+}
+
 const admin = await client("fixture-admin", "admin@example.test", { admin: true });
 const user = await client("fixture-user", "user@example.test", {});
 const ambassador = await client("fixture-ambassador-a", "ambassador-a@example.test", {});
 const unmapped = await client("fixture-unmapped", "unmapped@example.test", {});
 const adminCookie = await websiteSession(admin.auth);
-const userCookie = await websiteSession(user.auth);
+const userCookie = await websiteSession(user.auth, 403);
 const ambassadorCookie = await websiteSession(ambassador.auth);
-const unmappedCookie = await websiteSession(unmapped.auth);
+const unmappedCookie = await websiteSession(unmapped.auth, 403);
+
+await check("website Ambassador form creates one pending application per email", async () => {
+  const invalidResponse = await fetch(`${website}/api/hubspot/contact`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ pageName: "Ambassador interest", email: "invalid" }),
+  });
+  assert.equal(invalidResponse.status, 400);
+  const payload = {
+    firstName: "Website",
+    lastName: "Applicant",
+    email: "website-applicant@example.test",
+    phone: "+61 400 000 000",
+    message: "Synthetic emulator application",
+    pageName: "Ambassador interest",
+  };
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const response = await fetch(`${website}/api/hubspot/contact`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    assert.equal(response.status, 200);
+  }
+  const applications = await db.collection("ambassadors")
+    .where("email", "==", "website-applicant@example.test")
+    .get();
+  assert.equal(applications.size, 1);
+  const application = applications.docs[0].data();
+  assert.equal(application.displayName, "Website Applicant");
+  assert.equal(application.status, "pending");
+  assert.equal(application.referralCode, null);
+  assert.equal(application.applicationSource, "website_ambassador_interest");
+});
 
 await check("unauthenticated private pages redirect", async () => {
   assert.equal((await page("/admin")).status, 307);
@@ -88,6 +140,21 @@ await check("active Ambassador loads own dashboard and not admin", async () => {
 await check("unmapped authenticated user has no private access", async () => {
   assert.equal((await page("/partners", unmappedCookie)).status, 307);
   assert.equal((await page("/admin", unmappedCookie)).status, 307);
+});
+await check("partner sign-in email endpoint is generic and restricted to approved users", async () => {
+  for (const email of ["ambassador-a@example.test", "unknown@example.test"]) {
+    const response = await fetch(`${website}/api/auth/email-link`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).ok, true);
+  }
+  const approvedHash = createHash("sha256").update("ambassador-a@example.test").digest("hex");
+  const unknownHash = createHash("sha256").update("unknown@example.test").digest("hex");
+  assert.equal((await db.doc(`partnerLoginEmailRequests/${approvedHash}`).get()).exists, true);
+  assert.equal((await db.doc(`partnerLoginEmailRequests/${unknownHash}`).get()).exists, false);
 });
 await check("payout statement ownership is enforced", async () => {
   const own = await page("/partners/payouts/fixture-pending-run", ambassadorCookie);
@@ -124,25 +191,66 @@ await check("normal and Ambassador tokens are rejected by every admin callable",
     ["markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "DENIED" }],
   ]) await assert.rejects(actor.call(name, data), (error) => error?.code === "functions/permission-denied");
 });
-await check("admin approval is canonical and idempotent", async () => {
-  const first = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
-  const second = (await admin.call("approveAmbassador", { ambassadorId: "pending-ambassador" })).data;
+await check("website admin API rejects missing, normal-user and Ambassador sessions", async () => {
+  for (const cookie of [undefined, userCookie, ambassadorCookie]) {
+    const { response } = await adminApi(
+      "approveAmbassador",
+      { ambassadorId: "pending-ambassador" },
+      cookie,
+    );
+    assert.equal(response.status, 403);
+  }
+});
+await check("website admin approval is canonical and idempotent", async () => {
+  const firstResponse = await adminApi(
+    "approveAmbassador",
+    { ambassadorId: "pending-ambassador" },
+    adminCookie,
+  );
+  const secondResponse = await adminApi(
+    "approveAmbassador",
+    { ambassadorId: "pending-ambassador" },
+    adminCookie,
+  );
+  assert.equal(firstResponse.response.status, 200);
+  assert.equal(secondResponse.response.status, 200);
+  const first = firstResponse.body.result;
+  const second = secondResponse.body.result;
   assert.equal(first.status, "active"); assert.equal(second.referralCode, first.referralCode);
+  assert.equal(first.signInEmailSent, true); assert.equal(second.signInEmailSent, true);
   assert.match(first.referralLink, /^https:\/\/parkingoath\.com\.au\/r\//);
   const approved = (await db.doc("ambassadors/pending-ambassador").get()).data();
   assert.equal((await db.doc(`ambassadorAuthUids/${approved.authUid}`).get()).data().ambassadorId, "pending-ambassador");
   assert.equal((await adminAuth.getUserByEmail("pending@example.test")).uid, approved.authUid);
 });
-await check("admin stores synthetic payout details without response leakage", async () => {
-  const result = (await admin.call("setAmbassadorPayoutDetails", { ambassadorId: "ambassador-b", accountName: "Test Ambassador", bsb: "123-456", accountNumber: "12345678" })).data;
+await check("website admin stores synthetic payout details without response leakage", async () => {
+  const action = await adminApi(
+    "setAmbassadorPayoutDetails",
+    { ambassadorId: "ambassador-b", accountName: "Test Ambassador", bsb: "123-456", accountNumber: "12345678" },
+    adminCookie,
+  );
+  assert.equal(action.response.status, 200);
+  const result = action.body.result;
   assert.equal(result.payoutsEnabled, true); assert.equal("accountNumber" in result, false);
   assert.equal((await db.doc("ambassadors/ambassador-b/private/payout").get()).data().accountNumber, "12345678");
   assert.equal((await db.doc("ambassadors/ambassador-b").get()).data().payoutsEnabled, true);
 });
-await check("admin marks payout paid without changing amounts and retry is idempotent", async () => {
+await check("website admin marks payout paid without changing amounts and retry is idempotent", async () => {
   const before = await Promise.all(["service-fixture", "onboarding-fixture", "refund-fixture"].map((id) => db.doc(`ledgerEntries/${id}`).get()));
-  const first = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
-  const second = (await admin.call("markAmbassadorPayoutPaid", { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" })).data;
+  const firstResponse = await adminApi(
+    "markAmbassadorPayoutPaid",
+    { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" },
+    adminCookie,
+  );
+  const secondResponse = await adminApi(
+    "markAmbassadorPayoutPaid",
+    { payoutRunId: "fixture-pending-run", paymentReference: "FAKE-WEBSITE-PAID" },
+    adminCookie,
+  );
+  assert.equal(firstResponse.response.status, 200);
+  assert.equal(secondResponse.response.status, 200);
+  const first = firstResponse.body.result;
+  const second = secondResponse.body.result;
   assert.equal(first.idempotent, false); assert.equal(second.idempotent, true);
   const run = (await db.doc("payoutRuns/fixture-pending-run").get()).data();
   assert.equal(run.status, "paid"); assert.equal(run.paymentReference, "FAKE-WEBSITE-PAID"); assert.equal(run.paidByAdminUid, "fixture-admin"); assert.ok(run.paidAt);

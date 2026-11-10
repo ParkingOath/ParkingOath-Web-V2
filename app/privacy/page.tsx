@@ -6,7 +6,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LegalDocument } from "@/components/LegalDocument";
 import { PRIVACY_POLICY } from "@/constants/privacy-policy";
-import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Privacy Policy | ParkingOath",
@@ -33,15 +32,6 @@ export default function PrivacyPage() {
                             <LegalDocument blocks={PRIVACY_POLICY} />
                         </div>
 
-                        <section className="mt-12 border-t border-slate-200 pt-8">
-                            <Text size="sm" className="text-slate-500">
-                                Previous version:{" "}
-                                <Link href="/privacy/archive/previous" className="text-blue-600 hover:text-blue-500 font-semibold">
-                                    archived Privacy Policy
-                                </Link>
-                                .
-                            </Text>
-                        </section>
                     </div>
                 </Container>
             </main>
