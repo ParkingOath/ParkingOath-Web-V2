@@ -180,7 +180,11 @@ async function buildHostAndEntryDetails({
     rememberListing(asText(bookingData.hostUid), asText(bookingData.spotId));
   });
 
-  const listingEarnings = new Map<string, { bookingIds: Set<string>; earningsCents: number; latestBookingAt: unknown }>();
+  const listingEarnings = new Map<string, {
+    bookingAmounts: Map<string, number>;
+    earningsCents: number;
+    latestBookingAt: unknown;
+  }>();
   const hostEarnings = new Map<string, number>();
   entries.forEach((entry) => {
     const hostUid = asText(entry.sourceHostId);
@@ -191,15 +195,21 @@ async function buildHostAndEntryDetails({
     const sourceListingId = asText(entry.sourceListingId);
     const bookingData = sourceListingId ? {} : asRecord(bookingsById.get(bookingId));
     const listingId = sourceListingId || asText(bookingData.spotId);
-    if (entry.type !== "service_fee" || asCents(entry.amountCents) < 0 || !listingId) return;
+    if (entry.type !== "service_fee" || !listingId) return;
     const key = `${hostUid}/${listingId}`;
     const current = listingEarnings.get(key) ?? {
-      bookingIds: new Set<string>(),
+      bookingAmounts: new Map<string, number>(),
       earningsCents: 0,
       latestBookingAt: null,
     };
-    if (bookingId) current.bookingIds.add(bookingId);
-    current.earningsCents += asCents(entry.amountCents);
+    const amountCents = asCents(entry.amountCents);
+    if (bookingId) {
+      current.bookingAmounts.set(
+        bookingId,
+        (current.bookingAmounts.get(bookingId) ?? 0) + amountCents
+      );
+    }
+    current.earningsCents += amountCents;
     const bookingTime = bookingData.createdAt ?? entry.createdAt ?? null;
     if (timestampMillis(bookingTime) > timestampMillis(current.latestBookingAt)) {
       current.latestBookingAt = bookingTime;
@@ -222,7 +232,9 @@ async function buildHostAndEntryDetails({
           id: listingId,
           title: listingTitle(publicListing, asRecord(bookingData)),
           address: listingAddress(publicListing, asRecord(bookingData)),
-          paidBookingCount: earnings?.bookingIds.size ?? 0,
+          paidBookingCount: earnings
+            ? [...earnings.bookingAmounts.values()].filter((amountCents) => amountCents > 0).length
+            : 0,
           earningsCents: earnings?.earningsCents ?? 0,
           latestBookingAt: earnings?.latestBookingAt ?? null,
         };

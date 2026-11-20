@@ -14,13 +14,13 @@ export default async function PartnersPage() {
   const identity = await requireAmbassador();
   const dashboard = await getPartnerDashboard(identity.ambassadorId);
   if (!dashboard) notFound();
-  const service = dashboard.entries.filter((entry) => entry.type === "service_fee" && (entry.amountCents as number) >= 0).reduce((sum, entry) => sum + (entry.amountCents as number), 0);
+  const service = dashboard.entries.filter((entry) => entry.type === "service_fee").reduce((sum, entry) => sum + (entry.amountCents as number), 0);
   const onboarding = dashboard.entries.filter((entry) => entry.type === "onboarding_fee").reduce((sum, entry) => sum + (entry.amountCents as number), 0);
   const adjustments = dashboard.entries.filter((entry) => (entry.amountCents as number) < 0);
   return <main className="min-h-screen bg-slate-50 py-12"><Container reveal={false} className="space-y-10">
     <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end"><div><p className="text-sm font-semibold text-brand">Ambassador portal</p><H1>Welcome, {dashboard.ambassador.displayName}</H1></div><PartnerPortalControls portal="partner" /></div>
     <section className="rounded-3xl bg-white p-5 shadow-sm sm:p-8"><PortalHeading>My referral link</PortalHeading>{dashboard.ambassador.referralLink ? <div className="mt-4"><ReferralLinkActions href={dashboard.ambassador.referralLink} /></div> : <p className="mt-4 text-slate-500">Referral link pending</p>}<p className="mt-3 text-sm text-slate-500">Code: {dashboard.ambassador.referralCode || "—"}</p></section>
-    <section className="rounded-3xl bg-white p-5 shadow-sm sm:p-8"><PortalHeading>My earning terms</PortalHeading><p className="mt-4 text-slate-600">You earn 20% of ParkingOath’s commission on every paid booking taken by a host you referred, starting from their first paid booking, plus a one-time $20 reward when that host reaches their third paid booking.</p></section>
+    <section className="rounded-3xl bg-white p-5 shadow-sm sm:p-8"><PortalHeading>My earning terms</PortalHeading><p className="mt-4 text-slate-600">You earn 20% of ParkingOath&apos;s commission on each completed, paid booking for a referred host, plus a one-time $20 reward when that host completes their third paid booking. Cancelled or refunded bookings earn nothing.</p></section>
     <section className="grid gap-4 md:grid-cols-4">{[["This month", aud(dashboard.thisMonthCents)],["Lifetime", aud(dashboard.lifetimeCents)],["Service fees", aud(service)],["Onboarding", aud(onboarding)]].map(([label,value]) => <div key={label} className="rounded-2xl bg-white p-6 shadow-sm"><p className="text-sm text-slate-500">{label}</p><p className="mt-2 text-2xl font-bold">{value}</p></div>)}</section>
     {adjustments.length ? <section className="rounded-3xl bg-white p-5 shadow-sm sm:p-8"><PortalHeading>Adjustments</PortalHeading>{adjustments.map((entry) => <p key={entry.id} className="mt-3 flex justify-between gap-4"><span>Refund adjustment · {entry.hostLabel}</span><span>{aud(entry.amountCents as number)}</span></p>)}</section> : null}
     <section id="my-hosts" className="scroll-mt-6 rounded-3xl bg-white p-5 shadow-sm sm:p-8">
